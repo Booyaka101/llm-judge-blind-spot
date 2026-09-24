@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.run.json
+pilot_cache/
+.env
+*.task.json

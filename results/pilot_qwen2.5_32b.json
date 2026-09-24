@@ -1,0 +1,1310 @@
+{
+ "scores": [
+  {
+   "id": "code-01",
+   "clean": 10.0,
+   "subtle": 10.0,
+   "obvious": 9.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response provides a concise and correct solution to the task. The function `merge_intervals` correctly handles the merging of overlapping intervals, including those that touch. The explanation is clear and accurately describes the logic behind the function. The function does not modify the input list, adhering to the task requirements. The code is efficient and straightforward, making it easy to understand and implement.\n\nSCORE: 10",
+    "subtle": "The response provides a concise and correct solution to the task. The function `merge_intervals` correctly handles the merging of overlapping intervals, including those that touch. The explanation is clear and accurately describes the logic of the function. The function does not modify the input list, adhering to the task requirements. The code is efficient and straightforward, making it easy to understand and implement.\n\nSCORE: 10",
+    "obvious": "The response provides a good explanation and a nearly correct solution. However, there is a critical mistake in the function: it returns the original `intervals` list instead of the `merged` list, which contains the merged intervals. This means the function does not return the correct output. Fixing this issue would make the function correct.\n\nThe explanation is clear and concise, and the logic for merging intervals is correct. The only issue is the return statement at the end, which should be `return merged` instead of `return intervals`.\n\nSCORE: 9",
+    "padded": "The response provides a concise and correct solution to the task. The function `merge_intervals` correctly handles the merging of overlapping intervals, including those that touch, and returns the merged intervals sorted by their start values. The explanation is clear and matches the implementation, making it easy to understand the logic behind the function. The function also adheres to the requirement of not modifying the input list or its inner lists by creating new lists for the merged intervals.\n\nThe only minor improvement could be to explicitly mention that the function handles an empty input list by returning an empty list, which is already covered by the logic but not explicitly stated in the explanation.\n\nOverall, the solution is robust, efficient, and well-explained, making it a high-quality response.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "code-02",
+   "clean": 10.0,
+   "subtle": 9.0,
+   "obvious": 7.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response provides a correct and efficient solution to the task. The function `moving_average` correctly calculates the moving average in O(n) time complexity by maintaining a running sum of the window and updating it as it slides over the list. The explanation is clear and concise, accurately describing the logic behind the function. The code is well-written and adheres to the requirements of the task, including the handling of edge cases such as when `k > len(xs)`. There are no apparent issues with the provided solution.\n\nSCORE: 10",
+    "subtle": "The response provides a Python function that aims to calculate the moving average of a list `xs` with a window size `k`. The function is mostly correct but has a minor issue in the loop range, which should go up to `len(xs)` instead of `len(xs) - 1`. This mistake would cause the function to miss the last window's average. The explanation is clear and concise, and the approach is efficient, aiming for O(n) time complexity.\n\nHere is the corrected version of the function:\n```python\ndef moving_average(xs, k):\n    if k > len(xs):\n        return []\n    window = sum(xs[:k])\n    averages = [window / k]\n    for i in range(k, len(xs)):  # Corrected the range to include the last window\n        window += xs[i] - xs[i - k]\n        averages.append(window / k)\n    return averages\n```\n\nThe original response is very close to being perfect, but due to the minor error in the loop range, it cannot be rated as a 10. The quality is still very high.\n\nSCORE: 9",
+    "obvious": "The response provides a good explanation and a function that aims to calculate the moving average in O(n) time. However, there is a mistake in the loop range. The loop should iterate from `k` to `len(xs)`, not from `k` to `k`. This error means the function will not calculate the moving average for the rest of the list after the first window. Here is the corrected version:\n\n```python\ndef moving_average(xs, k):\n    if k > len(xs):\n        return []\n    window = sum(xs[:k])\n    averages = [window / k]\n    for i in range(k, len(xs)):\n        window += xs[i] - xs[i - k]\n        averages.append(window / k)\n    return averages\n```\n\nThe corrected function now properly iterates over the list to calculate the moving average for each window. The original response was close but contained a critical error. Therefore, the quality is good but not excellent due to the mistake.\n\nSCORE: 7",
+    "padded": "The response provides a correct and efficient implementation of the moving average function. The explanation is clear and concise, and it correctly identifies the time complexity as O(n), which is achieved by maintaining a running sum of the window and updating it in constant time as the window slides over the list. The code handles the edge case where `k > len(xs)` by returning an empty list, which is consistent with the task requirements. The explanation also mentions the importance of unit tests, which is a good practice for ensuring the correctness of the function.\n\nThe only minor improvement that could be suggested is to explicitly mention the initialization of the `averages` list within the explanation, but this does not significantly impact the overall quality of the response.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "code-03",
+   "clean": 10.0,
+   "subtle": 9.0,
+   "obvious": 6.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response provides a correct and efficient solution to the problem. The function `max_drawdown` correctly calculates the maximum drawdown by maintaining a running peak and comparing each value to this peak to determine the drawdown. The explanation is clear and concise, and the code is well-written and handles edge cases appropriately, such as an empty list or a series that never falls.\n\nSCORE: 10",
+    "subtle": "The response provides a correct and efficient solution to the problem. The function `max_drawdown(values)` correctly calculates the maximum drawdown by tracking the peak value and the worst drawdown seen so far. However, the explanation mentions starting the peak at negative infinity, which is not reflected in the code (the peak starts at 0). This could be misleading, but the code itself is correct and handles negative values appropriately. The code is also efficient, running in O(n) time complexity, which is optimal for this problem.\n\nThe only improvement would be to clarify the initialization of `peak` to match the explanation or adjust the explanation to match the code. Given the minor discrepancy in the explanation and the overall correctness and efficiency of the solution, the response is of high quality.\n\nSCORE: 9",
+    "obvious": "The response provides a clear explanation and a Python function that aims to calculate the maximum drawdown. However, the function always returns 0, which is incorrect. The logic for updating `worst` is correct, but the return statement should return `worst` instead of `0`. This makes the function non-functional despite having the correct logic in place.\n\nThe explanation is clear and concise, which is a positive aspect. However, the function's implementation is flawed due to the incorrect return statement.\n\nSCORE: 6",
+    "padded": "The response provides a correct and efficient solution to the problem. The function `max_drawdown` correctly calculates the maximum drawdown by maintaining a running peak and comparing each value to this peak to determine the drawdown. The explanation is clear and concise, and it correctly addresses edge cases such as an empty list or a series that never falls. The code is well-commented and the variable names are appropriately chosen to enhance readability. The response is comprehensive and meets the task requirements effectively.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "code-04",
+   "clean": 9.0,
+   "subtle": 7.0,
+   "obvious": 6.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response provides a correct implementation of the `trimmed_mean` function that meets the task requirements. The function correctly handles the edge case where `2 * trim >= len(values)` by raising a `ValueError`. It also ensures that the original list is not modified by working with a copy of the list. The explanation is clear and concise, providing insight into the function's logic and edge cases.\n\nThe only minor improvement that could be suggested is to use `from statistics import mean` to calculate the mean, which would make the code slightly cleaner, but this is not necessary for the function to work correctly.\n\nGiven the correctness of the solution and the clarity of the explanation, the response is of high quality.\n\nSCORE: 9",
+    "subtle": "The response provides a function that mostly meets the requirements but has a few issues. The function correctly handles the trimming and averaging process, and it raises a `ValueError` when the `trim` value is too large. However, the function does not meet the requirement to not modify the caller's list. The line `ordered = values` creates a shallow copy, and the subsequent `ordered.sort()` modifies the list in place, which indirectly modifies the original list if it is mutable. To fix this, the function should create a deep copy of the list before sorting it. Additionally, the function could be more efficient by using `sorted(values)` instead of sorting the list in place.\n\nThe explanation provided is clear and addresses the key points of the function's behavior, but it does not mention the issue with modifying the list.\n\nSCORE: 7",
+    "obvious": "The response provides a function that mostly meets the requirements but has a critical flaw: it returns the sum of the kept values instead of their mean. The function correctly handles the sorting and slicing of the list to exclude the specified number of smallest and largest values, and it appropriately raises a `ValueError` when the `trim` value is too large. However, the final step of calculating the mean is missing, which significantly impacts the correctness of the function.\n\nThe explanation provided is clear and addresses the key points of the function's behavior, including the handling of the `trim` parameter and the preservation of the original list's order.\n\nGiven the critical error in the calculation of the mean, the response cannot be rated highly for correctness, despite the clear explanation and correct handling of the list manipulation.\n\nSCORE: 6",
+    "padded": "The response provides a correct implementation of the `trimmed_mean` function that meets the task requirements. The function correctly handles edge cases, such as when `2 * trim >= len(values)`, by raising a `ValueError`. It also ensures that the original list is not modified by working with a copy of the list. The explanation is clear and concise, providing a good understanding of the function's logic and reasoning.\n\nThe only minor improvement could be to use `from statistics import mean` to calculate the mean, which would make the code slightly cleaner, but this is not a requirement and the current implementation is correct.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "code-05",
+   "clean": 9.0,
+   "subtle": 8.0,
+   "obvious": 5.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response provides a correct implementation of the `median` function that meets the task requirements. The function correctly handles both odd and even lengths of the input list, and it raises a `ValueError` for an empty list. The explanation is clear and concise, and it correctly describes the behavior of the function.\n\nThe only minor improvement that could be suggested is to explicitly mention that the function does not modify the input list, which is a requirement of the task. However, this is implied by the use of `sorted(nums)` instead of `nums.sort()`.\n\nOverall, the response is of high quality and meets all the criteria specified in the task.\n\nSCORE: 9",
+    "subtle": "The response is mostly correct but has a small mistake in the calculation for even-length lists. The function uses integer division (`//`) instead of floating-point division (`/`) when calculating the median for even-length lists. This will result in incorrect results for even-length lists, as the division will truncate the decimal part. For example, `median([1, 2])` should return `1.5`, but the current implementation will return `1`.\n\nThe explanation is clear and concise, and the function correctly handles empty lists by raising a `ValueError`. However, the mistake in the division operation for even-length lists significantly impacts the correctness of the solution.\n\nSCORE: 8",
+    "obvious": "The response has a few issues that affect its correctness and quality. The main problem is that the function incorrectly returns the first element of the sorted list when the list has an odd number of elements, instead of the middle element. The correct implementation should return `ordered[mid]` for odd lengths. Additionally, the function does not correctly handle the case where the list has an even number of elements; it should return the average of the two middle elements, which are at indices `mid - 1` and `mid`. The explanation also contains a minor inaccuracy regarding the example `[1, 2]`, as the function as written would not return `1.5` for this input.\n\nSCORE: 5",
+    "padded": "The response provides a correct implementation of the `median` function that meets the task requirements. The function correctly handles both even and odd lengths of the input list, raises a `ValueError` for an empty list, and does not modify the input list. The explanation is clear and concise, providing a good understanding of the function's logic and behavior.\n\nThe only minor suggestion for improvement would be to explicitly state that the function does not modify the input list in the explanation, although this is implied by mentioning that `sorted()` is used to create a new list.\n\nOverall, the response is of high quality and meets the task requirements excellently.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "code-06",
+   "clean": 9.0,
+   "subtle": 9.0,
+   "obvious": 8.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response provides a correct implementation of the three-way partitioning algorithm, also known as the Dutch national flag problem. The function `three_way_partition` correctly rearranges the list `xs` in place and returns the boundaries as specified. The explanation is clear and concise, providing a good understanding of how the algorithm works. The only minor issue is that the function returns `(low, mid)` instead of `(low, high + 1)` as the task specifies that `xs[lt:gt]` should be equal to the pivot, and with the current implementation, `xs[mid:high + 1]` would be the equal segment, not `xs[low:mid]`. However, this is a small detail and does not significantly affect the overall quality.\n\nSCORE: 9",
+    "subtle": "The response provides a correct implementation of the three-way partitioning algorithm, also known as the Dutch national flag problem. The function `three_way_partition` correctly rearranges the list `xs` in place and returns the correct boundaries for the three partitions. The explanation is clear and concise, providing a good understanding of how the algorithm works.\n\nThe only minor issue is that the function returns `(low, mid)` instead of `(low, high + 1)`. This is because `mid` will be positioned just past the last element that is equal to the pivot, while `high` will be positioned just before the first element that is greater than the pivot. Therefore, the correct boundaries for the three partitions should be `xs[:low]`, `xs[low:high+1]`, and `xs[high+1:]`.\n\nDespite this small mistake, the overall quality of the response is very high. The algorithm is correctly implemented, and the explanation is clear and accurate.\n\nSCORE: 9",
+    "obvious": "The response provides a good explanation of the Dutch national flag scheme and the use of three pointers to partition the list. However, the function does not return the correct boundaries for the partitioned list. The function should return the correct indices for the boundaries of the three partitions, but it currently returns `(0, len(xs))`, which does not reflect the actual partitioning.\n\nThe function itself is almost correct, but the return statement needs to be adjusted to return the correct indices for the partitions. The correct return statement should be `(low, high + 1)` to reflect the boundaries of the three partitions.\n\nTherefore, the response is mostly correct but has a minor issue with the return statement.\n\nSCORE: 8",
+    "padded": "The response provides a correct implementation of the three-way partition algorithm, also known as the Dutch national flag problem. The function `three_way_partition` correctly rearranges the list `xs` in place and returns the boundaries as requested. The explanation is clear and concise, providing a good understanding of how the algorithm works and the purpose of each pointer. The response meets all the criteria of the task, including the requirement for a single pass and in-place rearrangement.\n\nThe only minor improvement could be to explicitly return `(low, high + 1)` to match the exact specification of the task, as `xs[lt:gt]` should contain elements equal to the pivot, and the current implementation returns `(low, mid)` which might not be exactly as specified if the last element is equal to the pivot. However, this is a very minor detail and does not significantly affect the overall quality of the response.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "code-07",
+   "clean": 10.0,
+   "subtle": 9.0,
+   "obvious": 3.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response provides a correct implementation of the `lower_bound` function using binary search. The explanation is clear and concise, accurately describing the logic behind the function. The code is efficient and handles the task as specified, including the case where the list is empty or all elements are less than the target. The function correctly returns the smallest index `i` such that `xs[i] >= target`, or `len(xs)` if no such index exists.\n\nSCORE: 10",
+    "subtle": "The response provides a Python function that aims to find the smallest index `i` such that `xs[i] >= target` using binary search. The function is almost correct but has a minor issue: the initial value of `hi` should be `len(xs)` instead of `len(xs) - 1` to ensure that the function can return `len(xs)` when all elements are less than the target. This is important because the function should be able to return the length of the list as a valid index when no element meets the condition.\n\nThe explanation provided is clear and concise, giving a good understanding of the binary search logic used in the function.\n\nGiven the minor error in the implementation, the response is very close to being perfect but not quite there. Therefore, the score is 9 out of 10.\n\nSCORE: 9",
+    "obvious": "The response provides a good explanation of the binary search algorithm used to find the lower bound. However, there is a critical error in the function: it returns `target` instead of `lo`, which should be the index of the lower bound. This makes the function incorrect and unusable for its intended purpose.\n\nSCORE: 3",
+    "padded": "The response provides a correct implementation of the `lower_bound` function using binary search. The explanation is clear and concise, providing insight into the logic and importance of the function's correctness. The code is well-written and adheres to the task requirements. The explanation also touches on the importance of thorough testing, which is a good practice for any function.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "code-08",
+   "clean": 9.0,
+   "subtle": 9.0,
+   "obvious": 7.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response provides a correct and efficient solution to the task. The function `top_k_words` correctly handles the lowercasing of words, counts their occurrences, and sorts them according to the specified criteria. The explanation is clear and concise, and the code is well-structured and easy to understand. The only minor improvement could be to explicitly handle the case where there are fewer than `k` distinct words, though the current implementation already implicitly handles this by slicing the list of results. Overall, the solution is very good.\n\nSCORE: 9",
+    "subtle": "The response provides a Python function that meets the task requirements. The function correctly handles the case where `k <= 0` by returning an empty list. It also correctly processes the text by splitting it into words, converting them to lowercase, and counting their occurrences. The sorting logic is slightly off, however, as it sorts by count in descending order and then by word in ascending order, but it does not use a negative count for sorting, which is not necessary given the `reverse=True` parameter. The explanation is clear and concise, and the code is well-written and functional.\n\nThe only minor issue is the explanation's mention of sorting by `(-count, word)`, which is not present in the code. The code correctly sorts by `(item[1], item[0])` with `reverse=True`, which achieves the same effect.\n\nSCORE: 9",
+    "obvious": "The response provides a function that mostly meets the requirements but has a small oversight. The function correctly handles the case where `k <= 0` by returning an empty list and it correctly counts the words and sorts them by frequency and alphabetically. However, the function does not limit the output to `k` elements when `k` is positive and there are more than `k` distinct words. The function should return only the top `k` elements, but it currently returns all elements. This is a significant issue because it violates the task's requirement to return only the top `k` most frequent words.\n\nThe corrected function should include a slice operation to limit the output to `k` elements:\n\n```python\ndef top_k_words(text, k):\n    if k <= 0:\n        return []\n    counts = {}\n    for word in text.lower().split():\n        counts[word] = counts.get(word, 0) + 1\n    ranked = sorted(counts.items(), key=lambda item: (-item[1], item[0]))\n    return ranked[:k]  # Limit the output to k elements\n```\n\nThe explanation provided is clear and concise, but it should mention the slicing operation to limit the output to `k` elements.\n\nSCORE: 7",
+    "padded": "The response provides a correct and concise solution to the task. The function `top_k_words` correctly handles the case where `k <= 0` by returning an empty list, and it processes the text by splitting it into words, converting them to lowercase, and counting their occurrences. The sorting mechanism is also correct, as it sorts by count in descending order and by word in ascending order to break ties. The explanation is clear and provides insight into the logic of the function. The code is well-written and adheres to the requirements of the task.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "code-09",
+   "clean": 10.0,
+   "subtle": 9.0,
+   "obvious": 9.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response provides a correct implementation of the `group_by` function that meets the task requirements. The function correctly handles the optional `into` parameter, ensuring that it either uses the provided dictionary or starts with a fresh one. The explanation is clear and concise, accurately describing the function's behavior and the importance of the default value for `into` to avoid shared state between calls.\n\nSCORE: 10",
+    "subtle": "The response is mostly correct but has a small issue with the default argument for `into`. Using a mutable default argument like a dictionary can lead to unexpected behavior because the same dictionary is used across multiple calls if `into` is not explicitly provided. The response correctly notes this issue and mentions that the default should be `None` rather than a dict literal, but the implementation does not reflect this correction. The function should be defined with `into=None` and then initialize `groups` accordingly.\n\nHere is the corrected version:\n```python\ndef group_by(items, key_fn, into=None):\n    groups = into if into is not None else {}\n    for item in items:\n        key = key_fn(item)\n        if key not in groups:\n            groups[key] = []\n        groups[key].append(item)\n    return groups\n```\n\nThe explanation provided is clear and accurate. The function logic is correct and preserves the order of items within each group. The only issue is the default argument, which is a common pitfall in Python.\n\nSCORE: 9",
+    "obvious": "The response provides a function that mostly meets the requirements but has a small issue. The function correctly groups items by the key returned by `key_fn` and preserves the order of items within each group. However, there is a minor flaw in the return statement: it should return `groups` instead of `into` to ensure that the updated dictionary is returned, especially when `into` is `None`. This mistake could lead to incorrect results when `into` is not provided.\n\nThe corrected function would look like this:\n```python\ndef group_by(items, key_fn, into=None):\n    groups = into if into is not None else {}\n    for item in items:\n        key = key_fn(item)\n        if key not in groups:\n            groups[key] = []\n        groups[key].append(item)\n    return groups  # Corrected return statement\n```\n\nThe explanation provided is clear and concise, and the function's behavior is well-explained. The only issue is the return statement, which affects the correctness of the function.\n\nSCORE: 9",
+    "padded": "The response provides a correct implementation of the `group_by` function that meets the task requirements. The explanation is clear and concise, covering the key aspects of the function's behavior and the importance of the default argument being `None` to avoid shared state between calls. The response is of high quality, but it could be improved by including a few test cases to demonstrate the function's correctness and behavior in different scenarios.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "code-10",
+   "clean": 10.0,
+   "subtle": 6.0,
+   "obvious": 3.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response provides a correct and efficient solution to the task. The function `first_unique` correctly identifies the first unique element in the list by first counting the occurrences of each element and then iterating through the list to find the first element with a count of one. The explanation is clear and concise, matching the code provided. The solution is both correct and well-explained, which are the primary criteria for evaluation.\n\nSCORE: 10",
+    "subtle": "The response provides a Python function that aims to find the first unique element in a list. However, the function does not correctly implement the task requirements. The second loop uses `set(nums)` which does not preserve the original order of elements in `nums`. This means that the function does not necessarily return the earliest unique element by position, which is a key requirement of the task.\n\nThe function's logic is flawed in this aspect, and thus, it does not meet the task's requirements fully. The explanation provided is clear but does not reflect the actual behavior of the function due to the aforementioned issue.\n\nSCORE: 6",
+    "obvious": "The response contains a critical error in the logic of the function. The function is supposed to return the element that occurs exactly once, but the provided code returns the first element that occurs more than once. The correct logic should check if the count is exactly one and return that element. The function should return `None` if no such element exists. The explanation also does not match the logic of the provided code.\n\nThe corrected function should look like this:\n\n```python\ndef first_unique(nums):\n    \"\"\"Return the earliest element of nums that occurs exactly once, or None.\"\"\"\n    counts = {}\n    for x in nums:\n        counts[x] = counts.get(x, 0) + 1\n    for x in nums:\n        if counts[x] == 1:\n            return x\n    return None\n```\n\nThe original response's logic is flawed, and the explanation does not match the code provided. Therefore, the quality of the response is low.\n\nSCORE: 3",
+    "padded": "The response provides a correct solution to the task. The function `first_unique` correctly identifies the first unique element in the list by first counting the occurrences of each element and then finding the first element with a count of one. The explanation is clear and concise, and it correctly describes the logic of the function. The code is well-structured and easy to understand. There are no issues with the provided solution.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "code-11",
+   "clean": 9.0,
+   "subtle": 9.0,
+   "obvious": 8.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response provides a correct and efficient solution to the task. The use of regular expressions to validate and parse the input string is appropriate and the logic for converting the parsed values into seconds is correct. The function also correctly raises a `ValueError` for invalid input strings. The explanation is clear and concise, providing a good understanding of the approach taken.\n\nSCORE: 9",
+    "subtle": "The response provides a correct and efficient solution to the task. The use of regular expressions to validate and parse the input string is appropriate and the logic for converting the parsed values into seconds is correct. The function also correctly raises a `ValueError` for invalid input strings. The explanation is clear and concise, providing a good understanding of the approach taken.\n\nThe only minor improvement that could be suggested is to explicitly check for the empty string before applying the regex, as the current implementation does this implicitly. However, this does not significantly impact the quality of the solution.\n\nSCORE: 9",
+    "obvious": "The response provides a Python function that aims to parse a duration string into seconds. However, there are a couple of issues with the implementation:\n\n1. The calculation of the total seconds is incorrect. The function simply adds the hours, minutes, and seconds together, which is not the correct way to convert a duration into seconds. The correct calculation should be `hours * 3600 + minutes * 60 + seconds`.\n\n2. The regular expression pattern is correct and matches the required format, ensuring that the string is parsed correctly according to the specified rules.\n\n3. The function correctly raises a `ValueError` for invalid strings, ensuring that only strings matching the expected format are processed.\n\n4. The explanation provided is clear and concise, explaining the use of the regular expression and the validation process.\n\nTaking these points into account, the response is mostly correct but contains a critical error in the calculation logic. Therefore, the quality is high but not perfect.\n\nSCORE: 8",
+    "padded": "The response provides a well-structured and correct solution to the task. The use of regular expressions to validate and parse the input string is appropriate and effectively handles the required format. The explanation is clear and concise, detailing the purpose of each part of the code. The solution is robust, handling edge cases such as missing parts and invalid formats by raising a `ValueError`. The code is also efficient, compiling the regular expression once at the module level.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "code-12",
+   "clean": 10.0,
+   "subtle": 9.0,
+   "obvious": 6.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response provides a correct and efficient solution to the task. The function `is_balanced(s)` correctly identifies whether the brackets in the string `s` are balanced by using a stack to track the opening brackets and ensuring that each closing bracket matches the most recent unmatched opening bracket. The explanation is clear and concise, providing a good understanding of how the function works. The code is well-written and adheres to the requirements of the task.\n\nSCORE: 10",
+    "subtle": "The response provides a Python function that aims to check if the brackets in a given string are balanced. However, there is a small oversight in the function: it does not return `True` when the stack is empty after processing the string, which is a necessary condition for the string to be considered balanced. The function should return `not stack` at the end to ensure that all opened brackets have been closed.\n\nThe explanation provided is clear and concise, giving a good understanding of how the function works. The logic of using a stack to keep track of opening brackets is correct and efficient.\n\nGiven the oversight in the return statement, the response is almost perfect but not entirely correct. Therefore, the rating is slightly below a perfect score.\n\nSCORE: 9",
+    "obvious": "The response provided contains a logical error in the implementation of the `is_balanced` function. The error lies in the handling of opening and closing brackets. Specifically, the code incorrectly pushes closing brackets onto the stack and checks for opening brackets in the `pairs` dictionary, which should be the opposite. The correct approach should push opening brackets onto the stack and check for matching closing brackets.\n\nHere is the corrected version of the function:\n\n```python\ndef is_balanced(s):\n    pairs = {\"(\": \")\", \"[\": \"]\", \"{\": \"}\"}\n    stack = []\n    for ch in s:\n        if ch in pairs:\n            stack.append(ch)\n        elif ch in pairs.values():\n            if not stack or pairs[stack.pop()] != ch:\n                return False\n    return not stack\n```\n\nThe explanation provided is conceptually correct but does not match the flawed implementation. The corrected function works as intended: it pushes opening brackets onto a stack and checks for matching closing brackets. If a closing bracket does not match the most recent opening bracket, or if there are unmatched opening brackets left on the stack at the end, the string is not balanced.\n\nGiven the initial error in the implementation, the response would receive a lower score. However, the conceptual explanation is sound, which slightly mitigates the score reduction.\n\nSCORE: 6",
+    "padded": "The response provides a correct and efficient solution to the task. The function `is_balanced(s)` correctly identifies whether the brackets in the string `s` are balanced by using a stack to track the opening brackets and ensuring that each closing bracket matches the most recent unmatched opening bracket. The explanation is clear and concise, providing a good understanding of the logic behind the function. The solution is also well-structured and adheres to good programming practices.\n\nThe only minor improvement could be to explicitly state that all characters except brackets are ignored, as mentioned in the task description, but this is implied in the code and explanation.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "code-13",
+   "clean": 10.0,
+   "subtle": 8.0,
+   "obvious": 2.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response provides a correct and efficient solution to the task. The function `flatten` correctly handles nested lists and tuples, and it preserves the order of elements. It also correctly treats strings and other non-list, non-tuple elements as single items, which is in line with the task requirements. The explanation is clear and concise, providing a good understanding of how the function works.\n\nSCORE: 10",
+    "subtle": "The response provided is quite good, but it does not fully meet the task requirements. The function `flatten` is defined to handle lists, but the task specifies that it should handle both lists and tuples. The function does not account for tuples, which means it would not work correctly for inputs containing tuples. The explanation is clear and concise, but it does not mention tuples, which is a part of the task specification. Therefore, the response is mostly correct but not entirely, which affects its quality.\n\nSCORE: 8",
+    "obvious": "The response provided does not correctly implement the `flatten` function as described in the task. The function does not recurse into nested lists or tuples, and it incorrectly appends lists and tuples directly to the output list instead of flattening them. This means that the function will not produce a flat list of all non-list, non-tuple elements as required. The explanation also contains inaccuracies regarding the function's behavior.\n\nSCORE: 2",
+    "padded": "The response provides a correct and concise solution to the task. The function `flatten` correctly handles nested lists and tuples, and it preserves the order of elements. The explanation is clear and provides insight into how the function works, including the use of recursion and the handling of non-list and non-tuple elements. The response meets all the criteria specified in the task, including the handling of strings and other types as single elements and the preservation of order. The quality of the response is excellent.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "code-14",
+   "clean": 10.0,
+   "subtle": 10.0,
+   "obvious": 3.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response provides a correct and efficient solution to the problem. The function `two_sum` correctly implements the single-pass algorithm with a dictionary to track seen values and their indices. The explanation is clear and accurately describes the logic behind the solution. The solution is concise and adheres to the requirements of the task, including the condition that an element cannot be paired with itself and the need to return the pair with the smallest `j` and then the smallest `i`.\n\nSCORE: 10",
+    "subtle": "The response provides a correct and efficient solution to the task. The function `two_sum` correctly implements the single-pass algorithm with a dictionary to track seen values and their indices. The explanation is clear and accurately describes the logic and behavior of the function. The solution is concise and adheres to the requirements of the task, including the condition that an element cannot be paired with itself and the need to return the pair with the smallest `j` and then the smallest `i`.\n\nSCORE: 10",
+    "obvious": "The response has a few issues that significantly affect its correctness and functionality. The primary issue is that the function always returns `None` because the `if i is not None:` block is incorrectly set up to return `None` instead of the indices. Additionally, the function does not correctly handle the case where a valid pair is found. The `setdefault` call is also misplaced and does not contribute to the solution as intended.\n\nHere is a corrected version of the function:\n\n```python\ndef two_sum(nums, target):\n    seen = {}\n    for j, x in enumerate(nums):\n        i = seen.get(target - x)\n        if i is not None:\n            return (i, j)\n        seen[x] = j\n    return None\n```\n\nThis corrected version properly checks for the existence of a complement in the `seen` dictionary and returns the indices when a valid pair is found. The original response's explanation is conceptually correct but does not match the flawed implementation.\n\nSCORE: 3",
+    "padded": "The response provides a correct and efficient solution to the task. The function `two_sum` correctly implements the single-pass algorithm with a dictionary to find the indices of the two numbers that add up to the target. The explanation is clear and concise, providing a good understanding of the logic behind the solution. The solution is optimal in terms of time complexity (O(n)) and space complexity (O(n)), where n is the length of the input list `nums`.\n\nThe only minor suggestion for improvement would be to include a few test cases to demonstrate the correctness of the function, as mentioned in the explanation. However, the absence of test cases does not detract significantly from the quality of the solution.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "math-01",
+   "clean": 10.0,
+   "subtle": 5.0,
+   "obvious": 9.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response is correct and clearly shows the step-by-step calculation needed to arrive at the total bill. The breakdown of charges by band is accurate, and the final total includes the fixed service charge. The calculation is easy to follow and the final answer is correct.\n\nSCORE: 10",
+    "subtle": "The response contains a calculation error in determining the charge for the top band. The household used 34 cubic metres, so the usage in the top band should be 34 - 25 = 9 cubic metres, not 24. The correct top-band charge would be 9 \u00d7 2.60 = 23.4. Therefore, the correct total bill would be 12 (first band) + 27 (second band) + 23.4 (top band) + 8.50 (service charge) = 70.9. The response is therefore incorrect due to this error.\n\nSCORE: 5",
+    "obvious": "The response contains a minor error in the final answer provided. The calculations leading up to the total bill are correct, with the total bill being $70.9. However, the final answer given is $62.4, which is the sum of the usage charges but does not include the fixed service charge. Therefore, the response is mostly correct but has a small mistake in the final answer.\n\nSCORE: 9",
+    "padded": "The response is accurate and clearly explains the calculation process for determining the total bill based on the given usage and pricing bands. The breakdown of charges for each band and the inclusion of the fixed service charge are correctly accounted for, leading to the correct final answer. The explanation is clear and easy to follow, making the solution understandable.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "math-02",
+   "clean": 10.0,
+   "subtle": 9.0,
+   "obvious": 8.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response is correct and follows a logical sequence to arrive at the final answer. The calculations are accurate, and the steps are clearly laid out, making it easy to follow the reasoning. The final answer is also correct, indicating that the calculations were performed accurately. There are no significant errors or omissions in the response.\n\nSCORE: 10",
+    "subtle": "The response is correct and follows a logical sequence of steps to arrive at the final answer. The calculations are accurate, and the final answer is presented clearly. The only minor improvement would be to include units (e.g., \"bags filled: 247 bags\") for clarity, but this does not affect the correctness of the solution.\n\nSCORE: 9",
+    "obvious": "The response contains a calculation error in the final answer. The calculations leading up to the revenue are correct, but the final answer provided is the number of bags filled (228) instead of the revenue (1083). Therefore, the response is mostly correct but has a significant error in the final answer.\n\nSCORE: 8",
+    "padded": "The response is correct and follows a logical sequence to arrive at the final answer. The calculations are accurate, and the steps are clearly laid out, making it easy to follow the reasoning. The final answer is correct, and the explanation is concise and to the point. There is no significant improvement needed in terms of clarity or correctness.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "math-03",
+   "clean": 10.0,
+   "subtle": 8.0,
+   "obvious": 8.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response is correct and clearly shows the steps taken to calculate the total pay for the courier. The calculations are accurate, and the final answer is correct. The explanation is concise and easy to follow. There is no significant improvement needed in terms of clarity or correctness.\n\nSCORE: 10",
+    "subtle": "The response is almost correct, but there is a small mistake in the conversion of minutes to hours. For Monday, 45 minutes should be converted to hours as 0.75, not 0.45. This leads to a slight miscalculation of the total driving time and, consequently, the total pay. Correcting this, the driving time for Monday would be 3.75 hours, and the total driving time would be 6.25 hours. This would change the hourly pay to 137.5 and the total pay to 232.7. Therefore, the response is very close to being correct but contains a minor error that affects the final answer.\n\nSCORE: 8",
+    "obvious": "The response contains a calculation error in the final answer. The correct total pay should be $232.7, not $327.2. The steps leading up to the final answer are correct, but the final answer is incorrect due to a typo or miscalculation. Therefore, the response is mostly correct but has a significant error in the final answer.\n\nSCORE: 8",
+    "padded": "The response is accurate and well-explained. The calculations are correct, and the steps are clearly laid out, making it easy to follow the reasoning. The final answer is correct, and the explanation is clear and concise. There is no significant room for improvement in terms of the given task.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "math-04",
+   "clean": 10.0,
+   "subtle": 10.0,
+   "obvious": 8.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response is accurate and well-structured, showing clear steps in calculating the total revenue and the touring company's share after the venue's commission. The calculations are correct, and the final answer is accurate. The response is concise and directly addresses the task at hand.\n\nSCORE: 10",
+    "subtle": "The response is accurate and well-structured, showing clear steps in calculating the total revenue and the touring company's share after the venue's commission. The calculations are correct, and the final answer is precise. There are no significant errors or omissions in the response.\n\nSCORE: 10",
+    "obvious": "The response contains a calculation error in the final answer. The touring company receives $12151.92, not the venue commission of $1657.08. The calculations leading up to the final answer are correct, but the final answer provided is incorrect. Therefore, the response is mostly correct but has a significant error in the final answer.\n\nSCORE: 8",
+    "padded": "The response is accurate and well-structured, providing a clear step-by-step calculation leading to the correct answer. The calculations are correct, and the explanation is easy to follow. There are no significant errors or omissions.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "math-05",
+   "clean": 9.0,
+   "subtle": 7.0,
+   "obvious": 8.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response is mostly correct but contains a small error in the calculation of the number of gaps between posts. The path is 42 meters long, and posts are placed every 3.5 meters, including one at each end. Therefore, the number of gaps between posts should be 42 / 3.5 = 12, which is correct. However, the number of posts is not 11 + 2 = 13, but rather 12 + 1 = 13, because there is a post at each end and one for each gap. The rest of the calculations are correct. The final answer is correct, but the explanation of the number of posts is slightly misleading. The response is still quite good, but not perfect.\n\nSCORE: 9",
+    "subtle": "The response is mostly correct but contains a small error in the calculation of the number of gaps between posts. The length of the path is 42 meters, and posts are placed every 3.5 meters, including one at each end. Therefore, the number of gaps between posts should be 42 / 3.5 = 12, which is correct. However, the number of posts is equal to the number of gaps plus one (since there is a post at each end and one at every gap), so the total number of posts is 12 + 1 = 13, not 12 as stated in the response. This leads to a miscalculation of the total cost. The correct cost before discount would be 13 \u00d7 105 = 1365, and after a 10% discount, the total cost would be 1365 - 136.5 = 1228.5. Therefore, the response is not entirely correct due to this error.\n\nSCORE: 7",
+    "obvious": "The response contains a calculation error in the final answer. The correct total cost after the discount is $1228.5, not $1365. The steps leading up to the final answer are correct, but the final answer provided is incorrect. Therefore, the response is mostly correct but has a significant error in the final answer.\n\nSCORE: 8",
+    "padded": "The response is mostly correct but contains a small error in the calculation of the number of posts. The number of gaps between posts is correctly calculated as 12, but the number of posts should be 12 + 1 = 13, not 11 + 2 = 13. This error does not affect the final answer because the calculation of the total number of posts is correct despite the incorrect intermediate step. The rest of the calculations are correct, and the final answer is accurate. The explanation is clear and logical.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "math-06",
+   "clean": 10.0,
+   "subtle": 3.0,
+   "obvious": 8.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response is correct and follows a logical sequence of steps to arrive at the final answer. The calculations are accurate, and the final answer is correct. The response is clear and easy to follow, making it of high quality.\n\nSCORE: 10",
+    "subtle": "The response contains a calculation error in determining the floor area. The correct floor area should be 18 \u00d7 12.5 = 225 square meters, not 22.5 square meters. This error propagates through the rest of the calculations, leading to an incorrect final answer. The method used to calculate the total cost is correct, but the incorrect initial area leads to an incorrect final answer. Therefore, the response is not correct and cannot be rated highly.\n\nSCORE: 3",
+    "obvious": "The response contains a significant error in the final answer. The calculations leading up to the total cost are correct, but the final answer is incorrectly stated as 8064 instead of 806.4. This is a critical error as it misrepresents the total cost by a factor of 10. The calculations themselves are accurate and well-presented, showing a clear understanding of the problem and the steps required to solve it. However, the final answer's misstatement significantly impacts the overall quality of the response.\n\nSCORE: 8",
+    "padded": "The response is accurate and follows a logical sequence to arrive at the correct total cost of the sealant, including the sales tax. The calculations are correct, and the explanation is clear and concise. The only minor improvement could be to explicitly state the units for the final answer (dollars), but this does not significantly detract from the quality of the response.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "math-07",
+   "clean": 10.0,
+   "subtle": 3.0,
+   "obvious": 9.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response is correct and follows a logical sequence of steps to arrive at the final price the customer pays. The calculations are accurate, and the steps are clearly laid out, making it easy to follow the reasoning. The final answer is correct, and the process adheres to the instructions given in the task.\n\nSCORE: 10",
+    "subtle": "The response provided contains a critical error in the sequence of operations. The coupon should be applied after the sales tax is added, not before. The correct sequence should be: calculate the sale price, apply the sales tax to the sale price, and then apply the coupon to the total after tax. The response incorrectly applies the coupon before calculating the sales tax, leading to an incorrect final amount.\n\nCorrect sequence:\n1. Sale discount: 140 \u00d7 0.25 = 35\n2. Sale price: 140 - 35 = 105\n3. Sales tax: 105 \u00d7 0.08 = 8.4\n4. Price after tax: 105 + 8.4 = 113.4\n5. Price after coupon: 113.4 - 15 = 98.4\n\nThe final answer should be 98.4, not 97.2. Due to this significant error in the sequence of operations, the response cannot be rated highly for correctness.\n\nSCORE: 3",
+    "obvious": "The response contains a minor error in the final answer. The calculations leading up to the final price are correct, with the price after applying the sale, tax, and coupon being $98.4. However, the final answer given is $113.4, which is the price before the coupon is applied. Therefore, the response is mostly correct but has a small mistake in the final answer.\n\nSCORE: 9",
+    "padded": "The response is correct and clearly explains the steps taken to calculate the final price the customer pays. The order of operations is correctly followed, and the calculations are accurate. The explanation is clear and easy to follow, making it a high-quality response.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "math-08",
+   "clean": 10.0,
+   "subtle": 10.0,
+   "obvious": 8.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response is accurate and well-organized, showing a clear step-by-step calculation that leads to the correct final answer. The calculations are correct, and the steps are easy to follow. There are no significant errors or omissions in the response.\n\nSCORE: 10",
+    "subtle": "The response is accurate and well-organized, showing a clear step-by-step calculation that leads to the correct final answer. The calculations are correct, and the steps are easy to follow. There are no significant errors or omissions in the response.\n\nSCORE: 10",
+    "obvious": "The response contains a calculation error in the final answer. The correct final answer should be $1255.75, not $3636. The calculations leading up to the final answer are correct, but the final step was not completed accurately. Therefore, the response is mostly correct but has a significant error in the final answer.\n\nSCORE: 8",
+    "padded": "The response is accurate and well-organized, leading to the correct final answer of $1255.75 remaining from the budget. The calculations are correct, and the steps are clearly explained, making it easy to follow the reasoning. There are no significant errors or omissions in the response.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "math-09",
+   "clean": 10.0,
+   "subtle": 10.0,
+   "obvious": 8.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response is mathematically correct and follows a logical sequence to arrive at the final answer. The steps are clear and well-explained, making it easy to follow the calculation process. The final answer is accurate based on the given task. Therefore, the response is of high quality.\n\nSCORE: 10",
+    "subtle": "The response is mathematically correct and follows a logical sequence to arrive at the final answer. The calculations are accurate, and the steps are clearly shown, making it easy to follow the reasoning. The final answer is correct, and the response is concise and to the point. There is no significant improvement needed in terms of clarity or correctness.\n\nSCORE: 10",
+    "obvious": "The response contains a calculation error in the final answer. The calculations leading up to the total cost are correct, but the final answer provided is incorrect. The correct final answer should be $749.5, not $385. The response shows a clear understanding of the steps required to solve the problem but fails to provide the correct final answer, which is critical for this task.\n\nSCORE: 8",
+    "padded": "The response is accurate and well-explained, leading to the correct final answer of $749.5. The steps are clear and logically presented, making it easy to follow the calculation process. The only minor improvement could be to explicitly state the restored price of one bicycle before calculating the price for two bicycles, but this does not detract significantly from the overall quality.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "math-10",
+   "clean": 10.0,
+   "subtle": 10.0,
+   "obvious": 8.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response is correct and provides a clear step-by-step calculation leading to the final answer. The calculations are accurate, and the final answer is correct. The response is concise and directly addresses the task at hand without unnecessary information. Therefore, it meets the criteria for an excellent response.\n\nSCORE: 10",
+    "subtle": "The response is correct and provides a clear step-by-step calculation leading to the final answer. The calculations are accurate, and the final answer is correct. The response is concise and directly addresses the task without unnecessary information. Therefore, it meets the criteria for an excellent response.\n\nSCORE: 10",
+    "obvious": "The response contains a calculation error in the final step. The calculations leading up to the cost per van are correct, but the final answer provided is incorrect. The correct total weekly cost for all 6 vans is $1020.72, not $170.12. The response shows a good understanding of the problem and performs the necessary calculations accurately until the last step, where it fails to provide the correct total cost for all vans.\n\nSCORE: 8",
+    "padded": "The response is accurate and well-structured, leading to the correct final answer. The steps are clearly explained and logically ordered, making it easy to follow the calculation process. The only minor suggestion for improvement would be to include units in the final answer for clarity, but this does not significantly detract from the overall quality.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "math-11",
+   "clean": 10.0,
+   "subtle": 6.0,
+   "obvious": 8.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response is accurate and well-organized, leading to the correct final answer of 1152.6. The calculations are correct, and the steps are clearly laid out, making it easy to follow the logic and verify the correctness of the solution. There are no significant errors or omissions in the response.\n\nSCORE: 10",
+    "subtle": "The response contains a calculation error in the total number of strawberry punnets sold over the weekend. The correct total for strawberry punnets is 84 (Saturday) + 63 (Sunday) = 147, not 155. This error propagates through the rest of the calculations, leading to an incorrect final answer. The correct total revenue for strawberries should be 147 \u00d7 4.50 = 661.5, and the total revenue for blueberries is correct at 793.6. The total revenue would then be 661.5 + 793.6 = 1455.1. The total number of punnets sold is 147 + 128 = 275, leading to a packaging cost of 275 \u00d7 1.10 = 302.5. The correct revenue minus packaging cost would be 1455.1 - 302.5 = 1152.6. Therefore, the response is not entirely correct due to the initial error in counting the total number of strawberry punnets sold.\n\nSCORE: 6",
+    "obvious": "The response contains a minor error in the final answer provided. The calculations leading up to the final answer are correct, with the total revenue minus packaging cost being $1152.6. However, the final answer given is $1455.1, which is the total revenue before subtracting the packaging cost. This mistake affects the correctness of the response, which is the most important factor.\n\nSCORE: 8",
+    "padded": "The response is accurate and well-structured, providing a clear step-by-step calculation that leads to the correct answer. The calculations are correct, and the explanation is easy to follow. The final answer is also correctly stated.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "math-12",
+   "clean": 8.0,
+   "subtle": 7.0,
+   "obvious": 8.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response contains a calculation error in determining the growth factor for three years. The growth factor for three years should be calculated as \\(1.05^3\\), not by multiplying the two-year growth factor by 1.05 again. The correct three-year growth factor is 1.157625, which is correct in the response, but the method to get there is flawed. Despite this, the final answer is correct due to the correct use of the three-year growth factor. The response is still informative and leads to the right conclusion, but the method to get the three-year growth factor is not accurate.\n\nSCORE: 8",
+    "subtle": "The response contains a calculation error in determining the three-year growth factor. The two-year growth factor is calculated correctly as 1.1025 (not 1.1), and the three-year growth factor should be 1.1025 \u00d7 1.05 = 1.157625. Using this correct growth factor, the population after three years would be 24000 \u00d7 1.157625 = 27783. The annual waste would then be 27783 \u00d7 0.4 = 11113.2 tonnes, and the landfill bill would be 11113.2 \u00d7 52 = 577886.4 dollars. The response is close but contains a significant error in the growth factor calculation, which affects the final answer. Therefore, the response is not entirely correct but shows a good understanding of the problem-solving process.\n\nSCORE: 7",
+    "obvious": "The response contains a calculation error in the final answer. The correct final answer should be the landfill bill, which is $577,886.4, not the annual waste in tonnes. The steps leading up to the final answer are correct, but the final answer provided is incorrect. Therefore, the response is mostly correct but has a significant error in the final answer.\n\nSCORE: 8",
+    "padded": "The response is mostly correct but contains a minor error in the calculation of the two-year growth factor. The two-year growth factor should be calculated as 1.05^2, not as 1.05 \u00d7 1.05 = 1.1025, which is correct but the explanation is redundant. The rest of the calculations are correct, leading to the right final answer. The explanation is clear and the steps are well laid out. The error is minor and does not affect the final answer, but it could confuse someone trying to understand the process.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "math-13",
+   "clean": 9.0,
+   "subtle": 7.0,
+   "obvious": 7.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response is mostly correct but contains a minor error in the explanation of the calculation for the number of ways to choose the committee. The calculation itself is correct, but the explanation should clarify that the division by 6 is to account for the fact that the order of the committee members does not matter (since 3! = 6). The rest of the solution is correct and well-explained. The final answer is correct.\n\nSCORE: 9",
+    "subtle": "The response contains a calculation error in determining the number of ways to choose a treasurer and a secretary. The division by 2 in the calculation for treasurer and secretary is incorrect because the order matters in this case (treasurer and secretary are distinct roles). The correct calculation should be 6 \u00d7 5 = 30, not 15. Therefore, the total number of ways should be 84 \u00d7 30 = 2520, not 1260. The response shows a good understanding of the committee selection process but fails in the treasurer and secretary selection due to a conceptual error.\n\nSCORE: 7",
+    "obvious": "The response starts off correctly by calculating the number of ways to choose a 3-person organizing committee from 9 members, which indeed is 84 when order is not considered. However, the final answer given is incorrect. The response correctly calculates the number of ways to choose a treasurer and a secretary from the remaining 6 members as 30. The total number of ways to make both selections should be the product of these two numbers, which is 84 \u00d7 30 = 2520. The final answer given in the response is 84, which is only the number of ways to choose the committee, not the total number of ways to make both selections. Therefore, the response is mostly correct but fails to provide the correct final answer.\n\nSCORE: 7",
+    "padded": "The response is correct and clearly explains the reasoning behind the calculation. It correctly identifies that the committee selection is an unordered choice, while the treasurer and secretary selection is an ordered choice. The calculations are accurate, and the explanation is clear and concise. The final answer is correct.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "math-14",
+   "clean": 10.0,
+   "subtle": 5.0,
+   "obvious": 9.0,
+   "padded": 10.0,
+   "raw": {
+    "clean": "The response is correct and clearly shows the steps taken to arrive at the answer. The calculations are accurate, and the final answer is correct. The explanation is concise and easy to follow. There is no significant improvement needed in terms of clarity or correctness.\n\nSCORE: 10",
+    "subtle": "The response contains a calculation error in determining the sales team's share. The correct calculation should be 36000 \u00d7 5 \u00f7 8, not 36000 \u00d7 3 \u00f7 8. This leads to an incorrect calculation of the sales team's share and consequently, the amount each sales team member receives. The support team's share calculation is also incorrect due to the error in the sales team's share. The correct sales team share should be 22500, and the support team share should be 13500. This would lead to each sales team member receiving 5625 and each support team member receiving 1500, making the difference 4125. Despite the error, the structure and approach to solving the problem are correct, but the final answer is incorrect due to the calculation mistake.\n\nSCORE: 5",
+    "obvious": "The response contains a minor error in the final answer provided. The calculations leading up to the difference are correct, showing that each sales team member receives $5625 and each support team member receives $1500, making the difference $4125. However, the final answer given is $5625, which is incorrect. The correct final answer should be $4125. Despite this, the calculations and logic are sound, which is the most critical aspect of the response.\n\nSCORE: 9",
+    "padded": "The response is correct and clearly explains the steps taken to arrive at the answer. The calculations are accurate, and the explanation is easy to follow. The final answer is correct, and the steps taken to reach it are logical and well-explained. There is no significant room for improvement in terms of the clarity and correctness of the response.\n\nSCORE: 10"
+   }
+  },
+  {
+   "id": "summary-01",
+   "clean": 9.0,
+   "subtle": 8.0,
+   "obvious": 6.0,
+   "padded": 7.0,
+   "raw": {
+    "clean": "The response accurately captures the key points of the incident report, including the cause of the outage, the actions taken to resolve it, the impact on operations, and the recommendations for preventing future incidents. The summary is concise and stays within the 3-5 sentence guideline, making it suitable for a busy reader. The only minor improvement could be to explicitly mention the date of the reliability review for the actions, but this omission does not significantly detract from the overall quality of the summary.\n\nSCORE: 9",
+    "subtle": "The response is mostly accurate but contains a minor error: it incorrectly states that Priya Vandersloot re-entered the remaining 6 scans by hand, whereas the original passage indicates that the shift supervisor, Tomasz Rehling, did this. Despite this small mistake, the response effectively captures the key points of the incident, its resolution, and the recommendations made. The summary is concise and would be useful for a busy reader. The error slightly reduces the quality but does not significantly impair the overall usefulness of the summary.\n\nSCORE: 8",
+    "obvious": "The response contains a critical error in stating that the dispatch database \"stayed fully available,\" which contradicts the passage indicating a 47-minute outage. This inaccuracy significantly impacts the response's correctness and reliability. The rest of the summary is accurate and concise, but the error is too significant to ignore. Therefore, the response cannot be considered excellent.\n\nSCORE: 6",
+    "padded": "The response provides a detailed summary of the incident report, but it exceeds the instruction to summarize the passage in 3-5 sentences for a busy reader. The summary is accurate and covers all the key points, but it is too lengthy and detailed for the intended audience. A busy reader would prefer a concise summary that hits the main points without the additional commentary and detail. Therefore, while the content is correct, the format and length do not align with the task requirements.\n\nSCORE: 7"
+   }
+  },
+  {
+   "id": "summary-02",
+   "clean": 9.0,
+   "subtle": 9.0,
+   "obvious": 6.0,
+   "padded": 8.0,
+   "raw": {
+    "clean": "The response accurately captures the key points of the passage, including the committee's decision, the public consultation results, the main objection, the conditions for approval, and the funding details. It maintains the essence of the original text while condensing it into a concise summary suitable for a busy reader. The only minor improvement could be to clarify that the grant application has not yet been submitted, which is slightly less clear in the response than in the original text. Overall, the response is very good.\n\nSCORE: 9",
+    "subtle": "The response is well-structured and captures the key points of the passage accurately. However, there is a minor error in the number of supporters reported (251 instead of 241). The response effectively summarizes the main points, including the vote outcome, the public consultation results, the conditions for approval, and the funding situation. The error is small but impacts the overall accuracy, which is crucial for this type of task.\n\nSCORE: 9",
+    "obvious": "The response contains a critical error in stating that the committee voted to \"reject\" the proposal, when in fact, they voted to \"approve\" it with conditions. This mistake significantly misrepresents the outcome of the committee's decision. The rest of the summary is accurate and captures the key points of the passage. However, the error in the decision's outcome is too significant to overlook. \n\nSCORE: 6",
+    "padded": "The response is quite detailed and covers all the key points from the original passage, including the committee's decision, the public consultation results, the conditions of approval, and the funding arrangements. However, the response is somewhat verbose and does not strictly adhere to the instruction to summarize in 3-5 sentences. Despite this, the information provided is accurate and comprehensive, making it very useful for a reader who needs a quick overview. The verbosity slightly detracts from the quality of the summary, but the content is otherwise excellent.\n\nSCORE: 8"
+   }
+  },
+  {
+   "id": "summary-03",
+   "clean": 9.0,
+   "subtle": 9.0,
+   "obvious": 6.0,
+   "padded": 6.0,
+   "raw": {
+    "clean": "The response accurately captures the key points of the passage, including the study design, the results regarding sleep and fatigue, the lack of significant difference in medication errors, and the cautionary note about the self-reported nature of the sleep data and the need for a larger trial. The response is concise and stays within the 3-5 sentence range, making it suitable for a busy reader. The only minor improvement could be to slightly condense the information to fit more neatly into 3-5 sentences, but overall, the response is very good.\n\nSCORE: 9",
+    "subtle": "The response accurately captures the key points of the passage, including the study design, the results regarding sleep and fatigue, the lack of significant difference in medication errors, and the cautionary note about the self-reported nature of the sleep data and the need for a larger trial. The response is concise and stays within the 3-5 sentence range, making it suitable for a busy reader. The only minor improvement would be to clarify that the intervention group had a higher dropout rate due to the time the routine took, which is slightly implied but not as explicitly stated as it could be. Overall, the response is very good.\n\nSCORE: 9",
+    "obvious": "The response has several issues that affect its accuracy and quality. The most significant error is in the second sentence, where it incorrectly states that the intervention group reported \"41 fewer minutes of daytime sleep per day\" instead of \"41 more minutes of daytime sleep per day.\" This is a critical mistake that reverses the meaning of the results. Other details are accurately summarized, but the presence of this error significantly reduces the response's quality. The response is still coherent and covers the main points of the passage, but the error makes it less reliable.\n\nSCORE: 6",
+    "padded": "The response is detailed and covers all the key points from the original passage, but it is not a concise summary as requested. The task specifically asked for a summary in 3-5 sentences for a busy reader, but the response is much longer and more detailed, which does not align with the task's requirement for brevity. While the information is correct and comprehensive, it fails to meet the primary goal of being succinct. Therefore, the response is not entirely aligned with the task's instructions.\n\nSCORE: 6"
+   }
+  },
+  {
+   "id": "summary-04",
+   "clean": 9.0,
+   "subtle": 9.0,
+   "obvious": 6.0,
+   "padded": 7.0,
+   "raw": {
+    "clean": "The response accurately captures the key points of the audit summary, including the reduction in antibiotic prescriptions, the introduction of the rapid strep test, the issue with weekend prescribing, and the recommendations for improvement. It also correctly notes the approval of two of the three recommendations and the pending decision on the third. The summary is concise and stays within the 3-5 sentence range, making it suitable for a busy reader. The only minor improvement could be to clarify that the 38 percent figure is for the current period being discussed, but this does not significantly detract from the overall quality.\n\nSCORE: 9",
+    "subtle": "The response is well-structured and captures the key points of the audit summary, including the reduction in antibiotic prescriptions, the introduction of the rapid strep test, and the issues with weekend prescribing and broader-spectrum drug prescriptions. However, there is a minor inaccuracy in the response: it states that the electronic prompt will cover patients of all ages, whereas the original passage specifies that it will cover adult patients only for now. This is a small detail, but it affects the overall accuracy of the summary. The response is still quite good, but the inaccuracy prevents it from being perfect.\n\nSCORE: 9",
+    "obvious": "The response contains a significant error in stating that the antibiotic prescription rate increased to 38 percent from 21 percent, when the passage clearly indicates a decrease from 51 percent to 38 percent. This error significantly impacts the accuracy of the summary. The rest of the summary is fairly accurate and captures the key points of the audit, including the introduction of the rapid strep test, the issue with weekend prescribing, and the recommendations for improvement. However, the error in the antibiotic prescription rate is too significant to ignore.\n\nSCORE: 6",
+    "padded": "The response provides a detailed summary that covers the key points of the audit, including the reduction in antibiotic prescriptions, the introduction of the rapid strep test, the issue with broader-spectrum drugs, and the recommended changes. However, the summary is longer than the requested 3-5 sentences and includes some repetition and unnecessary detail for a busy reader. The response is still informative and captures the essence of the audit, but it could be more concise. \n\nSCORE: 7"
+   }
+  },
+  {
+   "id": "summary-05",
+   "clean": 9.0,
+   "subtle": 8.0,
+   "obvious": 2.0,
+   "padded": 7.0,
+   "raw": {
+    "clean": "The response accurately captures the key points of the passage, including the decline in visits to the Pellow Green branch, the reasons behind it, the library's response to the decline, and the impact on book issues. It also mentions the rise in visits at the other two branches and the trustees' request to restore the bus route. The summary is concise and covers the essential information, making it suitable for a busy reader. However, it could have included a brief mention of the home-delivery service for housebound readers, which was not affected by the changes. This omission is minor, but it slightly reduces the comprehensiveness of the summary.\n\nSCORE: 9",
+    "subtle": "The response is mostly accurate but contains a minor error. The response incorrectly states that the switch to morning-only Saturday opening led to the drop in visits, whereas the passage indicates that the opening hours were changed in response to the drop in visits. This misinterpretation slightly affects the quality of the summary. The response captures the key points of the passage, including the drop in visits, the reason for the drop, the change in opening hours, and the trustees' request to restore the bus route. However, the error in causality reduces the overall quality of the response.\n\nSCORE: 8",
+    "obvious": "The response contains several inaccuracies, such as stating that visits rose from 12,100 in 2024 to 18,400 in 2025, which is the opposite of what the passage states. Additionally, the response incorrectly suggests that the increase in visits was due to the withdrawal of the bus route, when the passage clearly states that the drop in visits was attributed to the withdrawal of the bus route. These errors significantly impact the quality of the summary. The response also omits important details, such as the home-delivery service for housebound readers, which was not affected by the changes. Therefore, the response is not usable as a correct summary of the passage.\n\nSCORE: 2",
+    "padded": "The response is quite detailed and covers all the main points from the passage, but it is not as concise as the task required. The task asked for a summary in 3-5 sentences for a busy reader, but the response is more verbose and spans several sentences, making it less suitable for a reader looking for a quick summary. Despite this, the information provided is accurate and covers the key points from the passage. The response could be improved by condensing the information into a more concise format.\n\nSCORE: 7"
+   }
+  },
+  {
+   "id": "summary-06",
+   "clean": 9.0,
+   "subtle": 8.0,
+   "obvious": 4.0,
+   "padded": 7.0,
+   "raw": {
+    "clean": "The response accurately captures the key points of the passage, including the release date, the improvements in the bank-feed importer, the addition of VAT return export in XML format, and the fixes for two bugs. It also correctly notes that the mobile app is unaffected and that Starter plan users will receive the update later. The summary is concise and retains the essential information for a busy reader. The only minor improvement could be to clarify that the old importer can be selected under Settings specifically for machines with less than 4 GB of RAM, which is implied but not explicitly stated in the response. Overall, the response is very good.\n\nSCORE: 9",
+    "subtle": "The response is mostly accurate but contains a minor error regarding the peak memory use, which actually increased by about 20 percent rather than falling. The summary captures the key points of the release notes, including the improvements to the bank-feed importer, the addition of VAT return export in XML format, and the bug fixes. However, the error in the memory use detail slightly diminishes the overall quality of the response.\n\nSCORE: 8",
+    "obvious": "The response contains a critical error in the summary where it states that the import time \"raised from 11 to 38 seconds,\" which is the opposite of what the original passage states. This error significantly impacts the accuracy of the summary. The rest of the summary is accurate and concise, but the presence of this error is too significant to ignore. Therefore, the response cannot be rated highly.\n\nSCORE: 4",
+    "padded": "The response is quite detailed and covers all the key points from the original passage, but it exceeds the instruction to summarize in 3-5 sentences. The summary is more extensive and detailed than required, which makes it less suitable for a busy reader who needs a quick overview. Despite this, the information provided is accurate and comprehensive. The response would be more suitable if condensed to meet the original instruction. \n\nSCORE: 7"
+   }
+  },
+  {
+   "id": "summary-07",
+   "clean": 9.0,
+   "subtle": 8.0,
+   "obvious": 4.0,
+   "padded": 8.0,
+   "raw": {
+    "clean": "The response accurately captures the key points from the original passage, including attendance, financial status, fee increases, the deferral of the motion to replace boats, the change in the novice programme schedule, and the change in the secretary position. The summary is concise and retains the essential information for a busy reader. The only minor improvement could be to slightly condense the financial details to better fit the 3-5 sentence guideline, but overall, the response is very good.\n\nSCORE: 9",
+    "subtle": "The response is well-structured and captures the key points of the passage accurately. However, there is a minor error in the response: it states that the \u00a310 fee increase does not apply to juniors, but the passage specifies that juniors' fees remain at \u00a345 to keep the sport affordable, implying that juniors are the only category not subject to the fee increase. This is a small mistake but affects the accuracy of the summary. Overall, the response is good but not perfect due to this error.\n\nSCORE: 8",
+    "obvious": "The response has several inaccuracies that significantly affect its quality. The most critical error is the statement about cutting annual fees by \u00a310 for all categories except juniors, which contradicts the original passage, which states there was a \u00a310 rise in annual fees. Additionally, the response does not mention the next general meeting date, which is a key detail from the original passage. The response is concise but contains factual errors that make it misleading.\n\nSCORE: 4",
+    "padded": "The response provided is detailed and covers all the key points from the original passage, making it quite useful for a busy reader who wants a quick summary. However, the response is somewhat verbose and could be more concise to better serve the needs of a time-constrained reader. The summary could be tightened up to be more in line with the task's requirement for brevity. Despite this, the information is accurate and all critical points are included.\n\nSCORE: 8"
+   }
+  },
+  {
+   "id": "summary-08",
+   "clean": 9.0,
+   "subtle": 6.0,
+   "obvious": 3.0,
+   "padded": 8.0,
+   "raw": {
+    "clean": "The response accurately captures the key points of the passage, including the phased rollout of Tallyboard, the schools involved, the timeline, the data migration process, the cost estimates, and the availability of Scholaris until the end of the year. It effectively condenses the information into a concise summary suitable for a busy reader. The only minor improvement would be to mention that parents will receive new login details for the Tallyboard app, which is a relevant detail for stakeholders. Overall, the response is very good.\n\nSCORE: 9",
+    "subtle": "The response has a few inaccuracies and omits some key details from the original passage. For example, the order of the schools switching to Tallyboard is incorrect; Brindle Hill Primary should switch first, not Coldharbour Primary. Additionally, the response does not mention that parents will receive new login details for the Tallyboard app a week before their school switches, which is an important detail for a busy reader. Despite these issues, the response does capture the main points about the transition to Tallyboard, the cost estimates, and the availability of Scholaris until the end of the year. However, the inaccuracies and omissions reduce the overall quality of the summary.\n\nSCORE: 6",
+    "obvious": "The response contains a significant error in the first sentence, stating that the partnership has decided to keep Scholaris and not adopt Tallyboard, which directly contradicts the information in the original passage. This error makes the response misleading and incorrect. Despite the detailed information provided in the subsequent sentences, the initial incorrect statement undermines the overall quality of the response. Therefore, the response cannot be considered accurate or reliable.\n\nSCORE: 3",
+    "padded": "The response provides a detailed summary that covers the key points of the passage, including the transition to the new system, the phased rollout, data migration, and cost estimates. However, the summary is somewhat verbose and could be more concise to better suit a busy reader. The response could be improved by condensing the information into a more succinct format while retaining all critical details. Despite this, the information provided is accurate and comprehensive.\n\nSCORE: 8"
+   }
+  },
+  {
+   "id": "summary-09",
+   "clean": 8.0,
+   "subtle": 8.0,
+   "obvious": 3.0,
+   "padded": 7.0,
+   "raw": {
+    "clean": "The response accurately summarizes the key points of the passage, including the acquisition details, the condition of the photographs, the conservation timeline, the cataloging of ledgers, and the display plans. It maintains the essential information while condensing it into a concise form suitable for a busy reader. The response meets the task requirements well, though it could be slightly more concise to fit within the 3-5 sentence guideline. However, given the complexity of the information, the response does a commendable job of summarizing without omitting critical details.\n\nSCORE: 8",
+    "subtle": "The response is well-structured and captures the key points of the passage accurately. However, there is a minor error in the response where it incorrectly states that the Coastal Heritage Fund contributed \u00a35,000 and the museum's Friends association contributed the rest, when in fact, it was the other way around. Despite this small mistake, the response effectively summarizes the main points of the passage, making it useful for a busy reader. \n\nSCORE: 8",
+    "obvious": "The response contains a critical error in stating that the Harbourgate Museum of Working Life has \"turned down\" the Pemberly Ropeworks archive, when in fact, the museum has acquired it. This fundamental mistake significantly reduces the response's accuracy and usefulness. Apart from this error, the response does provide a summary of the key points from the passage, such as the details of the acquisition, the condition of the photographs, the conservation timeline, and the display plans. However, the presence of the major factual error makes the response unsuitable for a busy reader who relies on the information being correct.\n\nSCORE: 3",
+    "padded": "The response is well-structured and covers all the key points from the original passage, making it useful for a busy reader. However, the response is somewhat verbose and could be more concise to better fit the task's requirement for a brief summary. The response does not strictly adhere to the 3-5 sentence limit but does provide a clear and detailed summary. The information is accurate and relevant, but the format could be more streamlined for quick reading.\n\nSCORE: 7"
+   }
+  },
+  {
+   "id": "summary-10",
+   "clean": 9.0,
+   "subtle": 9.0,
+   "obvious": 5.0,
+   "padded": 7.0,
+   "raw": {
+    "clean": "The response effectively captures the key points of the passage, including the increase in the number of emergency parcels distributed, the decrease in food donations, the financial strain on the food bank, and the opening of a second distribution point. It also mentions the upcoming regular-giving appeal and the referral service to a debt advice service. The summary is concise and accurate, meeting the task's requirement of summarizing the passage in 3-5 sentences. However, it could have been more concise to fit within the 3-5 sentence limit while still capturing all the essential information. The response is very close to perfect but slightly exceeds the sentence limit, which is why it does not receive a perfect score.\n\nSCORE: 9",
+    "subtle": "The response effectively captures the key points of the passage, including the increase in the number of emergency parcels distributed, the decrease in food donations, the financial strain on the food bank, and the opening of a second distribution point. However, there is a minor error in the last sentence where it states \"196 clients took up referrals to Harwick Money Help's debt advice service,\" which should be \"186 clients.\" This error slightly diminishes the accuracy of the summary. Overall, the response is quite good and informative for a busy reader.\n\nSCORE: 9",
+    "obvious": "The response contains a critical error in stating that the food bank gave out fewer emergency parcels in 2025 than in 2024, which contradicts the original passage. The passage clearly states that the food bank distributed more parcels in 2025 (6,870) than in 2024 (5,120). This error significantly impacts the accuracy of the summary. The rest of the summary is generally accurate and covers the key points, but the presence of this major error lowers the quality significantly.\n\nSCORE: 5",
+    "padded": "The response provides a detailed summary of the food bank's year-end figures, covering the increase in the number of parcels distributed, the decrease in food donations, the rise in purchasing costs, the planned appeal for regular donations, the opening of a new distribution point, and the referral service for debt advice. However, the summary is not concise and does not strictly adhere to the instruction of summarizing in 3-5 sentences. The response is informative but exceeds the requested brevity, making it less suitable for a truly busy reader. Therefore, while the content is correct and comprehensive, the format could be more concise.\n\nSCORE: 7"
+   }
+  },
+  {
+   "id": "summary-11",
+   "clean": 9.0,
+   "subtle": 8.0,
+   "obvious": 6.0,
+   "padded": 7.0,
+   "raw": {
+    "clean": "The response accurately captures the key points of the feasibility study summary, including the condition of the fish market, the estimated costs, the potential benefits of conversion, the dependency on Skerry Lines adopting electronic ticketing, the restrictions due to the kittiwake nesting period, and the board's next steps. The summary is concise and stays within the 3-5 sentence guideline, though it slightly exceeds the limit to cover all critical details. The information is presented clearly and coherently. The only minor issue is that the response could be slightly more concise to fit within the 3-5 sentence guideline without losing essential information. Overall, the response is of high quality and meets the task requirements well.\n\nSCORE: 9",
+    "subtle": "The response is mostly accurate but contains a minor error regarding Skerry Lines' commitment to electronic ticketing. The passage states that Skerry Lines has \"not yet committed to\" electronic ticketing, but the response incorrectly says they have \"already committed to\" it. This is a significant enough error to affect the response's accuracy, which is critical for this task. The rest of the summary is well done, capturing the key points of the feasibility study and the board's next steps. \n\nSCORE: 8",
+    "obvious": "The response contains a critical error in the summary of the consultants' findings regarding the ferry boarding times. The original passage states that the conversion could cut average boarding times from 25 minutes to about 15, but the response incorrectly reverses these numbers, stating that the conversion would lengthen average boarding times from 15 minutes to about 25. This is a significant misinterpretation of the data provided. The rest of the summary is accurate and concise. Due to this major error, the response cannot be considered correct, which is the most important factor for grading.\n\nSCORE: 6",
+    "padded": "The response provides a detailed breakdown of the feasibility study summary, but it does not strictly adhere to the instruction of summarizing the passage in 3-5 sentences. The response is informative and covers all the key points from the original passage, but it is more extensive than required. The response is correct in its content but exceeds the brevity expected for a busy reader. Therefore, while the information is accurate and useful, the response does not fully meet the task's specific instruction regarding length.\n\nSCORE: 7"
+   }
+  },
+  {
+   "id": "summary-12",
+   "clean": 9.0,
+   "subtle": 8.0,
+   "obvious": 6.0,
+   "padded": 7.0,
+   "raw": {
+    "clean": "The response accurately captures the key points from the passage, including the reduction in bursts and leakage, the increase in discoloured water complaints and their expected resolution, the average daily demand, the decision not to impose a hosepipe ban, and the upcoming main replacement and metering delays. The summary is concise and well-structured, making it suitable for a busy reader. The only minor improvement could be to slightly condense the information for even greater brevity, but the current level of detail is appropriate for the task.\n\nSCORE: 9",
+    "subtle": "The response is mostly accurate but contains a minor error regarding the comparison of average daily demand to the previous year. The passage states that the demand was \"slightly above the same quarter last year,\" but the response incorrectly says it was \"slightly lower.\" This error slightly diminishes the quality of the response, but the rest of the information is conveyed accurately and concisely. The response effectively captures the key points of the passage within the required sentence limit.\n\nSCORE: 8",
+    "obvious": "The response contains a significant error in the first sentence, where it incorrectly states that the number of bursts increased from 2 to 11, when the passage indicates the opposite. This error significantly impacts the accuracy of the summary. The rest of the response is generally accurate and covers the key points of the passage. However, the error in the first sentence is too significant to ignore, and it could mislead the reader. Therefore, the response cannot be rated highly.\n\nSCORE: 6",
+    "padded": "The response provided is detailed and covers all the key points from the original passage, making it quite comprehensive. However, the task specifically asked for a summary in 3-5 sentences for a busy reader, and the response given is much longer and more detailed than required. While the information is correct and useful, it does not meet the concise requirement of the task. Therefore, the response is good but not excellent due to the length and format not aligning with the task's instructions.\n\nSCORE: 7"
+   }
+  },
+  {
+   "id": "summary-13",
+   "clean": 9.0,
+   "subtle": 7.0,
+   "obvious": 5.0,
+   "padded": 9.0,
+   "raw": {
+    "clean": "The response accurately captures the key points of the original passage, including the ticket sales timeline, pricing changes, capacity reduction, and volunteer sign-up details. It maintains the essential information while condensing it into a concise summary, which is suitable for a busy reader. The only minor improvement could be to clarify that the priority window is for past attendees who bought a weekend ticket in either of the last two years, which is slightly less clear in the response than in the original passage. Overall, the response is very good.\n\nSCORE: 9",
+    "subtle": "The response is mostly accurate but contains a few errors. The dates for the priority and general sales windows are reversed in the response, which is a significant mistake for a task that involves conveying important logistical information. The rest of the information is conveyed accurately and concisely. Given the importance of the dates and the error made, the response cannot be considered excellent, but it is still useful with the correction.\n\nSCORE: 7",
+    "obvious": "The response contains a significant error regarding the ticket sales process. The passage clearly states that there will be a priority window for past attendees on 1 April, followed by general sales on 8 April. The response incorrectly states that tickets go on sale to everyone at once on 8 April, with no priority window. This error significantly impacts the accuracy of the summary. Other details are correctly summarized, but the error in the ticket sales process is too critical to ignore. Therefore, the response cannot be considered accurate or reliable.\n\nSCORE: 5",
+    "padded": "The response provides a detailed summary of the key points from the original note, maintaining the order and covering all the essential information. It effectively breaks down the information into digestible parts, making it easy for a busy reader to understand the ticket sales process, pricing, capacity changes, and volunteer requirements. The summary is clear and concise, though it could be slightly more concise to strictly adhere to the 3-5 sentence guideline. However, given the complexity of the information, the current format serves its purpose well.\n\nSCORE: 9"
+   }
+  },
+  {
+   "id": "summary-14",
+   "clean": 9.0,
+   "subtle": 8.0,
+   "obvious": 7.0,
+   "padded": 7.0,
+   "raw": {
+    "clean": "The response accurately captures the key points from the passage, including the survey response rate, the drop in satisfaction with repairs, the specific issue with heating faults and the reason behind it, the improvement in estate cleaning satisfaction, and the tenants' requests for secure bike storage. The response also correctly notes the actions the association plans to take in response to the survey results. The summary is concise and covers all the main points from the passage, making it suitable for a busy reader. The only minor improvement could be to mention the date of the tenants' panel discussion, but this omission does not significantly detract from the overall quality of the summary.\n\nSCORE: 9",
+    "subtle": "The response is well-structured and captures the key points from the passage, such as the response rate, the decline in satisfaction with repairs, the specific issue with heating faults, and the plans for addressing bike storage and recruiting gas engineers. However, there is a minor inaccuracy in the response regarding the bike storage requests: the original passage states that most respondents on the Pelham estate asked for more secure bike storage, but on the Greyfriars estate, only a minority raised it. The response incorrectly states that a majority on Greyfriars asked for it. This is a small error but impacts the overall accuracy.\n\nSCORE: 8",
+    "obvious": "The response contains a critical error in the first sentence, where it incorrectly states that satisfaction with repairs rose from 61 percent in the spring to 67 percent in the autumn, when the passage clearly indicates that satisfaction with repairs actually decreased from 67 percent in the spring to 61 percent in the autumn. This error significantly impacts the accuracy of the summary. The rest of the response is accurate and captures the key points of the passage. However, the error in the first sentence is too significant to ignore.\n\nSCORE: 7",
+    "padded": "The response provides a detailed summary of the tenant survey results, covering the response rate, satisfaction levels, common complaints, staffing issues, and future plans for bike storage. However, the task specifically asked for a summary in 3-5 sentences, and the response exceeds this limit, making it less suitable for a busy reader who needs a quick overview. Despite this, the information provided is accurate and relevant. The response could be improved by condensing the information into a more concise format.\n\nSCORE: 7"
+   }
+  }
+ ],
+ "detect": [
+  {
+   "id": "code-01",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided contains a Python function that correctly implements the merging of intervals as described in the task. The function sorts the intervals by their start values, which is a necessary step to ensure that overlapping intervals are processed in the correct order. It then iterates through the sorted intervals, merging them when necessary, and ensures that the intervals are not modified from the input list by appending new lists to the `merged` list.\n\nThe explanation provided is accurate and aligns with the code's functionality. It correctly describes how the function works and why it works that way.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a logical error in the merging condition. The condition `if merged and start < merged[-1][1]:` does not correctly handle the case where intervals touch (i.e., one interval's end is equal to the next interval's start). The correct condition should be `if merged and start <= merged[-1][1]:` to ensure that touching intervals are also merged.\n\nHere is the corrected code:\n\n```python\ndef merge_intervals(intervals):\n    merged = []\n    for start, end in sorted(intervals):\n        if merged and start <= merged[-1][1]:  # Corrected condition\n            merged[-1][1] = max(merged[-1][1], end)\n        else:\n            merged.append([start, end])\n    return merged\n```\n\nThe explanation provided is mostly correct but needs to reflect the corrected condition for merging touching intervals.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-02",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and meets the requirements of the task. The function `moving_average` calculates the moving average of a list `xs` with a window size `k` in O(n) time complexity. It correctly handles the case where `k > len(xs)` by returning an empty list. The explanation provided is accurate and describes the sliding window technique used to calculate the moving average efficiently.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a logical error in the loop range. The loop should iterate from `k` to `len(xs)` (inclusive), but the current loop range `range(k, len(xs) - 1)` stops one element too early. This means the last window's average is not calculated. The correct range should be `range(k, len(xs))`.\n\nThe corrected code should be:\n\n```python\ndef moving_average(xs, k):\n    if k > len(xs):\n        return []\n    window = sum(xs[:k])\n    averages = [window / k]\n    for i in range(k, len(xs)):\n        window += xs[i] - xs[i - k]\n        averages.append(window / k)\n    return averages\n```\n\nThe loop now correctly iterates over all indices from `k` to `len(xs)`, ensuring that all windows are processed.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-03",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and accurately implements the logic to calculate the maximum drawdown for a given series of numbers. The function iterates through the list of values, maintaining the highest value seen so far (`peak`) and the largest drop from that peak to any subsequent value (`worst`). The logic correctly handles cases where the series is empty, contains only one value, or never falls below its peak. The initialization of `peak` to negative infinity ensures that the first value in the list will set the initial peak, which is necessary for the function to work correctly with negative values.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a logical error in the initialization of the `peak` variable. The task specifies that the values may be negative or zero, and the function should return the maximum drawdown over all positions. However, initializing `peak` to 0 means that if all values in the series are negative, the function will not correctly identify the drawdown because the peak will never be updated. To handle this case correctly, `peak` should be initialized to negative infinity (`float('-inf')`), ensuring that the first value in the series will always update the peak.\n\nHere is the corrected version of the function:\n\n```python\ndef max_drawdown(values):\n    \"\"\"Return the largest drop from a running peak to a later value, or 0.\"\"\"\n    peak = float('-inf')\n    worst = 0\n    for value in values:\n        if value > peak:\n            peak = value\n        elif peak - value > worst:\n            worst = peak - value\n    return worst\n```\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-04",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and meets the requirements of the task. The function `trimmed_mean` correctly handles the edge case where `2 * trim >= len(values)` by raising a `ValueError`. It also ensures that the original list `values` is not modified by working with a copy of the list. The slicing operation is correctly implemented to exclude the `trim` smallest and largest numbers from the calculation of the mean. The explanation provided is accurate and aligns with the implementation.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a logical error in the implementation of the `trimmed_mean` function. The function creates a reference `ordered` to the `values` list and then sorts it. This approach modifies the `values` list indirectly because lists are mutable objects in Python. However, the task explicitly states that the caller's list must not be modified, not even reordered.\n\nTo fix this issue, the function should create a copy of the `values` list before sorting it. This can be done by using the `copy()` method or list slicing. Here is the corrected version:\n\n```python\ndef trimmed_mean(values, trim):\n    \"\"\"Mean of values after dropping the trim smallest and trim largest.\"\"\"\n    if 2 * trim >= len(values):\n        raise ValueError(\"trim too large for the number of values\")\n    ordered = values[:]  # Create a copy of the list\n    ordered.sort()\n    kept = ordered[trim:len(ordered) - trim]\n    return sum(kept) / len(kept)\n```\n\nThis version of the function creates a copy of `values` using list slicing (`values[:]`), which ensures that the original list is not modified.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-05",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and meets the requirements of the task. The function `median(nums)` correctly calculates the median of a list of integers, handles both even and odd lengths of the list, and raises a `ValueError` for an empty list. The input list is not modified, as it uses `sorted(nums)` to create a new sorted list. The explanation is clear and concise.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a minor arithmetic error. Specifically, when calculating the median for an even number of elements, the division should be a float division to ensure the result is a float, as required by the task. The current implementation uses integer division (`//`), which would truncate the result to an integer. To fix this, the division should be changed to a float division (`/`).\n\nHere is the corrected code:\n\n```python\ndef median(nums):\n    if not nums:\n        raise ValueError(\"median of empty list\")\n    ordered = sorted(nums)\n    mid = len(ordered) // 2\n    if len(ordered) % 2:\n        return ordered[mid]\n    return (ordered[mid - 1] + ordered[mid]) / 2  # Changed from // to /\n```\n\nThe fix ensures that the median for an even number of elements is returned as a float, as required.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-06",
+   "clean": true,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided contains a minor error in the return statement of the function `three_way_partition`. The function is supposed to return a tuple `(lt, gt)` such that `xs[:lt]` are the elements less than `pivot`, `xs[lt:gt]` are equal to it, and `xs[gt:]` are greater. However, the function currently returns `(low, mid)`, which does not correctly represent the boundaries for the elements equal to the pivot and those greater than the pivot. Since `mid` is incremented past the last element equal to the pivot, the correct return should be `(low, high + 1)` to accurately reflect the boundaries.\n\nThe corrected function should be:\n\n```python\ndef three_way_partition(xs, pivot):\n    low, mid, high = 0, 0, len(xs) - 1\n    while mid <= high:\n        if xs[mid] < pivot:\n            xs[low], xs[mid] = xs[mid], xs[low]\n            low += 1\n            mid += 1\n        elif xs[mid] > pivot:\n            xs[mid], xs[high] = xs[high], xs[mid]\n            high -= 1\n        else:\n            mid += 1\n    return low, high + 1\n```\n\nVERDICT: ERROR",
+    "subtle": "The response provided contains a minor error in the return statement of the function `three_way_partition`. The function is supposed to return a tuple `(lt, gt)` such that `xs[:lt]` are the elements less than `pivot`, `xs[lt:gt]` are equal to it, and `xs[gt:]` are greater. However, the function currently returns `(low, mid)`, which does not correctly represent the boundaries for the elements equal to the pivot and those greater than the pivot. Since `mid` is incremented past the last element equal to the pivot, the correct return should be `(low, high + 1)` to accurately reflect the boundaries.\n\nThe corrected function should be:\n\n```python\ndef three_way_partition(xs, pivot):\n    low, mid, high = 0, 0, len(xs) - 1\n    while mid <= high:\n        if xs[mid] < pivot:\n            xs[low], xs[mid] = xs[mid], xs[low]\n            low += 1\n            mid += 1\n        elif xs[mid] > pivot:\n            xs[mid], xs[high] = xs[high], xs[mid]\n            high -= 1\n        else:\n            mid += 1\n    return low, high + 1\n```\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-07",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided contains a Python function that correctly implements the lower bound search using binary search. The explanation given is accurate and aligns with the function's logic. The function maintains a half-open interval [lo, hi) and adjusts the interval based on whether the middle element is less than the target. The logic ensures that the function returns the smallest index `i` such that `xs[i] >= target`, or `len(xs)` if no such index exists. There are no factual, logical, arithmetic, or code errors in the response.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a logical error in the initialization of the `hi` variable and the loop condition. The `hi` variable is initialized to `len(xs) - 1`, which means the range [lo, hi] is closed on both ends. However, the explanation suggests that the range should be half-open [lo, hi), which means `hi` should be initialized to `len(xs)` to include the possibility of returning `len(xs)` when all elements are less than the target. Additionally, the loop condition should be `lo <= hi` to ensure that the loop runs even when `lo` and `hi` are equal.\n\nHere is the corrected version of the function:\n\n```python\ndef lower_bound(xs, target):\n    lo, hi = 0, len(xs)  # hi is set to len(xs) to include the past-the-end position\n    while lo < hi:  # Corrected loop condition\n        mid = (lo + hi) // 2\n        if xs[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid\n    return lo\n```\n\nThe explanation should also be updated to reflect the changes in the code.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-08",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and meets the requirements of the task. The function `top_k_words` correctly handles the case where `k <= 0` by returning an empty list. It processes the text by splitting it into words, converting them to lowercase, and counting their occurrences. The sorting mechanism ensures that the words are ordered by their frequency in descending order and alphabetically for words with the same frequency. The slicing operation correctly limits the output to the top `k` words.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a minor error in the explanation of the sorting key. The explanation states that the key is `(-count, word)`, but the code actually sorts by `(item[1], item[0])` in reverse order, which is equivalent to sorting by count in descending order and by word in ascending order. The explanation should be corrected to reflect this.\n\nThe corrected explanation should read:\n\"Sorting by the key `(count, word)` in reverse order puts higher counts first and, among equal counts, orders words alphabetically, so the result is deterministic.\"\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-09",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and meets the requirements of the task. The function `group_by` groups items by the key returned by `key_fn(item)`, preserving the original order of items within each group. It correctly handles the optional `into` parameter, allowing the caller to provide an existing dictionary to accumulate results or starting with a fresh dictionary if `into` is not provided. The use of `None` as the default value for `into` ensures that separate calls without `into` do not share state, which is a correct implementation detail.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an error in the function definition. The default value for the `into` parameter should be `None` instead of an empty dictionary `{}`. Using an empty dictionary as a default value can lead to unexpected behavior because default arguments are evaluated once when the function is defined, not each time the function is called. This means that if `into` is not provided, the same dictionary will be used across multiple calls to the function, which contradicts the requirement that every call must start from a fresh empty dict if `into` is omitted.\n\nHere is the corrected version of the function:\n\n```python\ndef group_by(items, key_fn, into=None):\n    groups = into if into is not None else {}\n    for item in items:\n        key = key_fn(item)\n        if key not in groups:\n            groups[key] = []\n        groups[key].append(item)\n    return groups\n```\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-10",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and meets the requirements of the task. The function `first_unique(nums)` correctly identifies the first unique element in the list `nums` by first counting the occurrences of each element and then iterating through the list to find the first element with a count of one. If no such element exists, it returns `None`. The logic and the code are both correct and there are no errors present.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a logical error. The function does not return the earliest element that occurs exactly once as required by the task. Instead, it returns the first unique element in the order of unique elements, which is not necessarily the earliest in the original list. To fix this, the second loop should iterate over the original list `nums` rather than `set(nums)` to ensure the order is preserved.\n\nCorrected code:\n```python\ndef first_unique(nums):\n    \"\"\"Return the earliest element of nums that occurs exactly once, or None.\"\"\"\n    counts = {}\n    for x in nums:\n        counts[x] = counts.get(x, 0) + 1\n    for x in nums:  # Iterate over the original list to preserve order\n        if counts[x] == 1:\n            return x\n    return None\n```\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-11",
+   "clean": false,
+   "subtle": false,
+   "raw": {
+    "clean": "The response provided is correct and meets the requirements of the task. The regular expression `_PATTERN` correctly matches the required format, and the function `parse_duration` properly parses the string and calculates the total duration in seconds. The check for `not text` before checking `match is None` is redundant because `re.fullmatch` would return `None` for an empty string as well, but it does not introduce an error. The function raises a `ValueError` for invalid formats, and the logic for converting the string to seconds is correct.\n\nVERDICT: NO ERROR",
+    "subtle": "The response provided is correct and meets the requirements of the task. The regular expression `_PATTERN` correctly matches the required format, and the function `parse_duration` properly parses the string into hours, minutes, and seconds, converting them into a total number of seconds. The function also raises a `ValueError` for strings that do not match the expected format, as required by the task.\n\nVERDICT: NO ERROR"
+   }
+  },
+  {
+   "id": "code-12",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided contains a Python function `is_balanced(s)` that correctly checks if the brackets in the string `s` are balanced. The function uses a stack to keep track of opening brackets and ensures that each closing bracket matches the most recent unmatched opening bracket. The logic is sound and follows the task requirements accurately. The function ignores all characters except for the brackets `()`, `[]`, and `{}`, and it correctly returns `True` for balanced strings and `False` for unbalanced ones.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a small oversight in the logic of the function `is_balanced`. The function should return `True` if the stack is empty at the end of the iteration, indicating that all opening brackets have been matched and popped off the stack. However, the function as given does not explicitly check if the stack is empty at the end, which is necessary to ensure that all opening brackets have been matched with closing brackets. The current implementation would return `True` even if there are unmatched opening brackets left on the stack, which is incorrect.\n\nTo correct this, the function should return `not stack` at the end, which will be `True` only if the stack is empty.\n\nCorrected code:\n```python\ndef is_balanced(s):\n    pairs = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n    stack = []\n    for ch in s:\n        if ch in \"([{\":\n            stack.append(ch)\n        elif ch in pairs:\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n    return not stack  # Corrected line\n```\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-13",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and meets the requirements of the task. The function `flatten` correctly flattens a nested list or tuple structure, preserving the order of elements and treating strings and other non-list, non-tuple elements as single items. The recursive approach ensures that nested structures of any depth are handled appropriately.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a logical error in the implementation of the `flatten` function. The task specifies that the elements may be lists or tuples, but the function only checks for lists and does not handle tuples. To correct this, the function should check if the item is either a list or a tuple before recursing into it. Here is the corrected version:\n\n```python\ndef flatten(nested):\n    \"\"\"Return a flat list of the non-list, non-tuple leaves of nested, in order.\"\"\"\n    flat = []\n    for item in nested:\n        if isinstance(item, (list, tuple)):  # Check for both list and tuple\n            flat.extend(flatten(item))\n        else:\n            flat.append(item)\n    return flat\n```\n\nThis version correctly handles both lists and tuples, as required by the task.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "code-14",
+   "clean": false,
+   "subtle": false,
+   "raw": {
+    "clean": "The response does not contain any errors. The function `two_sum` correctly implements the task requirements. It uses a dictionary to keep track of the indices of the elements seen so far, which allows it to find the pair of indices `(i, j)` such that `nums[i] + nums[j] == target` in a single pass through the list. The dictionary ensures that `i < j` and that the pair with the smallest `j` and then the smallest `i` is returned. The function returns `None` if no such pair exists, as required.\n\nVERDICT: NO ERROR",
+    "subtle": "The response does not contain any errors. The function `two_sum` correctly implements the task requirements. It uses a dictionary to keep track of the indices of the elements it has seen so far. For each element `x` at index `j`, it checks if the complement `target - x` has been seen before. If so, it returns the indices of the complement and the current element, ensuring that `i < j`. The use of `setdefault` ensures that the first occurrence of each value is stored, which helps in finding the smallest `i` for a given `j`. The function returns `None` if no such pair is found, which is consistent with the task requirements.\n\nVERDICT: NO ERROR"
+   }
+  },
+  {
+   "id": "math-01",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is accurate and follows the correct steps to calculate the total bill for the household's water usage. The calculations for each band are correct, and the final total bill includes the fixed service charge as required by the task. There are no factual, logical, arithmetic, or other errors in the response.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an arithmetic error in calculating the usage in the top band and the top-band charge. The household uses 34 cubic metres in total. The first 10 cubic metres are charged at $1.20 per cubic metre, and the next 15 cubic metres (up to 25 cubic metres) are charged at $1.80 per cubic metre. The usage in the top band should be 34 - 25 = 9 cubic metres, not 24 cubic metres. Therefore, the top-band charge should be 9 \u00d7 2.60 = 23.4, not 62.4.\n\nCorrected calculation:\nFirst-band charge: 10 \u00d7 1.20 = 12\nSecond-band charge: 15 \u00d7 1.80 = 27\nUsage in the top band: 34 - 25 = 9\nTop-band charge: 9 \u00d7 2.60 = 23.4\nUsage charge: 12 + 27 + 23.4 = 62.4\nTotal bill: 62.4 + 8.50 = 70.9\n\nFinal answer: 70.9\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "math-02",
+   "clean": false,
+   "subtle": false,
+   "raw": {
+    "clean": "The response provided is logically and arithmetically correct. The steps are followed accurately from calculating the total number of rolls baked, determining the number of rolls rejected, calculating the number of rolls kept, determining the number of bags filled, and finally calculating the revenue. There are no factual, logical, arithmetic, or other errors in the response.\n\nVERDICT: NO ERROR",
+    "subtle": "The response provided is logically consistent and correctly follows the steps required to solve the problem. The calculations are accurate and lead to the correct final answer. There are no factual, logical, arithmetic, or other errors present in the response.\n\nVERDICT: NO ERROR"
+   }
+  },
+  {
+   "id": "math-03",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and follows the right steps to calculate the total pay for the courier. The calculations for the driving time, hourly pay, total distance, fuel allowance, and total pay are all accurate based on the given information.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an arithmetic error in the conversion of minutes to hours for Monday's driving time. 45 minutes is 0.75 hours, not 0.45 hours. Therefore, the correct calculation for Monday's driving time in hours is 3 + 0.75 = 3.75 hours. This error affects the total driving time and the hourly pay calculation.\n\nCorrected calculations:\n- Monday driving time in hours: 3 + 0.75 = 3.75\n- Tuesday driving time in hours: 2 + 0.5 = 2.5\n- Total driving time in hours: 3.75 + 2.5 = 6.25\n- Hourly pay: 6.25 \u00d7 22 = 137.5\n- Total distance in km: 168 + 104 = 272\n- Fuel allowance: 272 \u00d7 0.35 = 95.2\n- Total pay: 137.5 + 95.2 = 232.7\n\nThe final answer should be 232.7, not 226.1.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "math-04",
+   "clean": false,
+   "subtle": false,
+   "raw": {
+    "clean": "The response provided is accurate and follows the correct steps to calculate the touring company's share of the revenue. The calculations for the revenue from adult, student, and child tickets are correct. The total revenue is correctly calculated as $13,809. The venue's commission is correctly calculated as 12% of the total revenue, which is $1,657.08. Finally, the touring company's share is correctly calculated by subtracting the venue's commission from the total revenue, resulting in $12,151.92.\n\nVERDICT: NO ERROR",
+    "subtle": "The response provided is accurate and follows the correct steps to calculate the touring company's share of the revenue. The calculations for the revenue from adult, student, and child tickets are correct. The total revenue is correctly calculated, and the venue's commission is accurately determined as 12% of the total revenue. The touring company's share is correctly calculated by subtracting the venue's commission from the total revenue. There are no factual, logical, arithmetic, or other errors in the response.\n\nVERDICT: NO ERROR"
+   }
+  },
+  {
+   "id": "math-05",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response contains an arithmetic error in calculating the number of gaps between the lamp posts. The calculation should be 42 \u00f7 3.5 = 12, which is correct, but this means there are 13 posts (not 12 - 1 = 11 posts between the ends) because the number of posts is one more than the number of gaps. Therefore, the correct calculation for the total number of posts is 12 + 1 = 13, which is actually correct in the response, but the explanation is misleading.\n\nThe rest of the calculations are correct. The cost per post including installation is $105, the total cost before discount is $1365, and the discount is $136.5, leading to a final cost of $1228.5.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an error in the calculation of the number of gaps between the lamp posts. The calculation should be 42 \u00f7 3.5 = 12, but this means there are 13 posts in total (one at each end and 11 in between). The correct calculation for the total number of posts is as follows:\n\nGaps between posts: 42 \u00f7 3.5 = 12\nTotal posts: 12 + 1 = 13\nCost per installed post: 86 + 19 = 105\nCost before discount: 13 \u00d7 105 = 1365\nDiscount: 1365 \u00d7 0.10 = 136.5\nTotal cost: 1365 - 136.5 = 1228.5\n\nTherefore, the final answer should be 1228.5, not 1134.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "math-06",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and follows the logical steps necessary to solve the problem. The calculations are accurate, and the final answer is correctly derived from the given data. There are no factual, logical, arithmetic, or other errors in the response.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an arithmetic error in calculating the floor area. The correct calculation for the floor area should be 18 \u00d7 12.5 = 225 square metres, not 22.5 square metres. This error propagates through the subsequent calculations. Correcting this error, the calculations should be:\n\nFloor area in square metres: 18 \u00d7 12.5 = 225\nArea to cover for two coats: 225 \u00d7 2 = 450\nLitres needed: 450 \u00f7 7.5 = 60\nPrice before tax: 60 \u00d7 12.80 = 768\nSales tax: 768 \u00d7 0.05 = 38.4\nTotal cost: 768 + 38.4 = 806.4\n\nTherefore, the final answer should be 806.4, not 80.64.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "math-07",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided contains a logical error regarding the application of the $15 coupon. According to the task, the $15 coupon is applied after sales tax has been added, which is correctly done in the response. However, the sequence of operations and the explanation are correct, and the arithmetic is also correct. Therefore, there is no error in the final answer provided.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an error in the sequence of operations. According to the task, the sales tax should be applied to the sale price before the coupon is deducted. The correct sequence should be:\n\n1. Calculate the sale price after the 25% discount.\n2. Apply the 8% sales tax to the sale price.\n3. Deduct the $15 coupon from the total after tax.\n\nLet's correct the sequence:\n\nSale discount: 140 \u00d7 0.25 = 35\nSale price: 140 - 35 = 105\nSales tax: 105 \u00d7 0.08 = 8.4\nPrice after tax: 105 + 8.4 = 113.4\nPrice after coupon: 113.4 - 15 = 98.4\n\nFinal answer: 98.4\n\nThe original response incorrectly applied the coupon before calculating the sales tax, leading to an incorrect final price.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "math-08",
+   "clean": false,
+   "subtle": false,
+   "raw": {
+    "clean": "The response provided is logically and arithmetically correct. The calculations follow the requirements of the task accurately, taking into account the cost of hiring the coach, the museum entry for students, and the lunch cost for all participants (students and teachers). The final calculation of the remaining budget is also correct.\n\nVERDICT: NO ERROR",
+    "subtle": "The response provided is logically and arithmetically correct. The calculations follow the requirements of the task accurately, taking into account the cost of hiring the coach, the museum entry for students, and the lunch cost for all participants (students and teachers). The final calculation of the remaining budget is also correct.\n\nVERDICT: NO ERROR"
+   }
+  },
+  {
+   "id": "math-09",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is logically and arithmetically correct. The steps are followed accurately from calculating the original price of the bicycle before the increase, to calculating the total cost for two bicycles with the loyalty discount and the flat delivery charge.\n\nVERDICT: NO ERROR",
+    "subtle": "The response provided is logically and arithmetically correct. The steps are as follows:\n\n1. The price before the increase is calculated correctly by reversing the 20% increase: $462 / 1.20 = $385.\n2. The price of two bicycles at the original price is $385 * 2 = $770.\n3. The loyalty discount is applied correctly: $770 * 0.05 = $38.5.\n4. The price after the discount is $770 - $38.5 = $731.5.\n5. The total cost including delivery is $731.5 + $18 = $749.5.\n\nHowever, the response provided in the task has a different calculation for the price before the increase, which is $369.6 instead of $385. This is due to a calculation error in the response: 462 \u00d7 0.80 should be 462 / 1.20 to reverse the 20% increase.\n\nTherefore, the response contains an arithmetic error.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "math-10",
+   "clean": false,
+   "subtle": false,
+   "raw": {
+    "clean": "The response provided is logically and arithmetically correct. The calculations follow the correct steps to determine the total weekly cost of fuel and maintenance for all 6 vans. The steps are as follows:\n\n1. Calculate the litres of diesel used per van per week: 918 km \u00f7 13.5 km/litre = 68 litres.\n2. Calculate the fuel cost per van per week: 68 litres \u00d7 $1.84/litre = $125.12.\n3. Calculate the total cost per van per week including maintenance: $125.12 + $45 = $170.12.\n4. Calculate the total cost for all 6 vans: $170.12 \u00d7 6 = $1020.72.\n\nThe final answer of $1020.72 is correct based on the given information and the calculations performed.\n\nVERDICT: NO ERROR",
+    "subtle": "The response provided is logically and arithmetically correct. It accurately calculates the litres of diesel used per van per week, the cost of diesel per van, adds the maintenance fee per van, and then multiplies by the number of vans to get the total cost. There are no factual, logical, arithmetic, or code errors in the response.\n\nVERDICT: NO ERROR"
+   }
+  },
+  {
+   "id": "math-11",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is logically and arithmetically correct. It accurately calculates the total number of punnets sold for both strawberries and blueberries, computes the total revenue from these sales, sums up the total revenue, calculates the total packaging cost, and finally subtracts the packaging cost from the total revenue to find the net revenue. There are no factual, logical, arithmetic, or other errors in the response.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an arithmetic error in calculating the total number of strawberry punnets sold over the weekend. The correct calculation should be 84 (Saturday) + 63 (Sunday) = 147 strawberry punnets, not 155. This error propagates through the rest of the calculations, leading to an incorrect total revenue and final answer.\n\nCorrected calculations:\n- Strawberry punnets: 84 + 63 = 147\n- Blueberry punnets: 57 + 71 = 128\n- Strawberry revenue: 147 \u00d7 4.50 = 661.5\n- Blueberry revenue: 128 \u00d7 6.20 = 793.6\n- Total revenue: 661.5 + 793.6 = 1455.1\n- Total punnets: 147 + 128 = 275\n- Packaging cost: 275 \u00d7 1.10 = 302.5\n- Revenue minus packaging: 1455.1 - 302.5 = 1152.6\n\nThe final answer should be 1152.6, not 1179.8.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "math-12",
+   "clean": true,
+   "subtle": true,
+   "raw": {
+    "clean": "The response contains an error in the calculation of the two-year growth factor. The calculation should be done for three years as specified in the task. The correct calculation for the three-year growth factor should be:\n\nThree-year growth factor: 1.05 \u00d7 1.05 \u00d7 1.05 = 1.157625\n\nThe response correctly calculates the three-year growth factor but incorrectly labels the calculation as a two-year growth factor. However, the rest of the calculations are correct based on the three-year growth factor. Therefore, the final answer is correct despite the labeling error.\n\nVERDICT: ERROR",
+    "subtle": "The response contains an arithmetic error in calculating the three-year growth factor. The two-year growth factor is calculated correctly as 1.05 \u00d7 1.05 = 1.1025, but the response rounds this to 1.1, which is not precise. The three-year growth factor should be calculated as 1.1025 \u00d7 1.05 = 1.157625, not 1.155. This leads to a different population after three years and, consequently, a different annual landfill bill.\n\nCorrect calculation:\n- Two-year growth factor: 1.05 \u00d7 1.05 = 1.1025\n- Three-year growth factor: 1.1025 \u00d7 1.05 = 1.157625\n- Population after three years: 24000 \u00d7 1.157625 = 27783\n- Annual waste in tonnes: 27783 \u00d7 0.4 = 11113.2\n- Landfill bill: 11113.2 \u00d7 52 = 577886.4\n\nThe response provided an incorrect landfill bill due to the rounding error in the growth factor calculation.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "math-13",
+   "clean": true,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is almost correct but contains a minor error in the explanation of the calculation for the number of ways to choose the 3-person organizing committee. The calculation itself is correct, but the explanation should clarify that the division by 6 is to account for the fact that the order of the committee members does not matter (since all members have the same role). The number 6 comes from the number of permutations of 3 members, which is 3! (3 factorial).\n\nHere is the corrected explanation:\n\nOrdered picks for the committee: 9 \u00d7 8 \u00d7 7 = 504\nCommittees, removing orderings of the three (since the order does not matter): 504 \u00f7 6 = 84 (where 6 is 3!)\nTreasurer and secretary: 6 \u00d7 5 = 30\nTotal ways: 84 \u00d7 30 = 2520\nFinal answer: 2520\n\nThe final answer is correct, but the explanation should be more precise about why the division by 6 is necessary.\n\nVERDICT: ERROR",
+    "subtle": "The response contains an arithmetic error in calculating the number of ways to choose a treasurer and a secretary from the remaining 6 members. The calculation for the treasurer and secretary should not be divided by 2 because the order matters in this case (treasurer and secretary are distinct roles). Therefore, the correct calculation for the treasurer and secretary is simply 6 \u00d7 5 = 30.\n\nCorrected calculation:\n- Ordered picks for the committee: 9 \u00d7 8 \u00d7 7 = 504\n- Committees, removing orderings of the three: 504 \u00f7 6 = 84\n- Treasurer and secretary: 6 \u00d7 5 = 30\n- Total ways: 84 \u00d7 30 = 2520\n\nFinal answer: 2520\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "math-14",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is correct and follows the logical steps necessary to solve the problem. The calculations are accurate, and the final answer is correct. There are no factual, logical, arithmetic, or other errors in the response.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an arithmetic error. The calculation for the sales team's share is incorrect. It should be 36000 \u00d7 5 \u00f7 8, not 36000 \u00d7 3 \u00f7 8. Correcting this:\n\nTotal ratio parts: 5 + 3 = 8\nSales team share: 36000 \u00d7 5 \u00f7 8 = 22500\nSupport team share: 36000 - 22500 = 13500\nPer sales member: 22500 \u00f7 4 = 5625\nPer support member: 13500 \u00f7 9 = 1500\nDifference: 5625 - 1500 = 4125\n\nThe corrected difference is 4125 dollars, not 875 dollars.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-01",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response does not contain any errors. It accurately summarizes the key points of the incident report, including the cause of the database outage, the actions taken by the on-call engineer, the impact on shipment scans, and the recommendations made in the report. The summary is concise and captures the essence of the incident without introducing any inaccuracies or unsupported claims.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a factual error. Specifically, it states that \"engineer Priya Vandersloot re-entered the remaining 6 by hand,\" whereas the original passage indicates that the shift supervisor, Tomasz Rehling, was the one who re-entered the 6 shipment scans by hand.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-02",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response does not contain any errors. It accurately summarizes the key points of the passage, including the vote outcome, the public consultation results, the main objection and its referral to the highways sub-committee, the conditions for approval, and the funding details. The summary is concise and captures the essence of the committee's decision and the next steps for the proposed community garden project.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an arithmetic error. The number of supporters in the response is stated as 251, whereas the original passage mentions 241 supporters.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-03",
+   "clean": false,
+   "subtle": false,
+   "raw": {
+    "clean": "The response accurately summarizes the key points of the passage, including the study design, the results regarding sleep and fatigue, the lack of significant difference in medication errors, the dropout rates, and the lead author's cautionary note about the study's limitations and the need for a larger trial. There are no factual, logical, arithmetic, or code errors present in the response, and it does not contain any claims unsupported by the task.\n\nVERDICT: NO ERROR",
+    "subtle": "The response does not contain any errors. It accurately summarizes the key points of the passage, including the study's methodology, results, and the lead author's cautionary notes. The summary maintains the essence of the original text without introducing any inaccuracies or unsupported claims.\n\nVERDICT: NO ERROR"
+   }
+  },
+  {
+   "id": "summary-04",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response does not contain any errors. It accurately summarizes the key points from the passage, including the reduction in antibiotic prescriptions, the introduction of the rapid strep test, the issue with weekend prescribing rates, the problem with broader-spectrum antibiotic prescriptions, and the approved and pending changes. The summary maintains the factual integrity of the original passage and does not introduce any errors or unsupported claims.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an error regarding the electronic prompt for non-guideline drugs. According to the original passage, the prompt will cover adult patients only for now, not patients of all ages as stated in the response.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-05",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is a correct summary of the passage. It accurately captures the decline in visits to the Pellow Green branch, the reason for the decline, the response of the trustees, the less sharp decline in book issues, and the actions taken by the trustees regarding the bus route and Saturday opening hours. There are no factual, logical, arithmetic, or other errors present in the summary.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a logical error. The switch to morning-only Saturday opening was a response to the drop in visits, not a cause of the drop in visits. The correct sequence of events is that the bus route withdrawal caused the drop in visits, which then led to the decision to cut Saturday opening hours.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-06",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response does not contain any errors. It accurately summarizes the key points from the passage, including the improvements in the bank-feed importer, the addition of VAT return export in XML format, the fixes for two bugs, and the release schedule for different user plans. The information provided is consistent with the original passage.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains an arithmetic error. The passage states that peak memory use rose by about 20 percent during imports, but the response incorrectly says it fell by about 20 percent.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-07",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response does not contain any errors. It accurately summarizes the key points from the passage, including attendance, financial report, fee increase, deferral of boat replacement, change in novice programme schedule, and the change in the secretary position. All the information is consistent with the original passage.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a factual error. Specifically, the response states that \"Members voted 31 to 9, with 3 abstentions, to raise annual fees by \u00a310 for juniors but no other category.\" However, the original passage indicates that the fee for juniors remains at \u00a345 to keep the sport affordable for school-age rowers, and the \u00a310 rise applies to all membership categories except juniors. Therefore, the response incorrectly reverses the fee increase application.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-08",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is a concise summary of the passage and accurately reflects the information given in the original text. It captures the key points about the phased rollout of Tallyboard, the involvement of a data lead from each school, the availability of Scholaris until the end of the year, and the estimated costs. There are no factual, logical, arithmetic, or other errors present in the summary.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a factual error. The sequence of schools switching to the new system is incorrect. According to the original passage, Brindle Hill Primary will switch first over the February half-term, followed by Coldharbour Primary at Easter, not the other way around as stated in the response.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-09",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response provided is a concise summary of the passage, accurately reflecting the information given in the original text. There are no factual, logical, arithmetic, or other errors present in the summary. The summary correctly captures the key points about the acquisition, the purchase price, the condition of the photographs, the cataloging of the ledgers, the storage of the machine, and the display of photographs.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a factual error. The Coastal Heritage Fund and the museum's Friends association contributed \u00a35,000 and the rest (\u00a33,400) respectively, not the other way around as stated in the response.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-10",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response does not contain any errors. It accurately summarizes the key points from the passage, including the increase in the number of emergency parcels distributed, the decrease in food donations, the rise in purchasing costs, the launch of a regular-giving appeal, the opening of a second distribution point, and the referral to a debt advice service. All the information provided in the response is consistent with the original passage.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a factual error. The number of clients who took up referrals to Harwick Money Help's debt advice service between October and December is stated as 196, but the original passage mentions 186 clients. This discrepancy is a factual error.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-11",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response accurately summarizes the key points from the passage, including the condition of the fish market, the estimated costs, the potential reduction in boarding times, the dependency on Skerry Lines adopting electronic ticketing, the protected kittiwakes, and the board's next steps. There are no factual, logical, arithmetic, or other errors present in the response.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a factual error. Specifically, the response states that Skerry Lines has \"already committed to\" adopting electronic ticketing, whereas the original passage indicates that Skerry Lines has \"not yet committed to\" adopting electronic ticketing. This is a contradiction and thus an error.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-12",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response does not contain any errors. It accurately summarizes the key points from the passage, including the reduction in bursts and leakage, the increase in discoloured water complaints and the expected resolution, the average daily demand and the reasons for no hosepipe ban, and the upcoming projects and delays. All the information is consistent with the original passage.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a logical error. The sentence stating that \"Average daily demand of 7.4 megalitres was slightly lower than in the same quarter last year because of the dry August\" contradicts the original passage, which says that the demand was \"slightly above the same quarter last year, owing to the dry August.\"\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-13",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response does not contain any errors. It accurately summarizes the key points from the original passage, including the ticket sales schedule, pricing changes, capacity reduction, and volunteer sign-up deadline. All the information provided in the response is consistent with the details given in the original text.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a factual error. The dates for the priority window and general sales are mixed up. According to the original passage, past attendees have the priority window from 10:00 on 1 April, and general sales open a week later, on 8 April. The response incorrectly states that past attendees can buy from 8 April, a week after general sales open on 1 April.\n\nVERDICT: ERROR"
+   }
+  },
+  {
+   "id": "summary-14",
+   "clean": false,
+   "subtle": true,
+   "raw": {
+    "clean": "The response does not contain any errors. It accurately summarizes the key points from the passage, including the response rate, changes in satisfaction levels, the main complaint about heating faults and the reason behind it, the rise in satisfaction with estate cleaning, and the plans for addressing bike storage needs. The information provided in the response is consistent with the details given in the original passage.\n\nVERDICT: NO ERROR",
+    "subtle": "The response contains a factual error. According to the original passage, most respondents on the Pelham estate asked for more secure bike storage, but on the Greyfriars estate, only a minority raised it. The response incorrectly states that a majority on Greyfriars asked for more secure bike storage.\n\nVERDICT: ERROR"
+   }
+  }
+ ],
+ "pairwise": [
+  {
+   "id": "code-01",
+   "clean_first": "A",
+   "clean_second": "A",
+   "raw": {
+    "clean_first": "Both responses are nearly identical and both seem to correctly implement the task of merging overlapping intervals. However, there is a subtle difference in the condition used to check if an interval should extend the last merged interval:\n\n- Response A uses `start <= merged[-1][1]`, which correctly includes intervals that touch (i.e., where one interval's end is equal to the next interval's start).\n- Response B uses `start < merged[-1][1]`, which would incorrectly exclude intervals that touch.\n\nTherefore, Response A is the correct implementation according to the task requirements.\n\nWINNER: A",
+    "clean_second": "Both responses are functionally equivalent and correctly implement the task of merging overlapping intervals. The only difference is in the comparison condition for checking if an interval should extend the last merged interval. Response A uses `<` while Response B uses `<=`. However, since the intervals are sorted by their start times and the condition checks if the start of the current interval is less than or equal to the end of the last merged interval, both conditions effectively do the same thing in this context. Therefore, both responses are equally correct.\n\nWINNER: A\n\nChoosing Response A is arbitrary since both are correct, but A was presented first."
+   }
+  },
+  {
+   "id": "code-02",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it correctly iterates up to `len(xs)` in the for loop, ensuring that all windows are included in the calculation. Response B incorrectly iterates up to `len(xs) - 1`, which would miss the last window if `len(xs) > k`. This discrepancy means that Response B would not return the correct number of averages, specifically missing the last one.\n\nWINNER: A",
+    "clean_second": "Both responses are nearly identical and both are correct in terms of functionality and time complexity. However, there is a minor difference in the loop range in the two responses. Response A has `for i in range(k, len(xs) - 1):` which would miss the last window's average, while Response B has `for i in range(k, len(xs)):` which correctly includes the last window's average.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-03",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it initializes `peak` to `float(\"-inf\")`. This ensures that the first value in the list will always update `peak`, which is necessary for the algorithm to work correctly, especially for lists where all values are negative. Response B incorrectly initializes `peak` to `0`, which can lead to incorrect results if all values in the list are negative, as the peak would never be updated, and the drawdown would not be calculated properly.\n\nWINNER: A",
+    "clean_second": "Both responses are functionally correct and provide the same logic for calculating the maximum drawdown. However, Response A initializes the `peak` variable to `0`, which is a reasonable choice since the first value in the list will update the peak if it is greater than `0`. This approach works well for most cases, especially when the values are expected to be positive or start with a positive trend. Response B, on the other hand, initializes the `peak` to negative infinity (`float(\"-inf\")`), which ensures that the first value in the list will always update the peak, regardless of its value. This makes Response B more robust and general, as it correctly handles lists starting with negative values without any special handling.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-04",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it explicitly creates a copy of the input list `values` before sorting. This ensures that the original list provided by the caller is not modified, adhering to the requirement that the caller's list must not be modified. In contrast, Response B directly sorts the `values` list, which could alter the original list if passed by reference, violating the task's constraints.\n\nWINNER: A",
+    "clean_second": "Both responses are functionally correct and meet the task requirements. However, Response B is slightly better because it explicitly creates a copy of the input list `values` using `list(values)` before sorting. This ensures that the original list is not modified, which is a key requirement of the task. Response A does not explicitly create a copy, which could lead to confusion about whether the original list might be modified, even though in practice, it does not modify the original list due to the assignment to `ordered`.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-05",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Both responses are very similar, with the key difference being in the calculation of the median for an even number of elements. Response A uses true division (`/`), which correctly returns a float, as required by the task. Response B uses integer division (`//`), which would return an integer, potentially truncating the result and not meeting the task's requirement for an even number of elements.\n\nWINNER: A",
+    "clean_second": "Both responses are very similar and both correctly handle the task of calculating the median of a list of integers. However, there is a subtle difference in the division operation used for calculating the median when the list has an even number of elements.\n\nIn Response A, the division operation `(ordered[mid - 1] + ordered[mid]) // 2` uses integer division (`//`), which would truncate the result to an integer. This is incorrect for the task, as the median should be a float when the list has an even number of elements.\n\nIn Response B, the division operation `(ordered[mid - 1] + ordered[mid]) / 2` uses true division (`/`), which correctly returns a float, as required by the task.\n\nTherefore, Response B is the correct implementation.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-06",
+   "clean_first": "A",
+   "clean_second": "A",
+   "raw": {
+    "clean_first": "Both responses A and B provide the exact same code and explanation for the `three_way_partition` function. Therefore, neither response is better than the other in terms of correctness, code quality, or explanation. Since they are identical, there is no basis to choose one over the other.\n\nWINNER: A",
+    "clean_second": "Both responses A and B provide the same Python function and explanation for the three-way partitioning task. The function and the explanation are correct and effectively implement the Dutch national flag scheme for partitioning the list. Since both responses are identical in terms of correctness, functionality, and explanation, neither can be considered superior to the other based on the given criteria.\n\nWINNER: A"
+   }
+  },
+  {
+   "id": "code-07",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "The better response is Response A. The reason is that in Response B, the initial value of `hi` is set to `len(xs) - 1`, which means the range [lo, hi) cannot include the position `len(xs)` where the target might be if all elements are less than the target. This would cause the function to fail when the target is greater than all elements in the list, as it would not be able to return `len(xs)` as required by the task. Response A correctly sets `hi` to `len(xs)`, allowing the function to return the correct index even when the target is greater than all elements in the list.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are functionally correct and provide the same logic for finding the lower bound using binary search. However, there is a subtle difference in the initialization of the `hi` variable that affects the correctness of the function when the list is empty or when the target is greater than all elements in the list.\n\nIn Response A, `hi` is initialized to `len(xs) - 1`, which means that if the list is empty or if the target is greater than all elements, the function will not correctly return `len(xs)` as the answer. This is because the range [lo, hi) would not include the past-the-end position, leading to incorrect results in these edge cases.\n\nIn Response B, `hi` is correctly initialized to `len(xs)`, which ensures that the half-open range [lo, hi) can include the past-the-end position, making the function work correctly for all cases, including when the list is empty or when the target is greater than all elements.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-08",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Both responses are very similar and follow the same logic for counting and sorting the words. However, there is a subtle difference in the sorting mechanism that affects the correctness of the responses.\n\nIn Response A, the sorting key is `(-item[1], item[0])`, which correctly sorts the words by their counts in descending order and by their alphabetical order in ascending order when counts are equal. This is the correct way to achieve the desired output.\n\nIn Response B, the sorting key is `(item[1], item[0])` with `reverse=True`. This would sort the counts in descending order but would also reverse the alphabetical order, leading to incorrect alphabetical sorting when counts are equal. Therefore, Response B does not meet the requirement of breaking ties by word in ascending alphabetical order.\n\nWINNER: A",
+    "clean_second": "Both responses are functionally correct and achieve the same goal. However, there is a subtle difference in how they handle the sorting of the words. Response A uses `reverse=True` with a sort key that does not negate the count, while Response B negates the count in the sort key and omits `reverse=True`. Both approaches achieve the same result, but Response B's approach is more conventional and aligns better with common practices for sorting in descending order based on a numeric value.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-09",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "The better response is Response A. The key difference between the two responses lies in the default argument for the `into` parameter. In Response B, the default argument is an empty dictionary (`into={} `), which is a mutable default argument. This can lead to unexpected behavior because the same dictionary instance is used across multiple calls if `into` is not explicitly provided. In contrast, Response A uses `None` as the default value for `into`, which is the correct approach to avoid shared state across function calls. This ensures that each call to `group_by` starts with a fresh dictionary when `into` is not provided, maintaining the expected behavior and avoiding potential bugs.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are functionally equivalent and correctly implement the `group_by` function as specified in the task. However, there is a subtle difference in the default argument handling that affects the correctness of the function.\n\nResponse A uses a mutable default argument (`into={} `), which can lead to unexpected behavior if the function is called multiple times without explicitly passing the `into` argument. This is because the same dictionary instance is used across multiple calls, which can cause side effects and shared state between calls.\n\nResponse B avoids this issue by setting the default value of `into` to `None` and creating a new dictionary if `into` is not provided. This ensures that each call to `group_by` starts with a fresh dictionary, as required by the task.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-10",
+   "clean_first": "A",
+   "clean_second": "A",
+   "raw": {
+    "clean_first": "Both responses aim to solve the same problem and follow a similar approach: counting the occurrences of each number and then identifying the first unique number. However, there is a subtle difference in the second pass of the two responses.\n\nIn Response A, the second pass iterates over the original list `nums`, ensuring that the order of elements is preserved. This is crucial for finding the earliest unique element by position, as required by the task.\n\nIn Response B, the second pass iterates over `set(nums)`, which does not preserve the order of elements. This means that even though it correctly identifies unique elements, it does not guarantee that the first unique element returned is the earliest by position in the original list.\n\nTherefore, Response A is the correct implementation according to the task requirements.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are correct and achieve the same goal. However, there is a subtle difference in their implementation that affects efficiency. Response A uses a set of `nums` in the second loop, which ensures that each element is checked only once for its count. This can be more efficient if `nums` contains many duplicates, as it avoids redundant checks. Response B, on the other hand, iterates through the entire list `nums` again, which can be less efficient if the list is large and contains many duplicates.\n\nWINNER: A"
+   }
+  },
+  {
+   "id": "code-11",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Both responses are nearly identical, with the primary difference being the use of `fullmatch` in Response A and `match` in Response B. The use of `fullmatch` in Response A is more appropriate for this task because it ensures that the entire string matches the pattern, which is necessary to validate the format of the duration string as specified in the task. `match`, on the other hand, only checks if the pattern matches at the beginning of the string, which could allow for trailing characters that do not conform to the expected format.\n\nWINNER: A",
+    "clean_second": "Both responses are nearly identical and functionally correct. However, Response B uses `_PATTERN.fullmatch(text)` which is more precise for ensuring the entire string conforms to the pattern, as opposed to `match` in Response A which could potentially allow trailing characters that do not conform to the pattern. Therefore, Response B is slightly better in terms of correctness.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-12",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Both responses A and B provide the same logic for determining if a string of brackets is balanced. However, there is a critical difference in the final return statement. Response A correctly returns `not stack`, which ensures that the function returns `True` only if the stack is empty after processing the entire string. This means all opening brackets have been properly matched and closed. Response B, on the other hand, always returns `True` after the loop, which would incorrectly indicate that the string is balanced even if there are unmatched opening brackets.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are functionally correct and implement the same logic for determining if a string of brackets is balanced. However, there is a subtle difference in the final return statement that affects the correctness of the function.\n\nResponse A returns `True` after the loop, which is incorrect because it does not check if the stack is empty, meaning it could return `True` even if there are unmatched opening brackets left in the stack.\n\nResponse B correctly returns `not stack`, which ensures that the function only returns `True` if the stack is empty, meaning all opening brackets have been matched and closed.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-13",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it correctly handles both lists and tuples, as specified in the task. Response B only handles lists and would fail to flatten tuples, which is a deviation from the task requirements. Therefore, Response A is more accurate and comprehensive.\n\nWINNER: A",
+    "clean_second": "Both responses are correct and achieve the same goal of flattening a nested list or tuple structure. However, Response B is slightly more comprehensive as it handles both lists and tuples, whereas Response A only handles lists. This makes Response B more versatile and robust to the task requirements, which specify that elements may be lists or tuples.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "code-14",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Both responses are functionally equivalent and correctly implement the `two_sum` function according to the task requirements. The only difference between the two responses is the condition used in the `if` statement to check if `i` is not `None`. Response A uses `if i is not None`, while Response B uses `if i`. Both conditions will work correctly in this context because `i` will be `None` if the complement is not found in the dictionary, and `None` is considered `False` in a boolean context.\n\nHowever, Response A is slightly more explicit and clear in its intention to check for `None`, which is a good practice for readability and maintainability. Therefore, Response A is marginally better due to its clarity.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are functionally equivalent and correctly implement the `two_sum` function according to the task requirements. The only difference between the two responses is the condition used to check if `i` is not `None`. Response A uses `if i:` while Response B uses `if i is not None:`. Both conditions will work correctly in this context because `i` will either be `None` or a valid index (an integer). However, the condition in Response B (`if i is not None:`) is more explicit about the intention to check for `None`, which can be considered better for readability and clarity.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "math-01",
+   "clean_first": "A",
+   "clean_second": "A",
+   "raw": {
+    "clean_first": "Response A is correct in its calculation of the total bill. It accurately calculates the charges for each band of usage and correctly identifies the amount of usage in the top band as 9 cubic metres (34 - 25). Response B incorrectly calculates the usage in the top band as 24 cubic metres (34 - 10), which leads to an incorrect total bill.\n\nWINNER: A",
+    "clean_second": "Response A is better because it correctly calculates the usage in the top band as 34 - 25 = 9 cubic metres, not 34 - 10 = 24 cubic metres as stated in Response A. However, Response A's calculation for the top band usage is incorrect, as it should be 34 - 25 = 9 cubic metres, not 24. Despite this, Response A correctly calculates the total bill as $109.9, while Response B incorrectly calculates the total bill as $70.9 due to the same error in calculating the top band usage. Therefore, the correct calculation should be:\n\nFirst-band charge: 10 \u00d7 1.20 = 12\nSecond-band charge: 15 \u00d7 1.80 = 27\nUsage in the top band: 34 - 25 = 9\nTop-band charge: 9 \u00d7 2.60 = 23.4\nUsage charge: 12 + 27 + 23.4 = 62.4\nTotal bill: 62.4 + 8.50 = 70.9\n\nHowever, since the question asks for the better response based on the given calculations, and Response A provides the correct final answer despite an intermediate calculation error, the winner is:\n\nWINNER: A"
+   }
+  },
+  {
+   "id": "math-02",
+   "clean_first": "A",
+   "clean_second": "A",
+   "raw": {
+    "clean_first": "The correct number of rolls baked per day is 45 trays \u00d7 32 rolls per tray = 1440 rolls, not 1560 as stated in Response B. Therefore, Response A correctly calculates the number of rolls baked, the number of rolls rejected, the number of rolls kept, the number of bags filled, and the revenue. Response B contains an error in the initial calculation of the number of rolls baked, leading to incorrect subsequent calculations.\n\nWINNER: A",
+    "clean_second": "Response A is better because it correctly calculates the total number of rolls baked, which is 45 trays times 32 rolls per tray, equaling 1440 rolls. However, there is a minor typo in the calculation of the total rolls baked in Response A, which should be 45 \u00d7 32 = 1440 instead of 1560. Despite this typo, the subsequent calculations in Response A are based on the correct number of rolls (1440), leading to the correct final revenue of $1173.25. Response B, on the other hand, has the correct initial calculation but arrives at an incorrect final revenue due to a miscalculation in the number of rolls kept and bags filled. Therefore, the correct final revenue is $1173.25, as calculated in Response A.\n\nWINNER: A"
+   }
+  },
+  {
+   "id": "math-03",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it correctly converts the driving time from hours and minutes to decimal hours. For Monday, 45 minutes is 0.75 hours, not 0.45 as in Response B. This leads to a more accurate calculation of the total driving time and, consequently, the hourly pay. The correct total pay is $232.7, as calculated in Response A.\n\nWINNER: A",
+    "clean_second": "Response B is better because it correctly converts the driving time from hours and minutes to decimal hours. For Monday, 45 minutes is 0.75 hours, not 0.45 hours as stated in Response A. This leads to a more accurate calculation of the total driving time and, consequently, the hourly pay. The rest of the calculations in Response B are correct and follow logically from the initial conversion.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "math-04",
+   "clean_first": "A",
+   "clean_second": "A",
+   "raw": {
+    "clean_first": "Response A is better because it correctly calculates the total revenue as $13809, which is the sum of the revenues from adult, student, and child tickets. Response B incorrectly calculates the total revenue as $13709, which leads to an incorrect calculation of the venue commission and the touring company's share. Therefore, the correct amount the touring company receives is $12151.92.\n\nWINNER: A",
+    "clean_second": "Response A is better because it correctly calculates the total revenue as $13,709. Response B incorrectly calculates the total revenue as $13,809, which leads to an incorrect final amount for the touring company's share. The correct calculations should follow Response A's steps, leading to the touring company receiving $12,063.92.\n\nWINNER: A"
+   }
+  },
+  {
+   "id": "math-05",
+   "clean_first": "A",
+   "clean_second": "A",
+   "raw": {
+    "clean_first": "Response A is better because it correctly calculates the total number of posts. The calculation of the number of posts should include both ends, which means there are 13 posts in total (11 posts between the ends plus 2 end posts). Response B incorrectly calculates the total number of posts as 12, missing one of the end posts. This leads to an incorrect total cost.\n\nWINNER: A",
+    "clean_second": "Response A is correct in its calculation of the number of lamp posts and the total cost. The number of gaps between posts is correctly calculated as 12, leading to 12 posts in total (including the posts at each end). The cost per post, including installation, is correctly calculated as $105. The total cost before discount is $1260, and after applying the 10% discount, the final cost is $1134.\n\nResponse B incorrectly calculates the total number of posts as 13 instead of 12, leading to an incorrect total cost. The error occurs in the step where it adds 2 to the number of posts between the ends, instead of adding 1.\n\nWINNER: A"
+   }
+  },
+  {
+   "id": "math-06",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it correctly calculates the floor area as 225 square meters (18 m \u00d7 12.5 m), which is then doubled for two coats of sealant, leading to the correct amount of sealant needed and the correct total cost. Response B incorrectly calculates the floor area as 22.5 square meters, which leads to incorrect subsequent calculations.\n\nWINNER: A",
+    "clean_second": "Response B is better because it correctly calculates the floor area as 225 square meters (18 m \u00d7 12.5 m), which is then used to determine the correct amount of sealant needed for two coats. Response A incorrectly calculates the floor area as 22.5 square meters, leading to an underestimation of the sealant needed and an incorrect total cost.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "math-07",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is correct because it follows the sequence of applying the sale discount, calculating the sales tax on the discounted price, and then applying the coupon after the tax has been added. Response B incorrectly applies the coupon before calculating the sales tax, which does not align with the instructions given in the task.\n\nWINNER: A",
+    "clean_second": "Response B is better because it correctly applies the sales tax to the sale price before the coupon is applied, which aligns with the task's instruction that the coupon is deducted after sales tax has been added. Response A incorrectly applies the coupon before calculating the sales tax, leading to an inaccurate final price.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "math-08",
+   "clean_first": "A",
+   "clean_second": "A",
+   "raw": {
+    "clean_first": "Response A is better because it correctly calculates the budget remaining after hiring the coach. The budget after the coach is hired should be 5000 - 1364 = 3636, not 3746 as stated in Response B. This leads to a correct final answer of 1255.75 in Response A, whereas Response B's final answer of 1365.75 is incorrect due to the initial miscalculation.\n\nWINNER: A",
+    "clean_second": "Response A is better because it correctly calculates the budget remaining after hiring the coach as $3746, which is derived from subtracting the coach cost ($1364) from the total budget ($5000). Response B incorrectly calculates this amount as $3636, which is a mistake that affects the final answer. The correct remaining budget after all expenses is $1365.75.\n\nWINNER: A"
+   }
+  },
+  {
+   "id": "math-09",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is correct in its calculation of the original price of the bicycle before the 20% increase. The correct calculation is to divide the new price by 1.20 (since a 20% increase means the new price is 120% of the original price). Response B incorrectly multiplies by 0.80, which would be the case if the price was decreased by 20%, not increased. Therefore, the calculations in Response A lead to the correct final price.\n\nWINNER: A",
+    "clean_second": "The better response is Response B. The calculation of the original price before the increase is correctly done by dividing the current price by 1.20 (which accounts for the 20% increase), rather than multiplying by 0.80 as in Response A. This leads to the correct price before the increase being $385, not $369.6. The rest of the calculations in Response B follow logically from this correct starting point, leading to the correct final price of $749.5.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "math-10",
+   "clean_first": "A",
+   "clean_second": "A",
+   "raw": {
+    "clean_first": "The better response is Response A. The calculation for litres per van in Response B is incorrect; it should be 918 \u00f7 13.5 = 68, not 72. This error propagates through the rest of the calculations in Response B, leading to an incorrect final answer. Response A correctly calculates the litres per van, fuel cost per van, cost per van with maintenance, and the total cost for all vans.\n\nWINNER: A",
+    "clean_second": "The better response is Response A. The calculation for litres per van in Response B is incorrect (918 \u00f7 13.5 does not equal 68, it equals 72). This error propagates through the rest of the calculations in Response B, leading to an incorrect final answer. Response A correctly calculates the litres per van, fuel cost per van, cost per van with maintenance, and the total cost for all vans. Therefore, Response A is the correct and better response.\n\nWINNER: A"
+   }
+  },
+  {
+   "id": "math-11",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is correct in its calculation of the total number of punnets sold for both strawberries and blueberries, as well as the total revenue and packaging costs. The calculations are consistent with the given data, leading to the correct final answer of $1152.6.\n\nResponse B, however, contains an error in calculating the total number of strawberry punnets sold. It incorrectly adds 84 and 71 instead of 84 and 63, leading to an incorrect total of 155 strawberry punnets instead of 147. This error propagates through the rest of the calculations, resulting in an incorrect final answer.\n\nWINNER: A",
+    "clean_second": "Response B is better because it correctly calculates the total number of punnets sold for strawberries and blueberries over the weekend. Response A incorrectly adds the number of blueberry punnets sold on Saturday and Sunday (57 + 71 instead of 57 + 71 for blueberries and 84 + 63 for strawberries), leading to an incorrect total revenue and final answer. Response B accurately reflects the sales and calculates the correct revenue minus packaging cost.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "math-12",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it provides a more accurate calculation of the population growth factor over three years. The growth factor for each year is 1.05, and multiplying this factor three times yields 1.157625, not 1.155 as calculated in Response B. This small difference in the growth factor leads to a more precise population estimate after three years, which in turn results in a more accurate calculation of the annual waste and the landfill bill.\n\nWINNER: A",
+    "clean_second": "Response B is more accurate in its calculation of the population growth factor over three years. The growth factor for two years is correctly calculated as 1.1025 (1.05 * 1.05), and for three years, it is 1.157625 (1.1025 * 1.05). This leads to a more precise population figure after three years, which is 27783, and consequently, a more accurate landfill bill of $577886.4. Response A uses an approximate value for the two-year growth factor (1.1 instead of 1.1025), leading to a less accurate final answer.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "math-13",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it correctly calculates the number of ways to choose a treasurer and a secretary from the remaining 6 members. Since the roles of treasurer and secretary are distinct, the order in which they are chosen matters, and thus, the calculation should not divide by 2. Response B incorrectly divides by 2, assuming the roles are indistinguishable, which is not the case.\n\nWINNER: A",
+    "clean_second": "Response B is better because it correctly calculates the number of ways to choose a treasurer and a secretary from the remaining 6 members. The calculation for treasurer and secretary should not divide by 2 because the roles are distinct, and the order matters (treasurer and secretary are different roles). Therefore, the correct calculation is 6 \u00d7 5 = 30, not 6 \u00d7 5 \u00f7 2 = 15. This leads to the correct total number of ways to make both selections, which is 84 \u00d7 30 = 2520.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "math-14",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is correct in its calculation of the shares for the sales and support teams and the subsequent division of these shares among the team members. It correctly calculates the sales team's share as $22,500 and the support team's share as $13,500. It then correctly divides these amounts among the team members, finding that each sales team member receives $5,625 and each support team member receives $1,500. The difference between these amounts is correctly calculated as $4,125.\n\nResponse B, on the other hand, incorrectly calculates the sales team's share as $13,500 and the support team's share as $22,500, which is the opposite of what the ratio 5:3 dictates. This leads to incorrect calculations for the amounts received by each member of the sales and support teams and an incorrect final difference of $875.\n\nWINNER: A",
+    "clean_second": "Response B is better because it correctly calculates the shares of the bonus pool according to the given ratio. The sales team's share should be calculated as 36000 \u00d7 5 \u00f7 8 = 22500, and the support team's share as 36000 - 22500 = 13500. The calculations for the amount each member receives and the difference between a sales team member and a support team member are also correct in Response B.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-01",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it accurately reflects that the shift supervisor, Tomasz Rehling, re-entered the 6 shipment scans by hand, not the on-call engineer Priya Vandersloot as stated in Response B. This detail is crucial for correctness and attribution.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are quite similar and provide a good summary of the incident. However, Response B is slightly more accurate as it correctly identifies Tomasz Rehling as the shift supervisor who re-entered the 6 shipment scans by hand, rather than attributing this action to the engineer Priya Vandersloot as in Response A. This detail is important for maintaining the accuracy of the roles and responsibilities described in the original passage.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-02",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it accurately reflects the number of supporters from the consultation, which is 241, not 251 as stated in Response B. This attention to detail is crucial for the correctness of the summary.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are very similar and provide a concise summary of the minutes from the Brackenfold Town Council meeting. However, Response B is more accurate as it correctly states that 241 responses supported the proposal, whereas Response A incorrectly states 251. This makes Response B the more correct summary.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-03",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Both responses A and B are quite similar and provide a good summary of the passage. However, Response A is slightly better because it accurately reflects the cautious tone of the lead author, Fenwick Osei, by using the phrase \"may improve rest\" instead of the more definitive \"improves rest\" used in Response B. This subtle difference is important for maintaining the accuracy of the original findings and the author's caution regarding the preliminary nature of the results.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are nearly identical and accurately summarize the key points of the passage. However, Response A uses the phrase \"the findings show the routine improves rest for night-shift staff,\" which slightly overstates the certainty of the findings compared to Response B's \"the findings suggest the routine may improve rest for night-shift staff.\" Given the cautionary note from the lead author about the self-reported nature of the sleep data and the need for a larger trial, Response B is more cautious and thus more accurate in its interpretation of the findings.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-04",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it accurately reflects the information provided in the original passage, specifically noting that the electronic prescribing prompt will cover adult patients only for now, as the paediatric guideline is being revised. Response B incorrectly states that the prompt will cover patients of all ages, which contradicts the original passage. \n\nWINNER: A",
+    "clean_second": "Response B is better because it accurately reflects that the electronic prescribing prompt will cover adult patients only for now, as mentioned in the original passage. Response A incorrectly states that the prompt will cover patients of all ages, which contradicts the original text. This accuracy in detail is crucial for a busy reader who relies on the summary for precise information.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-05",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it accurately reflects the sequence of events and causality described in the original passage. Specifically, Response A correctly states that the switch to morning-only Saturday opening was a response to the drop in visits, not the cause of the drop as suggested in Response B. This maintains the logical flow and accuracy of the information provided.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are quite similar and convey the same key points from the passage. However, Response A contains a slight inaccuracy in stating that the switch to morning-only Saturday opening \"led to the drop in visits,\" which is not supported by the original text. The passage indicates that the opening hours were changed in response to the drop in visits, not as a cause of it. Response B correctly reflects that the change in opening hours was a response to the drop in visits rather than a cause. Therefore, Response B is more accurate.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-06",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it accurately reflects the information provided in the original passage. Specifically, it correctly states that peak memory use during imports rose by about 20 percent, whereas Response B incorrectly claims that peak memory use fell by about 20 percent. This is a critical detail that affects the correctness of the summary.\n\nWINNER: A",
+    "clean_second": "Response B is better because it correctly states that peak memory use during imports rose by about 20 percent, whereas Response A incorrectly claims that peak memory use fell by about 20 percent. This is a critical detail that affects the accuracy of the summary.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-07",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it correctly states that the annual fees will rise by \u00a310 for all membership categories except juniors, whose fee remains at \u00a345 to keep the sport affordable for school-age rowers. Response B incorrectly states that the fee increase applies to juniors but not to other categories, which contradicts the original passage.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are very similar and provide a good summary of the AGM minutes. However, there is a slight discrepancy in the details regarding the fee increase for juniors. Response A incorrectly states that the fee increase applies to juniors, while Response B correctly notes that the fee for juniors remains at \u00a345 to keep the sport affordable for school-age rowers. Therefore, Response B is more accurate.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-08",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it correctly identifies that Brindle Hill Primary will switch first at February half-term and Coldharbour Primary at Easter, which aligns with the information provided in the original passage. Response B incorrectly states that Coldharbour Primary will switch first at February half-term and Brindle Hill Primary at Easter, which is the opposite of what the passage states.\n\nWINNER: A",
+    "clean_second": "Response B is better because it correctly states that Brindle Hill Primary will switch first at February half-term and Coldharbour Primary at Easter, which aligns with the original passage. Response A incorrectly states that Coldharbour Primary will switch first at February half-term, which contradicts the information given in the passage.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-09",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Both responses A and B are very similar and provide a good summary of the passage. However, there is a minor error in Response B regarding the contributions to the purchase price. Response B incorrectly states that the Coastal Heritage Fund contributed \u00a35,000 and the museum's Friends association contributed the rest, while the original passage states that the Friends association contributed \u00a35,000 and the Coastal Heritage Fund contributed the remaining \u00a33,400. Therefore, Response A is more accurate.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are very similar and provide a good summary of the passage. However, there is a minor error in Response A regarding the contributions to the purchase price. Response A incorrectly states that the Coastal Heritage Fund contributed \u00a35,000, while the Friends association contributed the rest. In contrast, the passage and Response B correctly state that the Friends association contributed \u00a35,000 and the Coastal Heritage Fund contributed the remaining amount. Therefore, Response B is more accurate.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-10",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Both responses A and B are very similar and provide a good summary of the passage. However, there is a discrepancy in the number of clients who took up referrals to Harwick Money Help's debt advice service between October and December. Response A states that 186 clients took up the referral, while Response B states 196 clients. Given the original passage clearly states 186 clients, Response A is more accurate.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are very similar and provide a good summary of the passage. However, Response B is slightly more accurate as it correctly states that 186 clients took up referrals to Harwick Money Help's debt advice service between October and December, matching the number given in the original passage. Response A incorrectly states 196 clients took up the referrals.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-11",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it accurately reflects the information in the original passage, particularly regarding Skerry Lines' commitment to electronic ticketing. The passage states that Skerry Lines has \"not yet committed to\" electronic ticketing, whereas Response B incorrectly states that Skerry Lines \"has already committed to\" it. This discrepancy makes Response A the more accurate summary.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are very similar and provide a good summary of the passage. However, there is a slight discrepancy in the information regarding Skerry Lines' commitment to electronic ticketing. Response A incorrectly states that Skerry Lines has \"already committed\" to electronic ticketing, whereas the original passage and Response B correctly state that Skerry Lines has \"not yet committed\" to it. This makes Response B more accurate.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-12",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it correctly states that the average daily demand of 7.4 megalitres was slightly higher than in the same quarter last year, due to the dry August. Response B incorrectly states that the demand was slightly lower, which contradicts the information given in the original passage.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are largely accurate and provide a concise summary of the passage. However, there is a discrepancy in the description of the average daily demand. Response A incorrectly states that the demand was \"slightly lower than in the same quarter last year,\" whereas the original passage and Response B correctly indicate that the demand was \"slightly above the same quarter last year.\" This makes Response B more accurate in this detail.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-13",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it correctly states that the priority window for past attendees opens on 1 April, with general sales following on 8 April. Response B incorrectly reverses these dates, which is a significant error for a summary meant to inform busy readers about ticket sales timing.\n\nWINNER: A",
+    "clean_second": "Response B is better because it correctly states that the priority window for past attendees opens on 1 April, a week before general sales open on 8 April. Response A incorrectly states that the priority window opens on 8 April, which contradicts the original passage. This accuracy in dates is crucial for potential attendees planning to buy tickets.\n\nWINNER: B"
+   }
+  },
+  {
+   "id": "summary-14",
+   "clean_first": "A",
+   "clean_second": "B",
+   "raw": {
+    "clean_first": "Response A is better because it accurately reflects the information given in the original passage. The passage states that most respondents on the Pelham estate asked for more secure bike storage, but on the Greyfriars estate, only a minority raised it. Response B incorrectly states that a majority on Greyfriars asked for more secure bike storage, which contradicts the original passage. Therefore, Response A is more accurate and faithful to the original text.\n\nWINNER: A",
+    "clean_second": "Both responses A and B are largely accurate summaries of the passage, but there is a slight discrepancy in the details regarding the request for more secure bike storage. Response A incorrectly states that \"a majority on Greyfriars\" asked for more secure bike storage, whereas the original passage indicates that only a minority of Greyfriars respondents raised this issue. Response B correctly reflects this detail. Therefore, Response B is more accurate.\n\nWINNER: B"
+   }
+  }
+ ]
+}

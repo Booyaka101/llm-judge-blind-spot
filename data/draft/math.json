@@ -1,0 +1,240 @@
+[
+  {
+    "id": "math-01",
+    "domain": "math",
+    "task": "A water utility bills monthly usage in bands. The first 10 cubic metres cost $1.20 per cubic metre, the next 15 cubic metres (usage above 10 and up to 25) cost $1.80 per cubic metre, and every cubic metre above 25 costs $2.60. Every account also pays a fixed service charge of $8.50 per month. A household uses 34 cubic metres in one month. What is its total bill for that month, in dollars?",
+    "clean": "First-band charge: 10 × 1.20 = 12\nSecond-band charge: 15 × 1.80 = 27\nUsage in the top band: 34 - 25 = 9\nTop-band charge: 9 × 2.60 = 23.4\nUsage charge: 12 + 27 + 23.4 = 62.4\nTotal bill: 62.4 + 8.50 = 70.9\nFinal answer: 70.9",
+    "subtle": "First-band charge: 10 × 1.20 = 12\nSecond-band charge: 15 × 1.80 = 27\nUsage in the top band: 34 - 10 = 24\nTop-band charge: 24 × 2.60 = 62.4\nUsage charge: 12 + 27 + 62.4 = 101.4\nTotal bill: 101.4 + 8.50 = 109.9\nFinal answer: 109.9",
+    "subtle_defect": "Line 3 measures top-band usage from 10 instead of 25 (34 - 10 = 24). The top band only starts above 25 cubic metres, so only 9 cubic metres belong there; the 15 cubic metres between 10 and 25 are billed twice, once at $1.80 and again at $2.60. Correct top-band usage is 9, top-band charge 23.4, total 70.9.",
+    "subtle_defect_type": "wrong-tier-boundary",
+    "obvious": "First-band charge: 10 × 1.20 = 12\nSecond-band charge: 15 × 1.80 = 27\nUsage in the top band: 34 - 25 = 9\nTop-band charge: 9 × 2.60 = 23.4\nUsage charge: 12 + 27 + 23.4 = 62.4\nTotal bill: 62.4 + 8.50 = 70.9\nFinal answer: 62.4",
+    "obvious_defect": "The final line gives 62.4 (the usage charge before the service fee) although the line directly above computes the total bill as 70.9.",
+    "padded": "We need the household's total water bill for the month. Since the price changes between bands, let's think about this carefully and split the usage first.\n\nFirst-band charge: 10 × 1.20 = 12\nSecond-band charge: 15 × 1.80 = 27\nUsage in the top band: 34 - 25 = 9\nTop-band charge: 9 × 2.60 = 23.4\nUsage charge: 12 + 27 + 23.4 = 62.4\nTotal bill: 62.4 + 8.50 = 70.9\n\nTo recap, each band is billed at its own rate and the fixed service charge is added at the end.\n\nFinal answer: 70.9",
+    "verify": {
+      "answer_clean": 70.9,
+      "answer_subtle": 109.9,
+      "python": "u = 34\nans = 10 * 1.20 + 15 * 1.80 + (u - 25) * 2.60 + 8.50"
+    }
+  },
+  {
+    "id": "math-02",
+    "domain": "math",
+    "task": "A bakery bakes 45 trays of rolls per day, and each tray holds 32 rolls. Before bagging, 5% of the rolls baked are rejected for quality. The remaining rolls are packed in bags of 6, and each bag sells for $4.75. If every bag is sold, what is the bakery's daily revenue from rolls, in dollars?",
+    "clean": "Rolls baked: 45 × 32 = 1440\nRolls rejected: 1440 × 0.05 = 72\nRolls kept: 1440 - 72 = 1368\nBags filled: 1368 ÷ 6 = 228\nRevenue: 228 × 4.75 = 1083\nFinal answer: 1083",
+    "subtle": "Rolls baked: 45 × 32 = 1560\nRolls rejected: 1560 × 0.05 = 78\nRolls kept: 1560 - 78 = 1482\nBags filled: 1482 ÷ 6 = 247\nRevenue: 247 × 4.75 = 1173.25\nFinal answer: 1173.25",
+    "subtle_defect": "Line 1 multiplies wrongly: 45 × 32 is 1440, not 1560. Every later line is computed correctly from 1560, so the error propagates to 78 rejected, 1482 kept, 247 bags and revenue 1173.25 instead of 1083.",
+    "subtle_defect_type": "arith-multiplication",
+    "obvious": "Rolls baked: 45 × 32 = 1440\nRolls rejected: 1440 × 0.05 = 72\nRolls kept: 1440 - 72 = 1368\nBags filled: 1368 ÷ 6 = 228\nRevenue: 228 × 4.75 = 1083\nFinal answer: 228",
+    "obvious_defect": "The final line gives 228 (the number of bags) although the line directly above computes the revenue as 1083.",
+    "padded": "The question asks for the daily revenue from rolls. Let's go through it carefully, one step at a time.\n\nRolls baked: 45 × 32 = 1440\nRolls rejected: 1440 × 0.05 = 72\nRolls kept: 1440 - 72 = 1368\nBags filled: 1368 ÷ 6 = 228\nRevenue: 228 × 4.75 = 1083\n\nSo we remove the rejected rolls, bag the rest in sixes, and price the bags.\n\nFinal answer: 1083",
+    "verify": {
+      "answer_clean": 1083,
+      "answer_subtle": 1173.25,
+      "python": "baked = 45 * 32\nkept = baked * (1 - 0.05)\nans = kept / 6 * 4.75"
+    }
+  },
+  {
+    "id": "math-03",
+    "domain": "math",
+    "task": "A courier is paid $22 per hour of driving time plus a fuel allowance of $0.35 per kilometre driven. On Monday she drove for 3 hours 45 minutes and covered 168 km. On Tuesday she drove for 2 hours 30 minutes and covered 104 km. What is her total pay for the two days, in dollars?",
+    "clean": "Monday driving time in hours: 3 + 0.75 = 3.75\nTuesday driving time in hours: 2 + 0.5 = 2.5\nTotal driving time in hours: 3.75 + 2.5 = 6.25\nHourly pay: 6.25 × 22 = 137.5\nTotal distance in km: 168 + 104 = 272\nFuel allowance: 272 × 0.35 = 95.2\nTotal pay: 137.5 + 95.2 = 232.7\nFinal answer: 232.7",
+    "subtle": "Monday driving time in hours: 3 + 0.45 = 3.45\nTuesday driving time in hours: 2 + 0.5 = 2.5\nTotal driving time in hours: 3.45 + 2.5 = 5.95\nHourly pay: 5.95 × 22 = 130.9\nTotal distance in km: 168 + 104 = 272\nFuel allowance: 272 × 0.35 = 95.2\nTotal pay: 130.9 + 95.2 = 226.1\nFinal answer: 226.1",
+    "subtle_defect": "Line 1 converts 45 minutes to 0.45 hours, treating minutes as a decimal fraction of an hour. 45 minutes is 45/60 = 0.75 hours, so Monday is 3.75 hours, not 3.45. The later lines are arithmetically correct but inherit the 0.3-hour shortfall: 5.95 hours, hourly pay 130.9, total 226.1 instead of 232.7.",
+    "subtle_defect_type": "unit-conversion-minutes-as-decimal",
+    "obvious": "Monday driving time in hours: 3 + 0.75 = 3.75\nTuesday driving time in hours: 2 + 0.5 = 2.5\nTotal driving time in hours: 3.75 + 2.5 = 6.25\nHourly pay: 6.25 × 22 = 137.5\nTotal distance in km: 168 + 104 = 272\nFuel allowance: 272 × 0.35 = 95.2\nTotal pay: 137.5 + 95.2 = 232.7\nFinal answer: 327.2",
+    "obvious_defect": "The final line gives 327.2 although the line directly above computes the total pay as 232.7.",
+    "padded": "We have to find the courier's combined pay for Monday and Tuesday. Her pay has two parts, an hourly rate and a per-kilometre fuel allowance, so we handle time and distance separately.\n\nMonday driving time in hours: 3 + 0.75 = 3.75\nTuesday driving time in hours: 2 + 0.5 = 2.5\nTotal driving time in hours: 3.75 + 2.5 = 6.25\nHourly pay: 6.25 × 22 = 137.5\nTotal distance in km: 168 + 104 = 272\nFuel allowance: 272 × 0.35 = 95.2\nTotal pay: 137.5 + 95.2 = 232.7\n\nIn summary, the driving times are converted to hours and paid at the hourly rate, the distances are paid at the fuel rate, and the two amounts are summed.\n\nFinal answer: 232.7",
+    "verify": {
+      "answer_clean": 232.7,
+      "answer_subtle": 226.1,
+      "python": "hours = (3 + 45 / 60) + (2 + 30 / 60)\nans = hours * 22 + (168 + 104) * 0.35"
+    }
+  },
+  {
+    "id": "math-04",
+    "domain": "math",
+    "task": "A touring show sold 385 adult tickets at $24 each, 247 student tickets at $15 each and 96 child tickets at $9 each. The venue keeps a 12% commission on total ticket revenue and pays the rest to the touring company. How much does the touring company receive, in dollars?",
+    "clean": "Adult revenue: 385 × 24 = 9240\nStudent revenue: 247 × 15 = 3705\nChild revenue: 96 × 9 = 864\nTotal revenue: 9240 + 3705 + 864 = 13809\nVenue commission: 13809 × 0.12 = 1657.08\nCompany share: 13809 - 1657.08 = 12151.92\nFinal answer: 12151.92",
+    "subtle": "Adult revenue: 385 × 24 = 9240\nStudent revenue: 247 × 15 = 3705\nChild revenue: 96 × 9 = 864\nTotal revenue: 9240 + 3705 + 864 = 13709\nVenue commission: 13709 × 0.12 = 1645.08\nCompany share: 13709 - 1645.08 = 12063.92\nFinal answer: 12063.92",
+    "subtle_defect": "Line 4 drops a carry in the addition: 9240 + 3705 + 864 is 13809, not 13709. The commission and company share are computed correctly from the wrong total, giving 12063.92 instead of 12151.92.",
+    "subtle_defect_type": "arith-addition-carry",
+    "obvious": "Adult revenue: 385 × 24 = 9240\nStudent revenue: 247 × 15 = 3705\nChild revenue: 96 × 9 = 864\nTotal revenue: 9240 + 3705 + 864 = 13809\nVenue commission: 13809 × 0.12 = 1657.08\nCompany share: 13809 - 1657.08 = 12151.92\nFinal answer: 1657.08",
+    "obvious_defect": "The final line gives 1657.08 (the venue's commission) although the line directly above computes the company's share as 12151.92.",
+    "padded": "The question wants the touring company's payment after the venue's cut. Let's take it step by step.\n\nAdult revenue: 385 × 24 = 9240\nStudent revenue: 247 × 15 = 3705\nChild revenue: 96 × 9 = 864\nTotal revenue: 9240 + 3705 + 864 = 13809\nVenue commission: 13809 × 0.12 = 1657.08\nCompany share: 13809 - 1657.08 = 12151.92\n\nPutting that together, we priced each ticket type, took 12% of the total as commission, and the company receives what is left.\n\nFinal answer: 12151.92",
+    "verify": {
+      "answer_clean": 12151.92,
+      "answer_subtle": 12063.92,
+      "python": "revenue = 385 * 24 + 247 * 15 + 96 * 9\nans = revenue * (1 - 0.12)"
+    }
+  },
+  {
+    "id": "math-05",
+    "domain": "math",
+    "task": "A straight garden path is 42 metres long. Lamp posts are installed along one side of it, with one post at each end and posts every 3.5 metres in between. Each lamp post costs $86 and installing it costs a further $19. The contractor gives a 10% discount on the combined cost of posts and installation. What is the total cost, in dollars?",
+    "clean": "Gaps between posts: 42 ÷ 3.5 = 12\nPosts between the two ends: 12 - 1 = 11\nTotal posts: 11 + 2 = 13\nCost per installed post: 86 + 19 = 105\nCost before discount: 13 × 105 = 1365\nDiscount: 1365 × 0.10 = 136.5\nTotal cost: 1365 - 136.5 = 1228.5\nFinal answer: 1228.5",
+    "subtle": "Gaps between posts: 42 ÷ 3.5 = 12\nPosts between the two ends: 12 - 1 = 11\nTotal posts: 11 + 1 = 12\nCost per installed post: 86 + 19 = 105\nCost before discount: 12 × 105 = 1260\nDiscount: 1260 × 0.10 = 126\nTotal cost: 1260 - 126 = 1134\nFinal answer: 1134",
+    "subtle_defect": "Line 3 adds only one end post to the 11 interior posts. The task puts a post at each end, so there are 11 + 2 = 13 posts (one more than the 12 gaps). With 12 posts every later line is arithmetically right but the total is 1134 instead of 1228.5.",
+    "subtle_defect_type": "fence-post-off-by-one",
+    "obvious": "Gaps between posts: 42 ÷ 3.5 = 12\nPosts between the two ends: 12 - 1 = 11\nTotal posts: 11 + 2 = 13\nCost per installed post: 86 + 19 = 105\nCost before discount: 13 × 105 = 1365\nDiscount: 1365 × 0.10 = 136.5\nTotal cost: 1365 - 136.5 = 1228.5\nFinal answer: 1365",
+    "obvious_defect": "The final line gives 1365 (the pre-discount cost) although the line directly above computes the discounted total as 1228.5.",
+    "padded": "We are asked for the total cost of lighting the path. The first job is to count the posts correctly, remembering there is one at each end.\n\nGaps between posts: 42 ÷ 3.5 = 12\nPosts between the two ends: 12 - 1 = 11\nTotal posts: 11 + 2 = 13\nCost per installed post: 86 + 19 = 105\nCost before discount: 13 × 105 = 1365\nDiscount: 1365 × 0.10 = 136.5\nTotal cost: 1365 - 136.5 = 1228.5\n\nSo the post count is one more than the number of gaps, and the 10% discount comes off the combined cost.\n\nFinal answer: 1228.5",
+    "verify": {
+      "answer_clean": 1228.5,
+      "answer_subtle": 1134,
+      "python": "posts = 42 / 3.5 + 1\nans = posts * (86 + 19) * (1 - 0.10)"
+    }
+  },
+  {
+    "id": "math-06",
+    "domain": "math",
+    "task": "A rectangular hall floor measures 18 m by 12.5 m. It needs two coats of sealant, and one litre of sealant covers 7.5 square metres per coat. Sealant costs $12.80 per litre, and a 5% sales tax is added to the price. What is the total cost of the sealant, in dollars?",
+    "clean": "Floor area in square metres: 18 × 12.5 = 225\nArea to cover for two coats: 225 × 2 = 450\nLitres needed: 450 ÷ 7.5 = 60\nPrice before tax: 60 × 12.80 = 768\nSales tax: 768 × 0.05 = 38.4\nTotal cost: 768 + 38.4 = 806.4\nFinal answer: 806.4",
+    "subtle": "Floor area in square metres: 18 × 12.5 = 22.5\nArea to cover for two coats: 22.5 × 2 = 45\nLitres needed: 45 ÷ 7.5 = 6\nPrice before tax: 6 × 12.80 = 76.8\nSales tax: 76.8 × 0.05 = 3.84\nTotal cost: 76.8 + 3.84 = 80.64\nFinal answer: 80.64",
+    "subtle_defect": "Line 1 misplaces the decimal point: 18 × 12.5 is 225, not 22.5. Every later line is correct arithmetic on the wrong area, so the litres, price and tax are all a tenth of their true values and the total is 80.64 instead of 806.4.",
+    "subtle_defect_type": "arith-decimal-shift",
+    "obvious": "Floor area in square metres: 18 × 12.5 = 225\nArea to cover for two coats: 225 × 2 = 450\nLitres needed: 450 ÷ 7.5 = 60\nPrice before tax: 60 × 12.80 = 768\nSales tax: 768 × 0.05 = 38.4\nTotal cost: 768 + 38.4 = 806.4\nFinal answer: 8064",
+    "obvious_defect": "The final line gives 8064 although the line directly above computes the total cost as 806.4.",
+    "padded": "The task is to cost the sealant for the hall floor, including sales tax. Let's work through each part carefully.\n\nFloor area in square metres: 18 × 12.5 = 225\nArea to cover for two coats: 225 × 2 = 450\nLitres needed: 450 ÷ 7.5 = 60\nPrice before tax: 60 × 12.80 = 768\nSales tax: 768 × 0.05 = 38.4\nTotal cost: 768 + 38.4 = 806.4\n\nIn other words, area times two coats gives the coverage needed, dividing by coverage per litre gives the litres, and the litre price plus 5% tax gives the total.\n\nFinal answer: 806.4",
+    "verify": {
+      "answer_clean": 806.4,
+      "answer_subtle": 80.64,
+      "python": "area = 18 * 12.5\nlitres = area * 2 / 7.5\nans = litres * 12.80 * 1.05"
+    }
+  },
+  {
+    "id": "math-07",
+    "domain": "math",
+    "task": "An online store lists a jacket at $140. During a sale, everything is 25% off the listed price. Sales tax of 8% is charged on the sale price. A customer also has a $15 coupon, which the store deducts after sales tax has been added. How much does the customer pay, in dollars?",
+    "clean": "Sale discount: 140 × 0.25 = 35\nSale price: 140 - 35 = 105\nSales tax: 105 × 0.08 = 8.4\nPrice with tax: 105 + 8.4 = 113.4\nAmount paid after coupon: 113.4 - 15 = 98.4\nFinal answer: 98.4",
+    "subtle": "Sale discount: 140 × 0.25 = 35\nSale price: 140 - 35 = 105\nPrice after coupon: 105 - 15 = 90\nSales tax: 90 × 0.08 = 7.2\nAmount paid with tax: 90 + 7.2 = 97.2\nFinal answer: 97.2",
+    "subtle_defect": "Line 3 deducts the $15 coupon before tax, but the task says the coupon is deducted after sales tax is added and tax is charged on the sale price. Tax should be 8% of 105 (8.4), not of 90 (7.2). The arithmetic in every line is right; the order of operations is wrong, giving 97.2 instead of 98.4.",
+    "subtle_defect_type": "coupon-applied-before-tax",
+    "obvious": "Sale discount: 140 × 0.25 = 35\nSale price: 140 - 35 = 105\nSales tax: 105 × 0.08 = 8.4\nPrice with tax: 105 + 8.4 = 113.4\nAmount paid after coupon: 113.4 - 15 = 98.4\nFinal answer: 113.4",
+    "obvious_defect": "The final line gives 113.4 (the price before the coupon) although the line directly above computes the amount paid as 98.4.",
+    "padded": "We need what the customer actually pays. The order matters here, so let's think about this carefully.\n\nSale discount: 140 × 0.25 = 35\nSale price: 140 - 35 = 105\nSales tax: 105 × 0.08 = 8.4\nPrice with tax: 105 + 8.4 = 113.4\nAmount paid after coupon: 113.4 - 15 = 98.4\n\nRecapping, the sale discount comes first, tax is added on the sale price, and the coupon comes off last.\n\nFinal answer: 98.4",
+    "verify": {
+      "answer_clean": 98.4,
+      "answer_subtle": 97.2,
+      "python": "sale = 140 * (1 - 0.25)\nans = sale * 1.08 - 15"
+    }
+  },
+  {
+    "id": "math-08",
+    "domain": "math",
+    "task": "A school has a budget of $5000 for a field trip. Hiring the coach costs $1364. Museum entry costs $14.50 per student for 112 students, and the 9 accompanying teachers get in free. Lunch costs $6.25 per person for every student and teacher. How much of the budget is left after these costs, in dollars?",
+    "clean": "Budget after coach hire: 5000 - 1364 = 3636\nMuseum entry: 112 × 14.50 = 1624\nPeople having lunch: 112 + 9 = 121\nLunch cost: 121 × 6.25 = 756.25\nMuseum and lunch together: 1624 + 756.25 = 2380.25\nBudget remaining: 3636 - 2380.25 = 1255.75\nFinal answer: 1255.75",
+    "subtle": "Budget after coach hire: 5000 - 1364 = 3746\nMuseum entry: 112 × 14.50 = 1624\nPeople having lunch: 112 + 9 = 121\nLunch cost: 121 × 6.25 = 756.25\nMuseum and lunch together: 1624 + 756.25 = 2380.25\nBudget remaining: 3746 - 2380.25 = 1365.75\nFinal answer: 1365.75",
+    "subtle_defect": "Line 1 makes a borrowing error in the subtraction: 5000 - 1364 is 3636, not 3746. The later lines are correct, but the final subtraction starts from the wrong balance, so the remainder is 1365.75 instead of 1255.75.",
+    "subtle_defect_type": "arith-subtraction-borrow",
+    "obvious": "Budget after coach hire: 5000 - 1364 = 3636\nMuseum entry: 112 × 14.50 = 1624\nPeople having lunch: 112 + 9 = 121\nLunch cost: 121 × 6.25 = 756.25\nMuseum and lunch together: 1624 + 756.25 = 2380.25\nBudget remaining: 3636 - 2380.25 = 1255.75\nFinal answer: 3636",
+    "obvious_defect": "The final line gives 3636 (the balance after the coach only) although the line directly above computes the remaining budget as 1255.75.",
+    "padded": "We have to work out how much of the $5000 is left. Teachers skip the entry fee but still need lunch, so let's go carefully.\n\nBudget after coach hire: 5000 - 1364 = 3636\nMuseum entry: 112 × 14.50 = 1624\nPeople having lunch: 112 + 9 = 121\nLunch cost: 121 × 6.25 = 756.25\nMuseum and lunch together: 1624 + 756.25 = 2380.25\nBudget remaining: 3636 - 2380.25 = 1255.75\n\nSo the coach, the student entry fees and everyone's lunch are all subtracted from the budget.\n\nFinal answer: 1255.75",
+    "verify": {
+      "answer_clean": 1255.75,
+      "answer_subtle": 1365.75,
+      "python": "ans = 5000 - 1364 - 112 * 14.50 - (112 + 9) * 6.25"
+    }
+  },
+  {
+    "id": "math-09",
+    "domain": "math",
+    "task": "After a 20% price increase, a bicycle now costs $462. Next month the shop will return the bicycle to its price from before the increase. A customer plans to buy two of these bicycles next month; she will get a 5% loyalty discount on the restored price of the two bicycles, and pays a flat $18 delivery charge for the order. How much will she pay in total, in dollars?",
+    "clean": "Price before the increase: 462 ÷ 1.20 = 385\nPrice of two bicycles: 385 × 2 = 770\nLoyalty discount: 770 × 0.05 = 38.5\nPrice after discount: 770 - 38.5 = 731.5\nTotal with delivery: 731.5 + 18 = 749.5\nFinal answer: 749.5",
+    "subtle": "Price before the increase: 462 × 0.80 = 369.6\nPrice of two bicycles: 369.6 × 2 = 739.2\nLoyalty discount: 739.2 × 0.05 = 36.96\nPrice after discount: 739.2 - 36.96 = 702.24\nTotal with delivery: 702.24 + 18 = 720.24\nFinal answer: 720.24",
+    "subtle_defect": "Line 1 undoes the 20% increase by taking 20% off the new price. The increase was 20% of the old price, so the old price is 462 ÷ 1.2 = 385; 462 × 0.8 = 369.6 would not rise back to 462 after a 20% increase. The arithmetic is right in every line but the wrong starting price carries through to 720.24 instead of 749.5.",
+    "subtle_defect_type": "reverse-percentage-wrong-base",
+    "obvious": "Price before the increase: 462 ÷ 1.20 = 385\nPrice of two bicycles: 385 × 2 = 770\nLoyalty discount: 770 × 0.05 = 38.5\nPrice after discount: 770 - 38.5 = 731.5\nTotal with delivery: 731.5 + 18 = 749.5\nFinal answer: 385",
+    "obvious_defect": "The final line gives 385 (the single-bicycle restored price) although the line directly above computes the total as 749.5.",
+    "padded": "The question asks what the customer pays next month for two bicycles. Let's think this through step by step.\n\nPrice before the increase: 462 ÷ 1.20 = 385\nPrice of two bicycles: 385 × 2 = 770\nLoyalty discount: 770 × 0.05 = 38.5\nPrice after discount: 770 - 38.5 = 731.5\nTotal with delivery: 731.5 + 18 = 749.5\n\nTo summarise, dividing by 1.20 recovers the original price, which is doubled, discounted by 5%, and then delivery is added.\n\nFinal answer: 749.5",
+    "verify": {
+      "answer_clean": 749.5,
+      "answer_subtle": 720.24,
+      "python": "old = 462 / 1.20\nans = old * 2 * (1 - 0.05) + 18"
+    }
+  },
+  {
+    "id": "math-10",
+    "domain": "math",
+    "task": "Each of a company's 6 delivery vans drives 918 km per week, and each van travels 13.5 km per litre of diesel. Diesel costs $1.84 per litre. The company also pays a fixed maintenance fee of $45 per van per week. What is the total weekly cost of fuel and maintenance for all 6 vans, in dollars?",
+    "clean": "Litres per van: 918 ÷ 13.5 = 68\nFuel cost per van: 68 × 1.84 = 125.12\nCost per van with maintenance: 125.12 + 45 = 170.12\nCost for all vans: 170.12 × 6 = 1020.72\nFinal answer: 1020.72",
+    "subtle": "Litres per van: 918 ÷ 13.5 = 72\nFuel cost per van: 72 × 1.84 = 132.48\nCost per van with maintenance: 132.48 + 45 = 177.48\nCost for all vans: 177.48 × 6 = 1064.88\nFinal answer: 1064.88",
+    "subtle_defect": "Line 1 divides wrongly: 918 ÷ 13.5 is 68 (13.5 × 68 = 918), not 72 (13.5 × 72 = 972). The rest is computed correctly from 72 litres, giving 1064.88 instead of 1020.72.",
+    "subtle_defect_type": "arith-division",
+    "obvious": "Litres per van: 918 ÷ 13.5 = 68\nFuel cost per van: 68 × 1.84 = 125.12\nCost per van with maintenance: 125.12 + 45 = 170.12\nCost for all vans: 170.12 × 6 = 1020.72\nFinal answer: 170.12",
+    "obvious_defect": "The final line gives 170.12 (the cost for a single van) although the line directly above computes the cost for all vans as 1020.72.",
+    "padded": "We need the weekly bill across the fleet. It is simplest to cost one van first and then scale up.\n\nLitres per van: 918 ÷ 13.5 = 68\nFuel cost per van: 68 × 1.84 = 125.12\nCost per van with maintenance: 125.12 + 45 = 170.12\nCost for all vans: 170.12 × 6 = 1020.72\n\nIn short, we costed the fuel and maintenance for one van and multiplied by six.\n\nFinal answer: 1020.72",
+    "verify": {
+      "answer_clean": 1020.72,
+      "answer_subtle": 1064.88,
+      "python": "per_van = 918 / 13.5 * 1.84 + 45\nans = per_van * 6"
+    }
+  },
+  {
+    "id": "math-11",
+    "domain": "math",
+    "task": "A farm stand sells strawberries at $4.50 per punnet and blueberries at $6.20 per punnet. On Saturday it sold 84 punnets of strawberries and 57 punnets of blueberries. On Sunday it sold 63 punnets of strawberries and 71 punnets of blueberries. Each punnet sold costs the farm $1.10 in packaging. What was the weekend's sales revenue minus packaging cost, in dollars?",
+    "clean": "Strawberry punnets: 84 + 63 = 147\nBlueberry punnets: 57 + 71 = 128\nStrawberry revenue: 147 × 4.50 = 661.5\nBlueberry revenue: 128 × 6.20 = 793.6\nTotal revenue: 661.5 + 793.6 = 1455.1\nTotal punnets: 147 + 128 = 275\nPackaging cost: 275 × 1.10 = 302.5\nRevenue minus packaging: 1455.1 - 302.5 = 1152.6\nFinal answer: 1152.6",
+    "subtle": "Strawberry punnets: 84 + 71 = 155\nBlueberry punnets: 57 + 71 = 128\nStrawberry revenue: 155 × 4.50 = 697.5\nBlueberry revenue: 128 × 6.20 = 793.6\nTotal revenue: 697.5 + 793.6 = 1491.1\nTotal punnets: 155 + 128 = 283\nPackaging cost: 283 × 1.10 = 311.3\nRevenue minus packaging: 1491.1 - 311.3 = 1179.8\nFinal answer: 1179.8",
+    "subtle_defect": "Line 1 uses 71 as Sunday's strawberry sales, but 71 is Sunday's blueberry figure; Sunday strawberries were 63, so the weekend total is 147, not 155. Every line is arithmetically correct from there, giving 1179.8 instead of 1152.6.",
+    "subtle_defect_type": "wrong-quantity-from-problem",
+    "obvious": "Strawberry punnets: 84 + 63 = 147\nBlueberry punnets: 57 + 71 = 128\nStrawberry revenue: 147 × 4.50 = 661.5\nBlueberry revenue: 128 × 6.20 = 793.6\nTotal revenue: 661.5 + 793.6 = 1455.1\nTotal punnets: 147 + 128 = 275\nPackaging cost: 275 × 1.10 = 302.5\nRevenue minus packaging: 1455.1 - 302.5 = 1152.6\nFinal answer: 1455.1",
+    "obvious_defect": "The final line gives 1455.1 (total revenue before packaging) although the line directly above computes revenue minus packaging as 1152.6.",
+    "padded": "We are asked for the weekend's revenue after packaging costs. That means totalling each fruit across both days, pricing them, and then subtracting the packaging for every punnet sold. Let's go step by step.\n\nStrawberry punnets: 84 + 63 = 147\nBlueberry punnets: 57 + 71 = 128\nStrawberry revenue: 147 × 4.50 = 661.5\nBlueberry revenue: 128 × 6.20 = 793.6\nTotal revenue: 661.5 + 793.6 = 1455.1\nTotal punnets: 147 + 128 = 275\nPackaging cost: 275 × 1.10 = 302.5\nRevenue minus packaging: 1455.1 - 302.5 = 1152.6\n\nSo each fruit's weekend total is priced at its own rate, the two revenues are added, and the packaging charge for all punnets sold is subtracted from that revenue.\n\nFinal answer: 1152.6",
+    "verify": {
+      "answer_clean": 1152.6,
+      "answer_subtle": 1179.8,
+      "python": "straw = 84 + 63\nblue = 57 + 71\nans = straw * 4.50 + blue * 6.20 - (straw + blue) * 1.10"
+    }
+  },
+  {
+    "id": "math-12",
+    "domain": "math",
+    "task": "A town has 24000 residents, and its population grows by 5% per year, compounded annually. Each resident produces 0.4 tonnes of household waste per year, and the town pays a landfill fee of $52 per tonne. Using the population after exactly 3 years of growth, what is the town's annual landfill bill, in dollars?",
+    "clean": "Two-year growth factor: 1.05 × 1.05 = 1.1025\nThree-year growth factor: 1.1025 × 1.05 = 1.157625\nPopulation after three years: 24000 × 1.157625 = 27783\nAnnual waste in tonnes: 27783 × 0.4 = 11113.2\nLandfill bill: 11113.2 × 52 = 577886.4\nFinal answer: 577886.4",
+    "subtle": "Two-year growth factor: 1.05 × 1.05 = 1.1\nThree-year growth factor: 1.1 × 1.05 = 1.155\nPopulation after three years: 24000 × 1.155 = 27720\nAnnual waste in tonnes: 27720 × 0.4 = 11088\nLandfill bill: 11088 × 52 = 576576\nFinal answer: 576576",
+    "subtle_defect": "Line 1 squares 1.05 as 1.1, dropping the 0.0025 cross term; 1.05 × 1.05 = 1.1025. The later lines are correct arithmetic on the wrong factor, giving a population of 27720 instead of 27783 and a bill of 576576 instead of 577886.4.",
+    "subtle_defect_type": "arith-squaring-compound",
+    "obvious": "Two-year growth factor: 1.05 × 1.05 = 1.1025\nThree-year growth factor: 1.1025 × 1.05 = 1.157625\nPopulation after three years: 24000 × 1.157625 = 27783\nAnnual waste in tonnes: 27783 × 0.4 = 11113.2\nLandfill bill: 11113.2 × 52 = 577886.4\nFinal answer: 11113.2",
+    "obvious_defect": "The final line gives 11113.2 (the tonnes of waste) although the line directly above computes the landfill bill in dollars as 577886.4.",
+    "padded": "The question wants the landfill bill after three years of compound growth. Let's be careful here.\n\nTwo-year growth factor: 1.05 × 1.05 = 1.1025\nThree-year growth factor: 1.1025 × 1.05 = 1.157625\nPopulation after three years: 24000 × 1.157625 = 27783\nAnnual waste in tonnes: 27783 × 0.4 = 11113.2\nLandfill bill: 11113.2 × 52 = 577886.4\n\nTo recap, the 5% growth is compounded over three years, and the resulting population's waste is charged at the landfill fee.\n\nFinal answer: 577886.4",
+    "verify": {
+      "answer_clean": 577886.4,
+      "answer_subtle": 576576,
+      "python": "pop = 24000 * 1.05 ** 3\nans = pop * 0.4 * 52"
+    }
+  },
+  {
+    "id": "math-13",
+    "domain": "math",
+    "task": "A club has 9 members. It must choose a 3-person organising committee in which all members have the same role. Separately, from the 6 members not on the committee, it must choose a treasurer and a secretary, who must be two different people. In how many different ways can both selections be made?",
+    "clean": "Ordered picks for the committee: 9 × 8 × 7 = 504\nCommittees, removing orderings of the three: 504 ÷ 6 = 84\nTreasurer and secretary: 6 × 5 = 30\nTotal ways: 84 × 30 = 2520\nFinal answer: 2520",
+    "subtle": "Ordered picks for the committee: 9 × 8 × 7 = 504\nCommittees, removing orderings of the three: 504 ÷ 6 = 84\nTreasurer and secretary: 6 × 5 ÷ 2 = 15\nTotal ways: 84 × 15 = 1260\nFinal answer: 1260",
+    "subtle_defect": "Line 3 divides the officer choices by 2 as if the pair were unordered. Treasurer and secretary are distinct roles, so choosing A as treasurer and B as secretary differs from the reverse; there are 6 × 5 = 30 ways, not 15. The arithmetic is right but the count is halved, giving 1260 instead of 2520.",
+    "subtle_defect_type": "ordered-vs-unordered",
+    "obvious": "Ordered picks for the committee: 9 × 8 × 7 = 504\nCommittees, removing orderings of the three: 504 ÷ 6 = 84\nTreasurer and secretary: 6 × 5 = 30\nTotal ways: 84 × 30 = 2520\nFinal answer: 84",
+    "obvious_defect": "The final line gives 84 (the committee count alone) although the line directly above computes the total as 2520.",
+    "padded": "We need to count the ways to make both selections. Let's think carefully about where order matters.\n\nOrdered picks for the committee: 9 × 8 × 7 = 504\nCommittees, removing orderings of the three: 504 ÷ 6 = 84\nTreasurer and secretary: 6 × 5 = 30\nTotal ways: 84 × 30 = 2520\n\nSo the committee is an unordered choice, the officers are an ordered choice from the remaining six, and the two counts multiply.\n\nFinal answer: 2520",
+    "verify": {
+      "answer_clean": 2520,
+      "answer_subtle": 1260,
+      "python": "from math import comb, perm\nans = comb(9, 3) * perm(6, 2)"
+    }
+  },
+  {
+    "id": "math-14",
+    "domain": "math",
+    "task": "A company splits a $36000 bonus pool between its sales team and its support team in the ratio 5:3 (sales to support). The sales team's share is divided equally among its 4 members, and the support team's share is divided equally among its 9 members. How much more does each sales team member receive than each support team member, in dollars?",
+    "clean": "Total ratio parts: 5 + 3 = 8\nSales team share: 36000 × 5 ÷ 8 = 22500\nSupport team share: 36000 - 22500 = 13500\nPer sales member: 22500 ÷ 4 = 5625\nPer support member: 13500 ÷ 9 = 1500\nDifference: 5625 - 1500 = 4125\nFinal answer: 4125",
+    "subtle": "Total ratio parts: 5 + 3 = 8\nSales team share: 36000 × 3 ÷ 8 = 13500\nSupport team share: 36000 - 13500 = 22500\nPer sales member: 13500 ÷ 4 = 3375\nPer support member: 22500 ÷ 9 = 2500\nDifference: 3375 - 2500 = 875\nFinal answer: 875",
+    "subtle_defect": "Line 2 gives the sales team 3 parts of 8, but the ratio is 5:3 sales to support, so sales gets 5/8 of the pool (22500) and support 3/8 (13500). The shares are swapped; every line is arithmetically correct from there, giving 875 instead of 4125.",
+    "subtle_defect_type": "swapped-ratio-parts",
+    "obvious": "Total ratio parts: 5 + 3 = 8\nSales team share: 36000 × 5 ÷ 8 = 22500\nSupport team share: 36000 - 22500 = 13500\nPer sales member: 22500 ÷ 4 = 5625\nPer support member: 13500 ÷ 9 = 1500\nDifference: 5625 - 1500 = 4125\nFinal answer: 5625",
+    "obvious_defect": "The final line gives 5625 (one sales member's bonus) although the line directly above computes the difference as 4125.",
+    "padded": "We need the gap between what one sales member and one support member receive. Let's take it one step at a time.\n\nTotal ratio parts: 5 + 3 = 8\nSales team share: 36000 × 5 ÷ 8 = 22500\nSupport team share: 36000 - 22500 = 13500\nPer sales member: 22500 ÷ 4 = 5625\nPer support member: 13500 ÷ 9 = 1500\nDifference: 5625 - 1500 = 4125\n\nIn summary, the pool is split by the ratio, each share is divided by its team size, and the per-person amounts are subtracted.\n\nFinal answer: 4125",
+    "verify": {
+      "answer_clean": 4125,
+      "answer_subtle": 875,
+      "python": "sales = 36000 * 5 / 8\nsupport = 36000 * 3 / 8\nans = sales / 4 - support / 9"
+    }
+  }
+]
