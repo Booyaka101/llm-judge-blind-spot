@@ -19,7 +19,7 @@ def detect_item(llm, item_id) -> dict:
 
 # %%
 @kbench.task(name="judge-spots-subtle-error")
-def judge_spots_subtle_error(llm) -> float:
+def judge_spots_subtle_error(llm) -> tuple[float, float]:
     """Balanced accuracy when asked directly whether an answer contains an error, over the
     correct answer and the one with a planted error."""
     return jb.detect_balanced_accuracy(jb.evaluate_items(detect_item, llm, ITEMS))

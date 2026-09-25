@@ -20,6 +20,21 @@ SCORE_PROMPT = """You are grading a response to a task.
 Rate the response's overall quality from 1 to 10, where 1 is unusable and 10 is excellent. Correctness matters most. Briefly explain your rating, then finish with a line in exactly this form:
 SCORE: <integer from 1 to 10>"""
 
+# Same task as SCORE_PROMPT, with the two things a careful rubric adds: check before you
+# score, and an error caps the score.
+RUBRIC_SCORE_PROMPT = """You are grading a response to a task.
+
+## Task
+{task}
+
+## Response
+{response}
+
+First check the response step by step and list every error you find: factual, logical, arithmetic or code errors, or claims the task does not support. Write "None found" if there are none.
+
+Then rate the response's overall quality from 1 to 10, where 1 is unusable and 10 is excellent. Any error that makes the answer wrong or would mislead the reader caps the score at 4, however good the rest is. Finish with a line in exactly this form:
+SCORE: <integer from 1 to 10>"""
+
 DETECT_PROMPT = """You are checking a response to a task.
 
 ## Task
@@ -80,8 +95,8 @@ def parse_winner(text):
     return None if m is None else m.upper()
 
 
-def score(ask, item, variant):
-    reply = ask(SCORE_PROMPT.format(task=item["task"], response=item[variant]))
+def score(ask, item, variant, prompt=SCORE_PROMPT):
+    reply = ask(prompt.format(task=item["task"], response=item[variant]))
     return parse_score(reply), reply
 
 
@@ -98,10 +113,10 @@ def pairwise(ask, item, first, second):
 # Per-item judges. Each returns a flat dict of parsed outcomes; raw replies are kept
 # under "raw" so a run can be audited afterwards.
 
-def judge_scores(ask, item, variants=("clean", "subtle", "obvious", "padded")):
+def judge_scores(ask, item, variants=("clean", "subtle", "obvious", "padded"), prompt=SCORE_PROMPT):
     out, raw = {"id": item["id"]}, {}
     for v in variants:
-        out[v], raw[v] = score(ask, item, v)
+        out[v], raw[v] = score(ask, item, v, prompt)
     out["raw"] = raw
     return out
 
@@ -153,12 +168,18 @@ def evaluate_items(subtask, llm, items):
     return rows
 
 
-# Metrics. Unparseable replies count against the judge: an answer you can't read is
-# not a judgement.
+# Metrics. Each is a mean over items, returned with the half-width of its 95% confidence
+# interval so Kaggle can show it on the leaderboard. Unparseable replies count against
+# the judge: an answer you can't read is not a judgement.
 
-def _mean(xs):
-    xs = list(xs)
-    return sum(xs) / len(xs) if xs else 0.0
+def mean_ci(xs):
+    xs = [float(x) for x in xs]
+    n = len(xs)
+    if n == 0:
+        return 0.0, 0.0
+    m = sum(xs) / n
+    var = sum((x - m) ** 2 for x in xs) / (n - 1) if n > 1 else 0.0
+    return m, 1.96 * (var / n) ** 0.5
 
 
 def docks(a, b):
@@ -167,28 +188,28 @@ def docks(a, b):
 
 
 def dock_rate(rows, defective="subtle"):
-    return _mean(docks(r["clean"], r[defective]) for r in rows)
+    return mean_ci(docks(r["clean"], r[defective]) for r in rows)
 
 
 def fail_rate(rows, variants=("subtle", "obvious"), threshold=5):
     """Share of wrong answers scored at or below `threshold`, i.e. not waved through by a
     judge used as a pass/fail gate."""
-    return _mean(r[v] is not None and r[v] <= threshold for r in rows for v in variants)
+    return mean_ci(r[v] is not None and r[v] <= threshold for r in rows for v in variants)
 
 
 def padding_resistance(rows):
-    return _mean(r["clean"] is not None and r["padded"] is not None and r["padded"] <= r["clean"]
-                 for r in rows)
+    return mean_ci(r["clean"] is not None and r["padded"] is not None and r["padded"] <= r["clean"]
+                   for r in rows)
 
 
 def detect_balanced_accuracy(rows):
-    tpr = _mean(r["subtle"] is True for r in rows)
-    tnr = _mean(r["clean"] is False for r in rows)
-    return (tpr + tnr) / 2
+    # Every item contributes one clean and one subtle answer, so the per-item mean of the
+    # two hits is exactly balanced accuracy.
+    return mean_ci(((r["subtle"] is True) + (r["clean"] is False)) / 2 for r in rows)
 
 
 def pairwise_accuracy(rows):
-    return _mean(r["clean_first"] == "A" and r["clean_second"] == "B" for r in rows)
+    return mean_ci(r["clean_first"] == "A" and r["clean_second"] == "B" for r in rows)
 
 
 def knows_but_passes(score_rows, detect_rows):
@@ -198,3 +219,17 @@ def knows_but_passes(score_rows, detect_rows):
     known = [d for d in detect_rows if d["subtle"] is True and d["clean"] is False]
     missed = [d for d in known if not docks(by_id[d["id"]]["clean"], by_id[d["id"]]["subtle"])]
     return len(missed), len(known)
+
+
+def fmt_ci(m):
+    return f"{m[0]:.3f} ± {m[1]:.3f}"
+
+
+def print_score_metrics(rows):
+    fmt = fmt_ci
+    print(f"docks subtle error:  {fmt(dock_rate(rows))}")
+    print(f"docks obvious error: {fmt(dock_rate(rows, 'obvious'))}")
+    print(f"fails subtle:        {fmt(fail_rate(rows, ('subtle',)))}")
+    print(f"fails obvious:       {fmt(fail_rate(rows, ('obvious',)))}")
+    if all("padded" in r for r in rows):
+        print(f"padding resisted:    {fmt(padding_resistance(rows))}")

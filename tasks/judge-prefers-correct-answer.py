@@ -19,7 +19,7 @@ def pair_item(llm, item_id) -> dict:
 
 # %%
 @kbench.task(name="judge-prefers-correct-answer")
-def judge_prefers_correct_answer(llm) -> float:
+def judge_prefers_correct_answer(llm) -> tuple[float, float]:
     """Share of items where the correct answer beats the one with a planted error side by
     side, in both presentation orders."""
     return jb.pairwise_accuracy(jb.evaluate_items(pair_item, llm, ITEMS))
