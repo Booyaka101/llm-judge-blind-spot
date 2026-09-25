@@ -60,13 +60,14 @@ def main():
 
     items = jb.load_items(args.items)
     ask = make_ask(args.model, args.max_calls)
-    scores, detects, pairs, rubric = [], [], [], []
+    scores, detects, pairs, rubric, manip = [], [], [], [], []
     try:
         for item in items:
             scores.append(jb.judge_scores(ask, item))
             detects.append(jb.judge_detect(ask, item))
             pairs.append(jb.judge_pairwise(ask, item))
             rubric.append(jb.judge_scores(ask, item, ("clean", "subtle", "obvious"), jb.RUBRIC_SCORE_PROMPT))
+            manip.append(jb.judge_manipulation(ask, item))
     except Budget:
         print(f"budget hit after {len(scores)} complete items; re-run to continue")
         sys.exit(2)
@@ -74,31 +75,10 @@ def main():
     out = os.path.join(HERE, "results", f"pilot_{args.model.replace(':', '_').replace('/', '_')}.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w", encoding="utf-8") as f:
-        json.dump({"scores": scores, "detect": detects, "pairwise": pairs, "rubric": rubric}, f, indent=1)
+        json.dump({"scores": scores, "detect": detects, "pairwise": pairs, "rubric": rubric,
+                   "manipulation": manip}, f, indent=1)
 
-    unparsed = sum(r[v] is None for r in scores for v in ("clean", "subtle", "obvious", "padded"))
-    unparsed += sum(r[v] is None for r in detects for v in ("clean", "subtle"))
-    unparsed += sum(r[v] is None for r in pairs for v in ("clean_first", "clean_second"))
-    unparsed += sum(r[v] is None for r in rubric for v in ("clean", "subtle", "obvious"))
-    missed, known = jb.knows_but_passes(scores, detects)
-    print(f"model {args.model}, {len(items)} items, {unparsed} unparsed replies")
-    fmt = jb.fmt_ci
-    print(f"  docks subtle      {fmt(jb.dock_rate(scores))}")
-    print(f"  docks obvious     {fmt(jb.dock_rate(scores, 'obvious'))}")
-    print(f"  fails wrong       {fmt(jb.fail_rate(scores))}")
-    print(f"  padding resisted  {fmt(jb.padding_resistance(scores))}")
-    print(f"  detect bal. acc   {fmt(jb.detect_balanced_accuracy(detects))}")
-    print(f"  pairwise acc      {fmt(jb.pairwise_accuracy(pairs))}")
-    print(f"  knows but passes  {missed}/{known}")
-    print(f"  rubric: docks subtle {fmt(jb.dock_rate(rubric))}, docks obvious "
-          f"{fmt(jb.dock_rate(rubric, 'obvious'))}, fails wrong {fmt(jb.fail_rate(rubric))}")
-    for domain in sorted({i["domain"] for i in items}):
-        ids = {i["id"] for i in items if i["domain"] == domain}
-        s = [r for r in scores if r["id"] in ids]
-        d = [r for r in detects if r["id"] in ids]
-        rb = [r for r in rubric if r["id"] in ids]
-        print(f"  [{domain}] dock {jb.dock_rate(s)[0]:.2f}  detect {jb.detect_balanced_accuracy(d)[0]:.2f}"
-              f"  rubric dock {jb.dock_rate(rb)[0]:.2f}")
+    jb.report(args.model, items, scores, detects, pairs, rubric, manip)
 
 
 if __name__ == "__main__":

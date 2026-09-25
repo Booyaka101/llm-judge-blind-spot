@@ -4,3 +4,4 @@ __pycache__/
 pilot_cache/
 .env
 *.task.json
+results/kaggle/raw/
