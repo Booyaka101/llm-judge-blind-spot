@@ -20,9 +20,9 @@ def rubric_score_item(llm, item_id) -> dict:
 
 
 # %%
-@kbench.task(name="judge-docks-with-rubric")
-def judge_docks_with_rubric(llm) -> tuple[float, float]:
-    """judge-docks-subtle-error again, but the grading prompt asks the judge to list errors
+@kbench.task(name="judge-docks-with-error-rubric")
+def judge_docks_with_error_rubric(llm) -> tuple[float, float]:
+    """judge-docks-planted-error again, but the grading prompt asks the judge to list errors
     before scoring and says an error caps the score at 4. Compare the two to see how much
     of the blind spot a rubric fixes."""
     rows = jb.evaluate_items(rubric_score_item, llm, ITEMS)
@@ -30,4 +30,4 @@ def judge_docks_with_rubric(llm) -> tuple[float, float]:
     return jb.dock_rate(rows)
 
 
-judge_docks_with_rubric.run(kbench.llm)
+judge_docks_with_error_rubric.run(kbench.llm)

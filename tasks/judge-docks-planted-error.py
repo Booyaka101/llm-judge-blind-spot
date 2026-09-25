@@ -19,15 +19,14 @@ def score_item(llm, item_id) -> dict:
 
 
 # %%
-@kbench.task(name="judge-docks-subtle-error")
-def judge_docks_subtle_error(llm) -> tuple[float, float]:
-    """Share of items where a 1-10 score for the answer with one planted error is strictly
-    lower than the score for the correct answer. Each answer is scored alone, as judges
-    are used in practice. The log also reports the obvious-error dock rate, how many wrong
-    answers still score above 5, and whether padding the correct answer raises its score."""
+@kbench.task(name="judge-docks-planted-error")
+def judge_docks_planted_error(llm) -> tuple[float, float]:
+    """Share of items where the answer with one planted error scores strictly lower (1-10,
+    each answer scored alone) than the correct answer. The log adds obvious errors, fail
+    rates and padding."""
     rows = jb.evaluate_items(score_item, llm, ITEMS)
     jb.print_score_metrics(rows)
     return jb.dock_rate(rows)
 
 
-judge_docks_subtle_error.run(kbench.llm)
+judge_docks_planted_error.run(kbench.llm)
