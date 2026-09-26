@@ -50,7 +50,8 @@ def load_run(run_dir):
 
 
 def collect(model, items):
-    out, costs = {}, {}
+    """The model's results, or None if any task has errored items (a subset isn't comparable)."""
+    out, costs, short = {}, {}, []
     for task, key in TASKS.items():
         subprocess.run([KAGGLE, "b", "t", "download", task, "-m", model, "-o", RAW],
                        check=True, capture_output=True, env={**os.environ, "PYTHONIOENCODING": "utf-8"})
@@ -59,8 +60,11 @@ def collect(model, items):
             raise SystemExit(f"{model}: no downloaded run for {task}")
         out[key], costs[key], _ = load_run(run_dir)
         if len(out[key]) != len(items):
-            print(f"  warning: {task} has {len(out[key])}/{len(items)} items")
+            short.append(f"{task} {len(out[key])}/{len(items)}")
     out["cost_usd"] = costs
+    if short:
+        print(f"model {model}: incomplete, rerun needed ({', '.join(short)}); spent ${sum(costs.values()):.3f}")
+        return None
     with open(os.path.join(HERE, "results", "kaggle", f"{model}.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, indent=1)
     return out
@@ -70,6 +74,8 @@ def main():
     items = jb.load_items()
     for model in sys.argv[1:]:
         d = collect(model, items)
+        if d is None:
+            continue
         jb.report(model, items, d["scores"], d["detect"], d["pairwise"], d["rubric"], d["manipulation"])
         print("  cost  " + "  ".join(f"{k} ${v:.3f}" for k, v in d["cost_usd"].items())
               + f"  total ${sum(d['cost_usd'].values()):.3f}")

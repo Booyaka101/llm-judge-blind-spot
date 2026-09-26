@@ -107,19 +107,26 @@ def parse_winner(text):
     return None if m is None else m.upper()
 
 
+def ask_parsed(ask, prompt, parse, tries=3):
+    # On Kaggle, gpt-oss-120b cut about one reply in five off right after "SCORE:".
+    # A cut reply says nothing about the judge, so it's asked again rather than scored.
+    for _ in range(tries):
+        reply = ask(prompt)
+        if parse(reply) is not None:
+            break
+    return parse(reply), reply
+
+
 def score(ask, item, variant, prompt=SCORE_PROMPT):
-    reply = ask(prompt.format(task=item["task"], response=item[variant]))
-    return parse_score(reply), reply
+    return ask_parsed(ask, prompt.format(task=item["task"], response=item[variant]), parse_score)
 
 
 def detect(ask, item, variant):
-    reply = ask(DETECT_PROMPT.format(task=item["task"], response=item[variant]))
-    return parse_verdict(reply), reply
+    return ask_parsed(ask, DETECT_PROMPT.format(task=item["task"], response=item[variant]), parse_verdict)
 
 
 def pairwise(ask, item, first, second):
-    reply = ask(PAIR_PROMPT.format(task=item["task"], a=item[first], b=item[second]))
-    return parse_winner(reply), reply
+    return ask_parsed(ask, PAIR_PROMPT.format(task=item["task"], a=item[first], b=item[second]), parse_winner)
 
 
 # Per-item judges. Each returns a flat dict of parsed outcomes; raw replies are kept
