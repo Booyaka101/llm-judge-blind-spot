@@ -174,7 +174,7 @@ def judge_pairwise(ask, item):
 MAX_OUTPUT_TOKENS = 16000
 
 
-def kaggle_ask(llm, attempts=6, wait=60):
+def kaggle_ask(llm, attempts=12, wait=60):
     import time
 
     import kaggle_benchmarks as kbench
@@ -191,7 +191,8 @@ def kaggle_ask(llm, attempts=6, wait=60):
                     openai.InternalServerError, openai.APIConnectionError):
                 if attempt == attempts - 1:
                     raise
-                time.sleep(wait)
+                # Open-model providers returned 429 "heavy load" for over an hour at a time.
+                time.sleep(min(wait * 2 ** attempt, 600))
     return ask
 
 
