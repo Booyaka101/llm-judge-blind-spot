@@ -12,7 +12,7 @@ ITEMS = jb.load_items(glob.glob("/kaggle/input/**/items.json", recursive=True)[0
 BY_ID = {i["id"]: i for i in ITEMS}
 
 # %%
-@kbench.task(name="detect-item", store_task=False)
+@kbench.task(name="spot-item", store_task=False)
 def detect_item(llm, item_id) -> dict:
     return jb.judge_detect(jb.kaggle_ask(llm), BY_ID[item_id])
 
