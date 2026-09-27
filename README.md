@@ -44,3 +44,7 @@ python run_local.py tasks/judge-docks-planted-error.py --ollama qwen2.5:32b
 ```
 
 The Kaggle proxy reserves each request's maximum output against the daily AI quota, so the tasks cap output at 16k tokens and run four items at a time. One small model over all five tasks costs about $0.50 to $1.50.
+
+## License
+
+Code is MIT. The items in `items.json` and `data/` are CC BY 4.0, the same as the Kaggle dataset.
