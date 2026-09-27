@@ -19,6 +19,7 @@ NAMES = {
     "claude-sonnet-5-default": "Claude Sonnet 5",
     "gemini-3.5-flash-lite": "Gemini 3.5 Flash Lite",
     "gemini-3.7-flash": "Gemini 3.7 Flash",
+    "gemini-3.8-flash": "Gemini 3.8 Flash",
     "gemma-4-31b-it": "Gemma 4 31B",
     "gpt-5.4-mini-2026-03-17": "GPT-5.4 mini",
     "gpt-oss-120b": "gpt-oss-120b",
