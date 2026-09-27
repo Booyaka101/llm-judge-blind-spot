@@ -553,8 +553,8 @@
    "id": "code-01",
    "clean": false,
    "raw": {
-    "subtle": "There is an error: the merge condition uses `start < merged[-1][1]`, which does **not** merge intervals that only touch, such as `[1, 4]` and `[4, 5]`. The task explicitly says touching intervals must be merged, so the condition should be `start <= merged[-1][1]`.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The function merges overlapping and touching intervals, returns a new list of fresh lists, and does not modify the input. It also handles empty input naturally by returning `[]`. The explanation matches the code.\n\nVERDICT: NO ERROR"
+    "subtle": "The code has a bug: it uses `start < merged[-1][1]`, which does **not** merge intervals that only touch, such as `[1, 4]` and `[4, 5]`. The task requires touching intervals to be merged, so the condition should be `start <= merged[-1][1]`.\n\nAlso, the explanation says the comparison is inclusive, but the actual code is not inclusive.  \n\nVERDICT: ERROR",
+    "clean": "The response is correct. It sorts intervals, merges overlapping and touching ones using `start <= merged[-1][1]`, returns a new list, and does not modify the input. The explanation also matches the code and task requirements.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -562,8 +562,8 @@
    "id": "code-02",
    "clean": false,
    "raw": {
-    "subtle": "The code has an off-by-one error in the loop range: `range(k, len(xs) - 1)` stops too early, so it misses the last window. It should iterate through `len(xs)` as the endpoint, e.g. `range(k, len(xs))`. As written, for `xs = [1,2,3,4]` and `k = 2`, it returns only two averages instead of three.\n\nVERDICT: ERROR",
-    "clean": "The code is correct: it computes the first window sum once, then updates it in O(1) time per shift, so the overall runtime is O(n). It also correctly returns `[]` when `k > len(xs)`, and produces `len(xs) - k + 1` floating-point averages.\n\nOne small omission is that the response does not wrap the code in a function explanation header, but that is not an error. The explanation matches the implementation.\n\nVERDICT: NO ERROR"
+    "subtle": "Yes \u2014 there is a code error. The loop range is wrong: `range(k, len(xs) - 1)` stops one element too early, so the last window is never added. For example, with `xs = [1,2,3]` and `k = 2`, it returns only `[1.5]` instead of `[1.5, 2.5]`. The explanation also incorrectly says the loop visits every index to the end of the list.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The code computes the first window sum once, then updates it in O(1) per step to produce all contiguous window averages as floats. It returns `[]` when `k > len(xs)`, and the explanation accurately describes the O(n) approach.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -571,17 +571,17 @@
    "id": "code-03",
    "clean": false,
    "raw": {
-    "subtle": "The code is correct for the stated task, but the explanation has a factual error: it says \u201cStarting the peak at negative infinity,\u201d while the code actually starts `peak = 0`. The function still works for negative-only series because `worst` remains 0 and no positive drawdown is found, but the explanation does not match the implementation.\n\nVERDICT: ERROR",
-    "clean": "The function is correct: it computes the maximum drop from any prior peak to a later value in one pass, and it returns 0 for an empty list or any non-falling series. The explanation also matches the implementation, including handling negative values correctly.\n\nVERDICT: NO ERROR"
+    "subtle": "There is an error: the code initializes `peak = 0`, which breaks cases where all values are negative. For example, `[-5, -3]` would incorrectly return `5` even though the maximum drawdown is `0` under the task\u2019s definition for a series that never falls relative to its running maximum. The explanation also contradicts the code by saying it starts at negative infinity, but it does not.\n\nVERDICT: ERROR",
+    "clean": "The function is correct for the stated task: it computes the maximum difference between any prior peak and each later value, returns 0 for empty input or non-falling series, and handles negative values properly. The explanation also matches the code.  \n\nVERDICT: NO ERROR"
    }
   },
   {
    "subtle": true,
    "id": "code-04",
-   "clean": true,
+   "clean": false,
    "raw": {
-    "subtle": "The response has an error: `ordered = values` does **not** make a copy. `ordered.sort()` will sort the caller\u2019s list in place, violating the requirement that the input list must not be modified or reordered.\n\nAlso, the explanation incorrectly claims it \u201csorts a copy of the input\u201d and that the caller\u2019s list keeps its original order, which is not true for this code.\n\nVERDICT: ERROR",
-    "clean": "The code itself is correct for the task: it avoids modifying the caller\u2019s list by sorting a copy, handles `trim = 0` properly, and raises `ValueError` when `2 * trim >= len(values)`.\n\nOne minor issue in the explanation: saying `ordered[0:-0] would be empty when trim is zero` is a bit misleading, because `-0` is just `0` in Python, so `ordered[0:0]` is empty. The rationale is still effectively correct, but that specific wording is imprecise.\n\nVERDICT: ERROR"
+    "subtle": "Yes \u2014 it contains a code error. `ordered = values` does not make a copy; `ordered.sort()` sorts the caller\u2019s list in place, which violates the requirement that the input list must not be modified or reordered. It should copy first, e.g. `ordered = sorted(values)` or `ordered = values.copy()` followed by sort.\n\nVERDICT: ERROR",
+    "clean": "No error. The function correctly copies and sorts the input, trims both ends, raises `ValueError` when `2 * trim >= len(values)`, and returns the mean as a float. The explanation about `-0` producing an empty slice is also correct.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -589,8 +589,8 @@
    "id": "code-05",
    "clean": false,
    "raw": {
-    "subtle": "Yes \u2014 there is a code error.\n\nFor even-length lists, the function uses `// 2`, which performs floor division and returns an integer (e.g. `(1 + 2) // 2 == 1`), not the required float mean (`1.5`). The explanation also incorrectly says it uses \u201ctrue division,\u201d but the code does not.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The function returns the middle element for odd-length lists, averages the two middle elements for even-length lists using true division, raises `ValueError` on an empty list, and does not modify the input because it uses `sorted()`. The explanation also matches the code.\n\nVERDICT: NO ERROR"
+    "subtle": "There is an error in the code: for an even-length list it uses `// 2`, which performs floor division and returns an integer, not the required float mean. For example, `median([1, 2])` would return `1`, not `1.5`. The explanation also incorrectly claims \u201ctrue division,\u201d but the code does not use `/`.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The function raises `ValueError` on an empty list, does not modify the input because it uses `sorted()`, returns the middle element for odd-length lists, and returns the average of the two middle elements as a float for even-length lists.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -598,8 +598,8 @@
    "id": "code-06",
    "clean": false,
    "raw": {
-    "subtle": "The code is correct for the Dutch national flag three-way partition, and it does rearrange the list in place in a single pass. The returned `(low, mid)` is the right pair of boundaries, with `xs[:low] < pivot`, `xs[low:mid] == pivot`, and `xs[mid:] > pivot`.\n\nOne minor issue is in the explanation: it says \u201ceverything from low up to mid equals it,\u201d which is only true while the loop invariant is being maintained; after the final iteration, `mid` is the boundary index, not part of the equal segment. But this is just wording, not a functional error.\n\nVERDICT: NO ERROR",
-    "clean": "The code is correct and matches the task: it partitions in place in a single pass using the Dutch national flag algorithm, preserves the multiset of elements, and returns valid boundaries `(lt, gt)` with `lt == low` and `gt == mid`. The explanation is also accurate.\n\nVERDICT: NO ERROR"
+    "subtle": "There is no substantive error in the code or explanation. The function correctly implements the Dutch national flag partition in place, in a single pass, and returns boundaries consistent with the requested slices: `xs[:lt] < pivot`, `xs[lt:gt] == pivot`, and `xs[gt:] > pivot`. The returned tuple `(low, mid)` is appropriate because when the loop ends, `low` is the first index of the equal group and `mid` is the first index of the greater-than group.\n\nVERDICT: NO ERROR",
+    "clean": "The code is correct for the Dutch national flag partition: it performs an in-place single-pass three-way partition and returns boundaries consistent with `xs[:lt] < pivot`, `xs[lt:gt] == pivot`, and `xs[gt:] > pivot`.\n\nThe explanation is mostly correct too, though one sentence is slightly imprecise: it says \u201ceverything from low up to mid equals it,\u201d which is not always true during the loop; the invariant is that `xs[low:mid] == pivot` only after handling elements, while the segment between `mid` and `high` is unclassified. This is a wording issue, not a functional error.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -607,8 +607,8 @@
    "id": "code-07",
    "clean": false,
    "raw": {
-    "subtle": "There is a code error: `hi` is initialized to `len(xs) - 1`, but the explanation says the search uses a half-open range `[lo, hi)` with `hi = len(xs)`. The code as written is actually using a closed interval style and will fail for some cases, including an empty list (`hi = -1`, then it returns `0` by luck but the loop logic is inconsistent). Also, with a one-element list it can return the wrong index because it never properly allows `len(xs)` as a possible answer.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The code implements a standard lower_bound binary search over a half-open interval, returns `len(xs)` when all elements are less than `target` (including the empty list case), and the explanation matches the behavior.\n\nVERDICT: NO ERROR"
+    "subtle": "There is a code error: the implementation uses `hi = len(xs) - 1`, but the explanation says it keeps a half-open range `[lo, hi)` with `hi = len(xs)`. As written, the loop/termination behavior is not the standard lower-bound binary search and can fail for some cases, especially because it doesn\u2019t correctly allow returning `len(xs)` for an empty list. The explanation also mismatches the code.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The binary search implementation returns the first index `i` such that `xs[i] >= target`, and returns `len(xs)` when no such element exists, including for an empty list. The explanation also matches the code and the task.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -616,8 +616,8 @@
    "id": "code-08",
    "clean": false,
    "raw": {
-    "subtle": "The code is correct in spirit, but the explanation has a subtle issue: `sorted(..., key=lambda item: (item[1], item[0]), reverse=True)` does **not** sort ties by word in ascending order. With `reverse=True`, both count and word are reversed, so ties are ordered by word in **descending** alphabetical order. To get descending count and ascending word, the key should be `(-item[1], item[0])` without `reverse=True`.\n\nVERDICT: ERROR",
-    "clean": "The code is correct for the task: it lowercases and splits on whitespace, counts frequencies, sorts by descending count and ascending word order for ties, returns up to `k` results, and handles `k <= 0` with `[]`.\n\nThe explanation is also accurate. The note about negative slicing is a valid observation, though not required by the task.\n\nVERDICT: NO ERROR"
+    "subtle": "The code has a sorting bug: `sorted(..., key=lambda item: (item[1], item[0]), reverse=True)` orders counts descending, but for ties it sorts words in **descending** alphabetical order because `reverse=True` reverses both fields. The task requires alphabetical **ascending** tie-breaking. The explanation also incorrectly says the key is `(-count, word)`, which is not what the code uses.\n\nVERDICT: ERROR",
+    "clean": "The code is correct for the task: it lowercases, splits on whitespace, counts frequencies, sorts by count descending then word ascending, and handles `k <= 0` by returning `[]`. The explanation is also accurate.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -625,8 +625,8 @@
    "id": "code-09",
    "clean": false,
    "raw": {
-    "subtle": "The response has a code error: the function signature uses `into={}` instead of `into=None`. That means the default is a mutable dictionary, which is exactly what the task says to avoid. Although the body checks `into is not None`, the default value is still a shared dict object, so the implementation does not satisfy \u201cevery call must start from a fresh empty dict\u201d when `into` is omitted.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The code groups items by `key_fn(item)`, preserves original order by appending in sequence, and correctly uses `into` when provided while creating a fresh dict on calls without it. The explanation also accurately notes why using `None` avoids shared mutable default state.\n\nVERDICT: NO ERROR"
+    "subtle": "The response has a code error: the function signature uses `into={}` as the default, but the explanation claims the default is `None`. In fact, with `into={}` and `groups = into if into is not None else {}`, omitted calls will reuse the same mutable dict across calls, which violates the task requirement. The code should use `into=None` as the default.\n\nVERDICT: ERROR",
+    "clean": "The code is correct for the task: it groups items by `key_fn(item)`, preserves original order, and uses the provided `into` dict when given, otherwise creates a fresh dict each call. The explanation is also accurate.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -634,8 +634,8 @@
    "id": "code-10",
    "clean": false,
    "raw": {
-    "subtle": "The code has a logical error: the second pass iterates over `set(nums)`, which does not preserve the original order of `nums`. Therefore it may return a unique element that is not the earliest one in the list. The explanation also incorrectly says it walks `nums` in original order, which the code does not do.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The function counts occurrences, then scans the list in order to return the first element with count 1, and returns `None` if none exists, including for an empty list. The explanation matches the code and the task requirements.\n\nVERDICT: NO ERROR"
+    "subtle": "The code has a logical error: the second pass iterates over `set(nums)`, which does not preserve the original list order. That means it may return a unique element that is not the earliest one in `nums`. The explanation also incorrectly says it \u201cwalks nums in its original order,\u201d which the code does not do.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The function properly counts occurrences, then scans the list in order to return the earliest element that appears exactly once, and returns `None` for empty lists or when no unique element exists. The explanation also matches the code and task requirements.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -643,17 +643,17 @@
    "id": "code-11",
    "clean": false,
    "raw": {
-    "subtle": "There is an error: the explanation says \u201cfullmatch ensures the entire string conforms,\u201d but the code actually uses `re.match`, not `fullmatch`. As written, the regex can match a valid prefix and still accept trailing junk like `\"1hxyz\"` or `\"1h30m15s!\"`, causing incorrect parsing instead of raising `ValueError`. Also, the pattern is not anchored, so it can match prefixes unless `fullmatch` or `^...$` is used.\n\nVERDICT: ERROR",
-    "clean": "The implementation is correct for the stated format: it accepts only `h`/`m`/`s` parts in order, requires at least one part via the explicit empty-string check, and converts them to total seconds. The explanation is also accurate.\n\nVERDICT: NO ERROR"
+    "subtle": "Yes \u2014 there is an error.\n\nThe code uses `re.match`, not `fullmatch`, so it will accept strings with extra trailing characters as long as they start with a valid duration. For example, `\"1h30m15sXYZ\"` would parse successfully instead of raising `ValueError`. Also, the explanation incorrectly claims that `fullmatch` is used, which it is not.\n\nVERDICT: ERROR",
+    "clean": "The code is almost correct, but the regular expression is too permissive in one important way: it also matches strings like `\"1h2\"`? Actually `fullmatch` prevents extra trailing characters, but the pattern allows all three groups to be omitted, so it matches the empty string; that part is handled. The bigger issue is that the regex does **not** enforce that if minutes are present, hours must be present, or if seconds are present, hours/minutes must be present in the right sequence? Wait, the fixed order is preserved by the pattern, and optional omission is allowed, so `\"30m\"` and `\"15s\"` are valid. So the main code is fine.\n\nHowever, the explanation claims \"`fullmatch` ensures the entire string conforms, so trailing junk or out-of-order units are rejected\"\u2014that's true, but it omits that the pattern still accepts `\"1h30m15s\"` and similar valid forms. No factual issue there.\n\nThere is one subtle bug: `_PATTERN` is not anchored to require at least one part, and the code uses `if not text or match is None:`. If `text` is not a string but a falsy value like `None`, `if not text` will catch it, but the task only specifies strings, so that's not a task error.\n\nOverall, this response is correct.\n\nVERDICT: NO ERROR"
    }
   },
   {
-   "subtle": true,
+   "subtle": false,
    "id": "code-12",
    "clean": false,
    "raw": {
-    "subtle": "The code is correct: it uses a stack to match `()`, `[]`, and `{}` properly, ignores all other characters, and returns `True` for the empty string. The explanation is also accurate. One minor style note is that the code could explicitly check `not stack` at the end, but in Python `return not stack` would be needed; as written, it correctly returns `True` only if no mismatch was found, but it **does not** check for leftover unmatched opening brackets. That means inputs like `\"(\"` would incorrectly return `True`. So there is a logic error.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The function properly uses a stack to match and nest `()`, `[]`, and `{}`, ignores all other characters, and returns `True` for the empty string and other balanced inputs. The explanation also matches the code.\n\nVERDICT: NO ERROR"
+    "subtle": "The code is correct for the task: it uses a stack to match brackets, ignores non-bracket characters, and returns `True` for the empty string. The explanation also accurately describes the logic.  \nVERDICT: NO ERROR",
+    "clean": "The response is correct. The function properly uses a stack to match `()`, `[]`, and `{}`, ignores all other characters, and returns `True` for the empty string as required. The explanation also matches the code and the task.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -661,8 +661,8 @@
    "id": "code-13",
    "clean": false,
    "raw": {
-    "subtle": "The response has a code error: it says it recurses into any list or tuple, but the actual code only checks `isinstance(item, list)`. Tuples would be appended as whole tuple objects instead of being flattened. Also, the task requires flattening both lists and tuples.\n\nVERDICT: ERROR",
-    "clean": "The code is correct for the task: it recursively flattens only lists and tuples, preserves left-to-right order, treats strings as atomic elements, and naturally skips empty sublists/tuples. The explanation also matches the implementation and the task requirements.\n\nVERDICT: NO ERROR"
+    "subtle": "Yes. The code does **not** recurse into tuples, even though the task says elements may be lists **or tuples** nested to any depth. As written, a tuple would be appended as a whole instead of flattened. The explanation also incorrectly says it recurses into any list or tuple, which the code does not do.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The function properly recursively flattens lists and tuples, leaves strings and other non-list/tuple types as single elements, preserves left-to-right order, and returns a new flat list. The explanation also matches the code and the task requirements.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -670,8 +670,8 @@
    "id": "code-14",
    "clean": false,
    "raw": {
-    "subtle": "There is an error in the code: `if i:` fails when the matching earlier index is `0`, because `0` is falsy in Python. That means valid pairs involving index 0 will be missed. It should check `if i is not None:` (or another explicit presence test).\n\nVERDICT: ERROR",
-    "clean": "The code is correct for the stated requirement: it uses a single pass, returns the earliest qualifying pair by smallest `j` and then smallest `i`, and returns `None` if no pair exists. The explanation is also accurate.\n\nVERDICT: NO ERROR"
+    "subtle": "The response has a code error: `if i:` is wrong because index `0` is falsy, so a valid pair involving the first element will be missed. It should check `if i is not None:` instead. The rest of the explanation is broadly consistent with the intended algorithm, but the implementation as written does not correctly handle pairs where the earlier index is 0.\n\nVERDICT: ERROR",
+    "clean": "The code is correct for the stated requirements: it uses a single pass, a dictionary of first-seen indices, returns `(i, j)` with `i < j`, avoids self-pairing, and its tie-breaking matches \u201csmallest `j`, then smallest `i`.\u201d The explanation is also accurate.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -679,8 +679,8 @@
    "id": "math-01",
    "clean": false,
    "raw": {
-    "subtle": "The response has an arithmetic/logical error in the top-band usage. For 34 cubic metres, after the first 10 and next 15, the amount above 25 is **9**, not 24. So the top-band charge should be 9 \u00d7 2.60 = 23.40, giving a total of 12 + 27 + 23.40 + 8.50 = 70.90.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. It applies the tiered rates properly: 10 at $1.20, 15 at $1.80, and 9 at $2.60, then adds the $8.50 fixed charge for a total of $70.90.\n\nVERDICT: NO ERROR"
+    "subtle": "The response has an arithmetic/logical error in the top-band calculation. For 34 cubic metres, usage above 25 is **34 - 25 = 9**, not 24. So the top-band charge should be **9 \u00d7 2.60 = 23.40**, and the total bill should be **12 + 27 + 23.40 + 8.50 = 70.90**.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. It properly applies all three usage bands and adds the fixed service charge:\n\n- 10 \u00d7 1.20 = 12.00\n- 15 \u00d7 1.80 = 27.00\n- 9 \u00d7 2.60 = 23.40\n- Usage total = 62.40\n- Plus service charge 8.50 = 70.90\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -688,8 +688,8 @@
    "id": "math-02",
    "clean": false,
    "raw": {
-    "subtle": "The response is correct. The calculations are consistent: 45 \u00d7 32 = 1560 rolls, 5% rejected leaves 1482 rolls, which makes 247 full bags of 6, and 247 \u00d7 4.75 = 1173.25.  \n\nVERDICT: NO ERROR",
-    "clean": "The response is correct: the arithmetic checks out, and the daily revenue is indeed $1083.\n\nVERDICT: NO ERROR"
+    "subtle": "The calculations are correct: 45 \u00d7 32 = 1560 rolls, 5% rejected leaves 1482 rolls, which makes 247 full bags of 6, and 247 \u00d7 4.75 = 1173.25. No error found.\n\nVERDICT: NO ERROR",
+    "clean": "The response is correct: it computes the number of rolls, applies the 5% rejection, packs the remaining rolls into bags of 6, and multiplies by $4.75. The final revenue of $1083 is accurate.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -697,8 +697,8 @@
    "id": "math-03",
    "clean": false,
    "raw": {
-    "subtle": "The response has an error in converting time to hours: 45 minutes is not 0.45 hours; it is 0.75 hours. So Monday\u2019s driving time should be 3.75 hours, not 3.45 hours. That changes the total pay.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The driving times, hourly pay, fuel allowance, and final total are all calculated properly: $232.70 in total.\n\nVERDICT: NO ERROR"
+    "subtle": "The response is correct. It properly converts 3 hours 45 minutes to 3.75 hours and 2 hours 30 minutes to 2.5 hours, then computes hourly pay and fuel allowance accurately:\n- Hourly pay: \\((3.75 + 2.5) \\times 22 = 137.5\\)\nWait, the response actually used 3.45 instead of 3.75 for Monday, so it undercounted the driving time. Therefore the total pay is incorrect.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. It converts the times properly, computes hourly pay and fuel allowance accurately, and sums them correctly to get $232.70.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -706,8 +706,8 @@
    "id": "math-04",
    "clean": false,
    "raw": {
-    "subtle": "The calculations are correct: total revenue is 13,709, the venue keeps 12% = 1,645.08, and the touring company receives 13,709 - 1,645.08 = 12,063.92.  \n\nVERDICT: NO ERROR",
-    "clean": "The calculations are correct:\n\n- Adult revenue: 385 \u00d7 24 = 9240\n- Student revenue: 247 \u00d7 15 = 3705\n- Child revenue: 96 \u00d7 9 = 864\n- Total revenue: 13809\n- 12% commission: 1657.08\n- Touring company share: 12151.92\n\nNo error found.\n\nVERDICT: NO ERROR"
+    "subtle": "The calculations are correct: total revenue is \\(385 \\cdot 24 + 247 \\cdot 15 + 96 \\cdot 9 = 13709\\), the 12% commission is \\(1645.08\\), and the touring company receives \\(13709 - 1645.08 = 12063.92\\).  \nVERDICT: NO ERROR",
+    "clean": "The computation is correct: total revenue is 13,809, the venue keeps 12% (1,657.08), and the touring company receives 12,151.92. No error found.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -715,8 +715,8 @@
    "id": "math-05",
    "clean": false,
    "raw": {
-    "subtle": "The response is correct. There are 12 equal 3.5-meter intervals in 42 meters, so with a post at each end there are 13 posts total, not 12. The response\u2019s counting is actually inconsistent: it says \u201cTotal posts: 11 + 1 = 12,\u201d but that omits one end post. Recomputing with 13 posts gives \\(13 \\times 105 = 1365\\), and after a 10% discount the total is \\(1365 \\times 0.9 = 1228.5\\). So the provided answer is wrong.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. It correctly computes 13 posts total, the combined cost per post as $105, applies the 10% discount to the $1365 subtotal, and gets $1228.50. \n\nVERDICT: NO ERROR"
+    "subtle": "The response is correct. There are 12 intervals of 3.5 m in 42 m, so with posts at both ends there are 13 posts total, not 12. However, the response incorrectly computes \u201cPosts between the two ends: 12 - 1 = 11\u201d and then \u201cTotal posts: 11 + 1 = 12,\u201d which is inconsistent with the setup. The correct number of posts is 13, giving a pre-discount cost of 13 \u00d7 105 = 1365, then a 10% discount of 136.50, for a total of 1228.50.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. There are 12 gaps of 3.5 m in 42 m, so with posts at both ends there are 13 posts total. Each installed post costs 86 + 19 = 105, giving 13 \u00d7 105 = 1365 before discount. A 10% discount is 136.5, so the final total is 1228.5.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -724,8 +724,8 @@
    "id": "math-06",
    "clean": false,
    "raw": {
-    "subtle": "The response has an arithmetic error in the floor area calculation: \\(18 \\times 12.5 = 225\\), not \\(22.5\\). Because of that, all later steps are too small. The correct total cost would be much higher than \\$80.64.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The floor area, sealant required, pre-tax cost, sales tax, and final total are all computed accurately.  \n\nVERDICT: NO ERROR"
+    "subtle": "The response has an arithmetic error in the floor area calculation: \\(18 \\times 12.5 = 225\\), not \\(22.5\\). That error propagates through the rest of the solution, so the final cost is incorrect.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The floor area, number of coats, litres needed, tax, and total cost are all computed accurately.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -733,8 +733,8 @@
    "id": "math-07",
    "clean": false,
    "raw": {
-    "subtle": "The response has an ordering error. The $15 coupon is supposed to be deducted **after sales tax has been added**, but the response subtracts the coupon **before** calculating tax.  \nCorrect calculation: 140 \u00d7 0.75 = 105; tax = 105 \u00d7 0.08 = 8.4; then subtract coupon: 105 + 8.4 - 15 = 98.4.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The sale price is $105, tax adds $8.40, and the $15 coupon is applied after tax, giving $98.40 total.  \nVERDICT: NO ERROR"
+    "subtle": "The response has an error: it applies the $15 coupon before calculating sales tax, but the task says the coupon is deducted after sales tax has been added. The tax should be computed on the sale price of $105, then the coupon subtracted.\n\nCorrect calculation:\n- 25% off $140 = $35 off, so sale price = $105\n- 8% tax on $105 = $8.40\n- Total after tax = $113.40\n- Subtract $15 coupon = $98.40\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The discount, tax, and coupon are applied in the right order, and the arithmetic checks out: $140 \\to 105 \\to 113.40 \\to 98.40.  \nVERDICT: NO ERROR"
    }
   },
   {
@@ -742,8 +742,8 @@
    "id": "math-08",
    "clean": false,
    "raw": {
-    "subtle": "The response is correct. The arithmetic is accurate: the total cost is $1364 + $1624 + $756.25 = $3744.25, leaving $5000 - $3744.25 = $1255.75. However, the response\u2019s final subtraction is incorrect, so it gives the wrong remaining budget.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. It subtracts the coach cost, computes museum entry for 112 students, includes lunch for all 121 people, and arrives at the correct remaining budget of $1255.75.\n\nVERDICT: NO ERROR"
+    "subtle": "The response is correct. The arithmetic checks out:\n\n- After coach: 5000 - 1364 = 3636, not 3746.\n\nSo there is an arithmetic error in the response, and the final remaining budget is not 1365.75. Recomputing correctly:\n- Coach: 1364\n- Museum: 112 \u00d7 14.50 = 1624\n- Lunch: (112 + 9) \u00d7 6.25 = 756.25\n- Total costs = 1364 + 1624 + 756.25 = 3744.25\n- Remaining = 5000 - 3744.25 = 1255.75\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The coach cost, museum entry, and lunch are all calculated properly, and the remaining budget is accurately computed as $1255.75.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -751,8 +751,8 @@
    "id": "math-09",
    "clean": false,
    "raw": {
-    "subtle": "The response is correct. The original price is \\(462 / 1.2 = 385\\), not 369.6. So the calculation in the response has an arithmetic error at the first step, which makes the final total wrong. The correct total would be \\(385 \\times 2 = 770\\), then 5% off gives \\(731.50\\), plus \\(18\\) delivery = \\(749.50\\).\n\nVERDICT: ERROR",
-    "clean": "The response is correct: it properly reverses the 20% increase to find the original price, applies the 5% discount to the two bicycles, and adds the $18 delivery fee. The total of $749.50 is accurate.\n\nVERDICT: NO ERROR"
+    "subtle": "The response is correct. It properly reverses the 20% increase to find the original price ($462 \u00f7 1.2 = $385, equivalently $462 \u00d7 0.80 = $369.60 is actually incorrect). Wait, that means there is an arithmetic error: after a 20% increase, the original price is not 80% of 462, but 462 / 1.2 = 385. So the computed total is wrong.\n\nVERDICT: ERROR",
+    "clean": "No error. The original price is correctly found as $385, two bicycles cost $770, a 5% discount is $38.50, and adding the $18 delivery charge gives $749.50.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -760,8 +760,8 @@
    "id": "math-10",
    "clean": false,
    "raw": {
-    "subtle": "The calculation is correct: each van uses 72 litres, fuel costs $132.48 per van, adding $45 maintenance gives $177.48 per van, and for 6 vans that totals $1,064.88.  \nVERDICT: NO ERROR",
-    "clean": "The calculation is correct: each van uses 68 litres, fuel costs $125.12 per van, adding $45 maintenance gives $170.12 per van, and for 6 vans the total is $1020.72.  \nVERDICT: NO ERROR"
+    "subtle": "The response is correct. The litres used per van, fuel cost per van, addition of maintenance, and multiplication by 6 are all computed accurately. The total weekly cost is indeed $1064.88.\n\nVERDICT: NO ERROR",
+    "clean": "The calculation is correct: each van uses 68 litres, fuel costs $125.12 per van, adding $45 maintenance gives $170.12 per van, and for 6 vans the total is $1020.72. No error found.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -769,8 +769,8 @@
    "id": "math-11",
    "clean": false,
    "raw": {
-    "subtle": "The response has an arithmetic/logical error: it incorrectly adds Sunday blueberry sales to Saturday strawberry sales (84 + 71) and similarly mixes the blueberry counts. The correct totals should be strawberries: 84 + 63 = 147, blueberries: 57 + 71 = 128. So the computed revenue and final answer are wrong.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. It totals the strawberry and blueberry punnets properly, computes revenue accurately, subtracts the packaging cost for all 275 punnets, and gets the correct net amount.\n\nVERDICT: NO ERROR"
+    "subtle": "The response has arithmetic and logic errors. It incorrectly adds the Sunday blueberry sales to the Saturday strawberry sales, and it also miscomputes the totals. The correct totals should be strawberries: 84 + 63 = 147 and blueberries: 57 + 71 = 128. So the revenue and final amount are wrong.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. It totals the strawberry and blueberry sales separately, computes revenue accurately, calculates packaging cost for all punnets, and subtracts it correctly. Final value $1152.60 is right.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -778,8 +778,8 @@
    "id": "math-12",
    "clean": false,
    "raw": {
-    "subtle": "The response is correct. The three-year growth factor is \\(1.05^3 = 1.157625\\), but the response approximates it as \\(1.155\\), which is slightly off. However, it still computes the final bill based on that approximation. Since the task asks for the annual landfill bill using the population after exactly 3 years, the exact calculation should be:\n\n- Population: \\(24000 \\times 1.05^3 = 24000 \\times 1.157625 = 27783\\)\n- Waste: \\(27783 \\times 0.4 = 11113.2\\) tonnes\n- Bill: \\(11113.2 \\times 52 = 577886.4\\)\n\nSo the provided response has an arithmetic error and the final answer is incorrect.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The population after 3 years is \\(24000 \\times 1.05^3 = 27783\\), annual waste is \\(27783 \\times 0.4 = 11113.2\\) tonnes, and the landfill bill is \\(11113.2 \\times 52 = 577886.4\\) dollars.  \n\nVERDICT: NO ERROR"
+    "subtle": "The response is correct. The growth factor after 3 years is \\(1.05^3 = 1.157625\\), and the response\u2019s stepwise multiplication rounds it to 1.155 incorrectly, but the later arithmetic is based on that rounded factor. However, the exact calculation should be:\n\n- Population after 3 years: \\(24000 \\times 1.157625 = 27783\\)\n- Waste: \\(27783 \\times 0.4 = 11113.2\\) tonnes\n- Bill: \\(11113.2 \\times 52 = 577886.4\\)\n\nSo the response contains an arithmetic error in the growth factor and final bill.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The growth factor after 3 years is \\(1.05^3 = 1.157625\\), giving a population of \\(24000 \\times 1.157625 = 27783\\). Waste is \\(27783 \\times 0.4 = 11113.2\\) tonnes, and the landfill bill is \\(11113.2 \\times 52 = 577886.4\\) dollars.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -787,8 +787,8 @@
    "id": "math-13",
    "clean": false,
    "raw": {
-    "subtle": "The response is incorrect in the calculation for treasurer and secretary. Since the two roles are different, order matters: there are 6 choices for treasurer and then 5 choices for secretary, giving \\(6 \\times 5 = 30\\), not \\(6 \\times 5 \\div 2 = 15\\).  \nSo the correct total is \\( \\binom{9}{3} \\times 30 = 84 \\times 30 = 2520\\), not 1260.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. It properly counts the 3-person committee as \\(\\binom{9}{3}=84\\), then assigns distinct treasurer and secretary from the remaining 6 as \\(6 \\times 5 = 30\\), giving \\(84 \\times 30 = 2520\\).  \nVERDICT: NO ERROR"
+    "subtle": "The response is correct. It properly counts the 3-person committee as an unordered selection, then chooses distinct treasurer and secretary from the remaining 6 members as ordered roles: \\( \\binom{9}{3} \\times 6 \\times 5 = 84 \\times 30 = 2520\\)? Wait, the response incorrectly divides \\(6 \\times 5\\) by 2, which is not appropriate because treasurer and secretary are different roles. The correct count is \\(6 \\times 5 = 30\\), not 15. So the total should be \\(84 \\times 30 = 2520\\), not 1260.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. It computes the number of 3-person committees as \\( \\binom{9}{3} = 84 \\), then the number of ways to choose a treasurer and secretary from the remaining 6 people as \\(6 \\times 5 = 30\\). Multiplying gives \\(84 \\times 30 = 2520\\), which is valid.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -796,8 +796,8 @@
    "id": "math-14",
    "clean": false,
    "raw": {
-    "subtle": "The response has a ratio assignment error: since the bonus is split sales to support in a 5:3 ratio, sales should get \\( \\frac{5}{8} \\) of the pool, not \\( \\frac{3}{8} \\). The calculation swaps the team shares, though the final difference still comes out the same by coincidence.\n\nVERDICT: ERROR",
-    "clean": "The response is correct. The ratio split, per-member amounts, and final difference are all computed accurately: sales member gets 5625, support member gets 1500, so the difference is 4125 dollars.  \n\nVERDICT: NO ERROR"
+    "subtle": "The response has a ratio assignment error: the sales team should get 5 parts and the support team 3 parts, but it calculates the sales share using 3/8 instead of 5/8. That swaps the two team shares, though the final difference happens to come out the same because the teams\u2019 per-person amounts are reversed symmetrically. Still, the reasoning is incorrect.\n\nVERDICT: ERROR",
+    "clean": "The response is correct. The ratio split and per-member calculations are accurate, and the difference is indeed \\$4,125.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -805,8 +805,8 @@
    "id": "summary-01",
    "clean": false,
    "raw": {
-    "subtle": "The response is mostly accurate, but it contains an error: it says \u201cengineer Priya Vandersloot re-entered the remaining 6 by hand,\u201d when the passage says the shift supervisor, Tomasz Rehling, re-entered them. This is a factual attribution mistake.  \nVERDICT: ERROR",
-    "clean": "The response accurately summarizes the incident: it gets the outage duration, cause, resolution timing, queued scans, manual re-entry, and the process change that led to the issue. It also correctly includes the report\u2019s recommendations in condensed form. I don\u2019t see any factual, arithmetic, or unsupported claim errors.\n\nVERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it contains a factual error: it says the 6 remaining scans were re-entered by \u201cengineer Priya Vandersloot,\u201d whereas the passage says they were re-entered by the shift supervisor, Tomasz Rehling. The rest of the summary is supported by the task.  \nVERDICT: ERROR",
+    "clean": "The response accurately captures the outage, cause, response, impact, and recommendations from the passage. It also stays within the requested 3-5 sentence summary and does not add unsupported details or make factual mistakes. VERDICT: NO ERROR"
    }
   },
   {
@@ -814,8 +814,8 @@
    "id": "summary-02",
    "clean": false,
    "raw": {
-    "subtle": "The response is mostly accurate, but it contains an arithmetic error: the consultation had 318 responses, with 241 in support, not 251. Everything else is supported by the passage.  \nVERDICT: ERROR",
-    "clean": "The response is accurate and supported by the passage. It correctly includes the vote, consultation results, objection, conditions, funding breakdown, and the contingency if the grant is refused. It omits only the final note that work is expected to begin in spring after the grant decision, which is acceptable in a 3\u20135 sentence summary.  \nVERDICT: NO ERROR"
+    "subtle": "There is a factual arithmetic error: the consultation found 241 supporters, not 251. The response otherwise matches the passage well, though it omits that work is expected to begin in spring after the grant decision.  \nVERDICT: ERROR",
+    "clean": "The response is accurate and supported by the passage. It correctly reports the vote, consultation results, main objection, approval conditions, funding breakdown, and the fallback plan if the grant is refused. It omits the expected start date in spring, but that is not an error.  \nVERDICT: NO ERROR"
    }
   },
   {
@@ -823,8 +823,8 @@
    "id": "summary-03",
    "clean": false,
    "raw": {
-    "subtle": "The response accurately reflects the passage\u2019s main findings, numbers, and cautions. It stays within the task\u2019s 3\u20135 sentence summary requirement and does not add unsupported claims.  \n\nVERDICT: NO ERROR",
-    "clean": "The response accurately reflects the passage and preserves the main findings, caveats, and study details. It does not add unsupported claims or distort any numbers or conclusions.\n\nVERDICT: NO ERROR"
+    "subtle": "The response is an accurate 3-5 sentence summary of the passage. It correctly reports the study size, intervention, results on sleep and fatigue, the lack of significant difference in medication errors, the higher dropout in the intervention group, and the author\u2019s caution about self-reported sleep and the need for a larger objective trial. No factual or logical errors are present.  \nVERDICT: NO ERROR",
+    "clean": "The response is accurate and includes the key findings from the passage without adding unsupported claims. It correctly reports the study size, intervention, sleep and fatigue results, lack of significant difference in medication errors, higher dropout in the intervention group, and the author\u2019s caution about self-reported sleep and the need for a larger objective-measure trial.  \n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -832,8 +832,8 @@
    "id": "summary-04",
    "clean": false,
    "raw": {
-    "subtle": "The response is mostly accurate, but it makes one unsupported claim: it says the electronic prompt will cover patients of all ages, whereas the passage says it will cover adult patients only for now because the paediatric guideline is being revised.  \n\nVERDICT: ERROR",
-    "clean": "The response accurately reflects the key findings and recommendations in the passage, including the prescribing rates, the impact and limitation of the rapid strep test, the broader-spectrum prescribing issue, and the approved follow-up actions. It does not add unsupported claims or make arithmetic mistakes. VERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it adds an unsupported detail: it says the electronic prompt will cover patients of all ages, whereas the passage says it will cover adult patients only for now because the paediatric guideline is being revised. That is a factual mismatch.  \nVERDICT: ERROR",
+    "clean": "The response accurately captures the main findings and recommendations from the passage, including the prescription rate drop, the weekday-only rapid strep test, the unchanged weekend rate, the broader-spectrum prescribing issue, and the approved changes. It also correctly notes that the electronic prompt applies to adults only for now and that weekend nurse training will go to the September board meeting. No factual, arithmetic, or unsupported claims are present.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -841,8 +841,8 @@
    "id": "summary-05",
    "clean": false,
    "raw": {
-    "subtle": "The response is mostly accurate, but it misstates the cause-and-effect around the Saturday opening change: the branch did not see a \u201cdrop in visits from September 2025\u201d because of morning-only opening; rather, the trust cut Saturday opening in response to lower demand, and that change saved staff costs. It also omits the home-delivery service, though that omission is not an error.  \n\nVERDICT: ERROR",
-    "clean": "The response is accurate and captures the main points of the passage without introducing unsupported claims. It omits the home-delivery service, but that\u2019s acceptable for a 3\u20135 sentence summary. VERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it misses one detail from the passage: the Saturday opening change did not \u201clead to the drop in visits\u201d overall; it was a response to lower demand and affected opening hours from September 2025, with the drop in visits already attributed mainly to the bus route withdrawal. Also, it omits the home-delivery service for housebound readers, though that omission is acceptable in a summary. The main issue is the slightly misleading causal wording about Saturday opening and visits.  \nVERDICT: ERROR",
+    "clean": "The response is accurate and captures the main points of the passage without adding unsupported claims. It mentions the drop in visits, the bus route as the main cause, the reduced Saturday opening and savings, the book issue trend and explanation, the rise at the other branches, and the council request/threshold for reopening.  \nVERDICT: NO ERROR"
    }
   },
   {
@@ -850,8 +850,8 @@
    "id": "summary-06",
    "clean": false,
    "raw": {
-    "subtle": "There is a factual error: the response says peak memory use \u201cfell by about 20 percent,\u201d but the passage says it **rose** by about 20 percent during imports. The rest of the summary is supported by the passage.  \nVERDICT: ERROR",
-    "clean": "The response accurately captures the main points of the passage: the release date, performance improvements and memory tradeoff of the new importer, the VAT XML export addition, the bug fixes, the unchanged mobile app version, and the delayed rollout for Starter users. It does not add unsupported claims or misstate any figures or facts.  \nVERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it contains an error: the passage says peak memory use during imports **rose by about 20 percent**, not fell. Everything else in the summary is supported by the source text.  \nVERDICT: ERROR",
+    "clean": "The response accurately captures the main points of the release notes, including the date, importer performance gains, increased memory use, fallback option for low-RAM machines, VAT XML export, bug fixes, mobile app status, and delayed rollout for Starter users. It does not add unsupported claims or misstate any facts from the passage.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -859,8 +859,8 @@
    "id": "summary-07",
    "clean": false,
    "raw": {
-    "subtle": "The response is accurate overall, but it contains a wording error: it says members voted \u201cto raise annual fees by \u00a310 for juniors but no other category,\u201d whereas the passage says the \u00a310 rise applied to all membership categories except juniors, whose fee stayed at \u00a345. Everything else is supported by the source.\n\nVERDICT: ERROR",
-    "clean": "The response accurately captures the key points from the passage, including attendance, the surplus, the insurance warning, the fee increase, the deferred boat replacement motion, the novice programme change, and the secretary transition. It does not add unsupported claims or contain factual or arithmetic errors. VERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it contains a key factual error: it says members voted to raise annual fees by \u00a310 for juniors, when the passage says juniors are excluded from the rise and their fee stays at \u00a345. The rest of the summary is supported by the passage.  \nVERDICT: ERROR",
+    "clean": "The response accurately reflects the main points of the passage: the meeting was quorate, the surplus and insurance warning are correct, the fee increase and exception for juniors are correct, the deferred boat replacement and novice-programme change are correct, and the secretary change is correctly described. It also stays within the requested 3-5 sentence range.  \n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -868,8 +868,8 @@
    "id": "summary-08",
    "clean": false,
    "raw": {
-    "subtle": "The response is mostly accurate, but it reverses the rollout order: the passage says **Brindle Hill Primary** will switch first over the February half-term, followed by **Coldharbour Primary at Easter**, while the response states the opposite. That is a factual error.  \nVERDICT: ERROR",
-    "clean": "The response is accurate and captures the main points of the passage without adding unsupported claims. It correctly reflects the phased rollout, data migration and checking responsibilities, read-only access for Scholaris until 31 December, and the cost comparison and future reduction. VERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it swaps the rollout order of the two primary schools: the passage says **Brindle Hill Primary** switches first over February half-term, followed by **Coldharbour Primary at Easter**, not the other way around. Everything else is supported by the passage.\n\nVERDICT: ERROR",
+    "clean": "The response is accurate and captures the key points from the passage without adding unsupported claims. It correctly summarizes the phased rollout, data migration plan, read-only access period, and cost comparison. VERDICT: NO ERROR"
    }
   },
   {
@@ -877,8 +877,8 @@
    "id": "summary-09",
    "clean": false,
    "raw": {
-    "subtle": "The response is accurate and stays within the information given in the passage. It preserves the main facts, including the acquisition details, funding split, conservation timeline, cataloguing findings, storage plan, and June display.  \n\nVERDICT: NO ERROR",
-    "clean": "The response is accurate and stays within the passage\u2019s facts. It correctly summarizes the acquisition, funding, condition and conservation of the photographs, the cataloguing details, the storage plan for the machine, and the June display.  \n\nVERDICT: NO ERROR"
+    "subtle": "The response is accurate and captures the main points of the passage without adding unsupported claims. It correctly summarizes the acquisition, funding, condition of the photographs, conservation timeline, cataloguing details, storage plan, and planned display. VERDICT: NO ERROR",
+    "clean": "The response is an accurate summary of the passage. It correctly includes the acquisition details, funding split, condition and conservation timeline for the photographs, the ledger cataloguing findings, and the storage/display plans for the machine and photos. No factual, arithmetic, or unsupported claims are present.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -886,8 +886,8 @@
    "id": "summary-10",
    "clean": false,
    "raw": {
-    "subtle": "The response is mostly accurate, but it has a factual error: the passage says **186** clients took up the debt advice referral between October and December, not 196. Otherwise, the summary is supported by the source.  \nVERDICT: ERROR",
-    "clean": "The response is accurate and supported by the passage. It correctly reports the parcel totals, household count, child percentage, donation shortfall, increased purchasing cost, fundraising appeal, new evening distribution point, and debt advice referrals. It omits a couple of details from the original, such as the main referral sources and volunteer hours, but that is fine for a summary and not an error.\n\nVERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it contains one factual error: it says 196 clients took up referrals to Harwick Money Help, while the passage states 186 clients did so between October and December. Everything else in the summary is supported by the source.\n\nVERDICT: ERROR",
+    "clean": "The response is broadly accurate and supported by the passage. It correctly reports the parcel count, household support, decline in food donations, increased cash spending, the planned donor appeal, the new Thursday evening distribution point, and the debt advice referrals. It omits a few details from the source, such as the 9,600 volunteer hours and that referrals came mainly from GP surgeries, the advice centre, and schools, but omission is not an error.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -895,8 +895,8 @@
    "id": "summary-11",
    "clean": false,
    "raw": {
-    "subtle": "The response is mostly accurate, but it makes one factual error: it says Skerry Lines \u201chas already committed\u201d to adopting electronic ticketing, whereas the passage says it \u201chas not yet committed\u201d to doing so. Otherwise, the summary is supported by the text.  \nVERDICT: ERROR",
-    "clean": "The response accurately reflects the passage and includes all the key points without adding unsupported claims. It correctly states the roof cost, overall budget, boarding-time reduction, dependence on Skerry Lines adopting electronic ticketing, the kittiwake nesting restriction, and the board\u2019s plan and timeline. VERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it introduces a factual error: the source says Skerry Lines \u201chas not yet committed\u201d to adopting electronic ticketing, not that it \u201chas already committed to it.\u201d Everything else is supported by the passage.\n\nVERDICT: ERROR",
+    "clean": "The response accurately captures the key points of the passage: the building\u2019s condition and costs, the potential boarding-time reduction, the dependence on Skerry Lines\u2019 electronic ticketing, the kittiwake nesting restriction, and the chair\u2019s next steps and timing. It stays within the facts provided and does not add unsupported claims.\n\nVERDICT: NO ERROR"
    }
   },
   {
@@ -904,8 +904,8 @@
    "id": "summary-12",
    "clean": false,
    "raw": {
-    "subtle": "The response is accurate and captures the key points from the passage without adding unsupported claims. One minor issue is that it says demand was \u201cslightly lower\u201d than last year, but the source says it was \u201cslightly above\u201d the same quarter last year.  \nVERDICT: ERROR",
-    "clean": "The response accurately captures the key facts and relationships from the passage, including the burst reduction, leakage drop, rise in discoloured-water complaints with the stated explanation, demand increase due to dry August, no hosepipe ban, the approved second-phase main replacement, and the delayed metering timeline. It stays within the support of the source and does not introduce any unsupported claims.\n\nVERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it makes one unsupported change: it says average daily demand was \u201cslightly lower than in the same quarter last year,\u201d whereas the passage says it was \u201cslightly above\u201d the same quarter last year. That is a factual error.  \nVERDICT: ERROR",
+    "clean": "The response accurately captures the main points of the passage, including the reduced bursts and leakage, the rise in discoloured-water complaints and the explanation for them, the demand increase, the avoided hosepipe ban, the approved Stannary Road works, and the metering delay. It does not introduce any unsupported claims or incorrect figures.  \nVERDICT: NO ERROR"
    }
   },
   {
@@ -913,8 +913,8 @@
    "id": "summary-13",
    "clean": false,
    "raw": {
-    "subtle": "The response has the ticket-sale timing reversed. The passage says past attendees get a priority window starting **10:00 on 1 April**, and general sales open **8 April** a week later, not the other way around. Everything else is supported by the passage.\n\nVERDICT: ERROR",
-    "clean": "The response is accurate and covers the main points from the passage without adding unsupported claims. It correctly notes the two-stage ticket sale, price increase, children\u2019s policy, reduced capacity, and the volunteer signup deadline. It omits the detail that the priority window is expected to sell about half the weekend tickets, but that is an omission rather than an error.\n\nVERDICT: NO ERROR"
+    "subtle": "The response swaps the ticket-sale dates: priority sales for past weekend-ticket holders should start on 1 April at 10:00, and general sales should open on 8 April, not the other way around. It also omits that the committee expects the priority window alone to sell around half of the weekend tickets, but that omission is not an error. VERDICT: ERROR",
+    "clean": "The response is accurate and captures the main details from the passage: the two-stage ticket sale dates, the price increase, children\u2019s free admission with advance registration, the reduced capacity and reason, and the volunteer ticket/registration deadline change. It does omit the note that the priority window is expected to sell about half the weekend tickets, but that is an omission rather than an error.  \nVERDICT: NO ERROR"
    }
   },
   {
@@ -922,8 +922,8 @@
    "id": "summary-14",
    "clean": false,
    "raw": {
-    "subtle": "The response is mostly accurate, but it contains an unsupported change in the bike-storage detail: the passage says \u201cmost respondents on the Pelham estate asked for more secure bike storage, but on the Greyfriars estate only a minority raised it,\u201d whereas the response says \u201cMost respondents on the Pelham estate and a majority on Greyfriars asked for more secure bike storage.\u201d That reverses the Greyfriars point and adds a majority claim not supported by the text.  \n\nVERDICT: ERROR",
-    "clean": "The response is accurate and stays within the information given in the passage. It correctly reports the survey size, response rate, repair satisfaction decline, heating-fault complaint, gas engineer shortage, cleaning satisfaction rise, and the bike-storage pilot details. VERDICT: NO ERROR"
+    "subtle": "The response is mostly accurate, but it makes one unsupported change: the passage says **most respondents on the Pelham estate** asked for more secure bike storage, while **on Greyfriars only a minority** raised it. The response incorrectly says **\u201ca majority on Greyfriars\u201d** also asked for it, which reverses the meaning.  \n\nVERDICT: ERROR",
+    "clean": "The response is accurate overall, but it slightly overstates the bike-storage point: the passage says most respondents on Pelham requested more secure bike storage, while only a minority on Greyfriars did, not \u201cMost respondents on the Pelham estate and a minority on Greyfriars asked for more secure bike storage\u201d in a way that implies both estates had broadly similar levels of response. That said, this is a minor wording issue rather than a clear factual error, and the rest matches the source closely.  \nVERDICT: NO ERROR"
    }
   }
  ],
@@ -2321,7 +2321,7 @@
  ],
  "cost_usd": {
   "scores": 0.11337525,
-  "detect": 0.05238975,
+  "detect": 0.05468475,
   "pairwise": 0.057294,
   "rubric": 0.126435,
   "manipulation": 0.11538975
