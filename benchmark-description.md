@@ -13,3 +13,5 @@ The five tasks ask the same question different ways:
 Each task reports a mean with a 95% confidence interval. With 42 items that interval is roughly ±0.09 around 0.9, so small gaps between models are noise. A reply that can't be parsed is asked again, up to three tries, and then counts as a miss.
 
 The items, prompts and metric code are in the dataset [christobooyakabosch/llm-judge-blind-spot](https://www.kaggle.com/datasets/christobooyakabosch/llm-judge-blind-spot).
+
+The task code, collection scripts and per-model results are on GitHub at [Booyaka101/llm-judge-blind-spot](https://github.com/Booyaka101/llm-judge-blind-spot).

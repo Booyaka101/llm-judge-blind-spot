@@ -2,6 +2,8 @@
 
 Can a language model used as a judge tell a correct answer from one with a single planted error? This repo holds the items, the prompts and the Kaggle Benchmarks tasks that measure it.
 
+The leaderboard is at [kaggle.com/benchmarks/christobooyakabosch/llm-judge-blind-spot](https://www.kaggle.com/benchmarks/christobooyakabosch/llm-judge-blind-spot).
+
 The items are 42 tasks (14 code, 14 math, 14 summary faithfulness), each with four answers: `clean`, `subtle` (one minimal planted error), `obvious` (one blatant error) and `padded` (clean, twice as long, no new information). Every subtle error can be proven from the task text alone. Code items carry unit tests, math items a program that recomputes the answer, summary items the exact source span the edit contradicts, and `data/draft/verify_*.py` checks all of it. Summary passages are about fictional organisations so world knowledge can't help. See `data/SCHEMA.md` for the rules the items were written to.
 
 ## Tasks
