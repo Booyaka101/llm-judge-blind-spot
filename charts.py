@@ -16,6 +16,7 @@ OUT = os.path.join(HERE, "charts")
 
 NAMES = {
     "claude-haiku-4-5-20251001": "Claude Haiku 4.5",
+    "claude-opus-5-default": "Claude Opus 5",
     "claude-sonnet-5-default": "Claude Sonnet 5",
     "gemini-3.5-flash-lite": "Gemini 3.5 Flash Lite",
     "gemini-3.7-flash": "Gemini 3.7 Flash",
@@ -23,7 +24,11 @@ NAMES = {
     "gemma-4-31b-it": "Gemma 4 31B",
     "gpt-5.4-mini-2026-03-17": "GPT-5.4 mini",
     "gpt-oss-120b": "gpt-oss-120b",
+    "grok-4.20-0309-non-reasoning": "Grok 4.20",
+    "grok-4.20-0309-reasoning": "Grok 4.20 Reasoning",
     "qwen3-235b-a22b-instruct-2507": "Qwen3 235B",
+    "qwen3-next-80b-a3b-instruct": "Qwen3 Next Instruct",
+    "qwen3-next-80b-a3b-thinking": "Qwen3 Next Thinking",
 }
 
 
