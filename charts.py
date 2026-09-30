@@ -27,6 +27,8 @@ NAMES = {
     "glm-5": "GLM-5",
     "gpt-5.4-mini-2026-03-17": "GPT-5.4 mini",
     "gpt-5.5-2026-04-23": "GPT-5.5",
+    "gpt-5.6-luna": "GPT-5.6 Luna",
+    "gpt-5.6-terra": "GPT-5.6 Terra",
     "gpt-6-astra": "GPT-6 Astra",
     "gpt-oss-120b": "gpt-oss-120b",
     "grok-4.20-0309-non-reasoning": "Grok 4.20",
